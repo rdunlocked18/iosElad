@@ -245,6 +245,9 @@
                                         <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onVerifyPressed:" destination="wwu-W8-Jt1" eventType="touchUpInside" id="2iu-Yd-FT6"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1234" placeholder="0000" textAlignment="center" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="AGG-Ny-1Ev" customClass="PhoneFieldMod" customModule="EladTraining" customModuleProvider="target">
                                 <rect key="frame" x="79" y="503" width="256" height="70"/>
@@ -285,6 +288,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bnp-uK-Y08"/>
+                    <connections>
+                        <outlet property="otpText" destination="AGG-Ny-1Ev" id="Qai-6d-iQb"/>
+                        <outlet property="verifyBtn" destination="MVJ-Nv-sJb" id="Pvm-SF-tlt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FMt-he-4Nx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

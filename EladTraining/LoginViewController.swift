@@ -28,7 +28,8 @@ class LoginViewController: UIViewController {
 
             PhoneAuthProvider.provider().verifyPhoneNumber(NumberCom , uiDelegate: nil) { (verificationId,ers) in
                 if ers == nil {
-                    print(verificationId as Any)
+                    //print(verificationId as Any)
+                    UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
                     let destinationView = segue.destination as! VerifyOtpViewController
                     destinationView.comingId = verificationId!
                 }else{
