@@ -3,19 +3,31 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26B9CEB6C54F8E64C379D9F3 /* Pods_EladTraining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B18391A41BFF3933274FD4 /* Pods_EladTraining.framework */; };
 		BF355865257E90E800EA1CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355864257E90E800EA1CCE /* AppDelegate.swift */; };
 		BF355867257E90E800EA1CCE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355866257E90E800EA1CCE /* SceneDelegate.swift */; };
 		BF355869257E90E800EA1CCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355868257E90E800EA1CCE /* ViewController.swift */; };
 		BF35586C257E90E800EA1CCE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF35586A257E90E800EA1CCE /* Main.storyboard */; };
 		BF35586E257E90EA00EA1CCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF35586D257E90EA00EA1CCE /* Assets.xcassets */; };
 		BF355871257E90EA00EA1CCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */; };
+		BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35587B257E93F400EA1CCE /* LoginViewController.swift */; };
+		BF355881257E986F00EA1CCE /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355880257E986F00EA1CCE /* GradientView.swift */; };
+		BF355884257E9A2600EA1CCE /* TextFieldDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355883257E9A2600EA1CCE /* TextFieldDecorator.swift */; };
+		BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF75696D257F6AF400F4F45A /* TextViewPadding.swift */; };
+		BF756971257FCC3000F4F45A /* PhoneFieldMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF756970257FCC3000F4F45A /* PhoneFieldMod.swift */; };
+		BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */; };
+		BFC4F2DE257FE2DC00C85267 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */; };
+		BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02B18391A41BFF3933274FD4 /* Pods_EladTraining.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EladTraining.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BE88214F8173EA342F16F3C /* Pods-EladTraining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EladTraining.release.xcconfig"; path = "Target Support Files/Pods-EladTraining/Pods-EladTraining.release.xcconfig"; sourceTree = "<group>"; };
+		8641F4EBCBB47C736A0ADDC1 /* Pods-EladTraining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EladTraining.debug.xcconfig"; path = "Target Support Files/Pods-EladTraining/Pods-EladTraining.debug.xcconfig"; sourceTree = "<group>"; };
 		BF355861257E90E800EA1CCE /* EladTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EladTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF355864257E90E800EA1CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF355866257E90E800EA1CCE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +36,14 @@
 		BF35586D257E90EA00EA1CCE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF355870257E90EA00EA1CCE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF355872257E90EA00EA1CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF35587B257E93F400EA1CCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BF355880257E986F00EA1CCE /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		BF355883257E9A2600EA1CCE /* TextFieldDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDecorator.swift; sourceTree = "<group>"; };
+		BF75696D257F6AF400F4F45A /* TextViewPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewPadding.swift; sourceTree = "<group>"; };
+		BF756970257FCC3000F4F45A /* PhoneFieldMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneFieldMod.swift; sourceTree = "<group>"; };
+		BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
+		BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOtpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +51,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26B9CEB6C54F8E64C379D9F3 /* Pods_EladTraining.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1754BC223B9AB805D6EF4F7E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				02B18391A41BFF3933274FD4 /* Pods_EladTraining.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BF355858257E90E800EA1CCE = {
 			isa = PBXGroup;
 			children = (
 				BF355863257E90E800EA1CCE /* EladTraining */,
 				BF355862257E90E800EA1CCE /* Products */,
+				F1CB3A75EBCE7EE52C57EF7A /* Pods */,
+				1754BC223B9AB805D6EF4F7E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +87,8 @@
 		BF355863257E90E800EA1CCE /* EladTraining */ = {
 			isa = PBXGroup;
 			children = (
+				BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */,
+				BF35587B257E93F400EA1CCE /* LoginViewController.swift */,
 				BF355864257E90E800EA1CCE /* AppDelegate.swift */,
 				BF355866257E90E800EA1CCE /* SceneDelegate.swift */,
 				BF355868257E90E800EA1CCE /* ViewController.swift */,
@@ -63,8 +96,23 @@
 				BF35586D257E90EA00EA1CCE /* Assets.xcassets */,
 				BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */,
 				BF355872257E90EA00EA1CCE /* Info.plist */,
+				BF355880257E986F00EA1CCE /* GradientView.swift */,
+				BF355883257E9A2600EA1CCE /* TextFieldDecorator.swift */,
+				BF75696D257F6AF400F4F45A /* TextViewPadding.swift */,
+				BF756970257FCC3000F4F45A /* PhoneFieldMod.swift */,
+				BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */,
+				BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */,
 			);
 			path = EladTraining;
+			sourceTree = "<group>";
+		};
+		F1CB3A75EBCE7EE52C57EF7A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8641F4EBCBB47C736A0ADDC1 /* Pods-EladTraining.debug.xcconfig */,
+				7BE88214F8173EA342F16F3C /* Pods-EladTraining.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +122,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF355875257E90EA00EA1CCE /* Build configuration list for PBXNativeTarget "EladTraining" */;
 			buildPhases = (
+				DA6F9365218C14C626CCC21E /* [CP] Check Pods Manifest.lock */,
 				BF35585D257E90E800EA1CCE /* Sources */,
 				BF35585E257E90E800EA1CCE /* Frameworks */,
 				BF35585F257E90E800EA1CCE /* Resources */,
+				4CB42CECDDFCEF9E46980560 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF355871257E90EA00EA1CCE /* LaunchScreen.storyboard in Resources */,
+				BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */,
 				BF35586E257E90EA00EA1CCE /* Assets.xcassets in Resources */,
 				BF35586C257E90E800EA1CCE /* Main.storyboard in Resources */,
 			);
@@ -132,12 +183,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4CB42CECDDFCEF9E46980560 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EladTraining/Pods-EladTraining-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EladTraining/Pods-EladTraining-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EladTraining/Pods-EladTraining-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DA6F9365218C14C626CCC21E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EladTraining-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BF35585D257E90E800EA1CCE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
 				BF355869257E90E800EA1CCE /* ViewController.swift in Sources */,
+				BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */,
+				BF355881257E986F00EA1CCE /* GradientView.swift in Sources */,
+				BF756971257FCC3000F4F45A /* PhoneFieldMod.swift in Sources */,
+				BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */,
+				BFC4F2DE257FE2DC00C85267 /* SimpleViewController.swift in Sources */,
+				BF355884257E9A2600EA1CCE /* TextFieldDecorator.swift in Sources */,
 				BF355865257E90E800EA1CCE /* AppDelegate.swift in Sources */,
 				BF355867257E90E800EA1CCE /* SceneDelegate.swift in Sources */,
 			);
@@ -283,6 +383,7 @@
 		};
 		BF355876257E90EA00EA1CCE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8641F4EBCBB47C736A0ADDC1 /* Pods-EladTraining.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -293,7 +394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.EladTraining;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elad.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -302,6 +403,7 @@
 		};
 		BF355877257E90EA00EA1CCE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BE88214F8173EA342F16F3C /* Pods-EladTraining.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -312,7 +414,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.EladTraining;
+				PRODUCT_BUNDLE_IDENTIFIER = com.elad.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

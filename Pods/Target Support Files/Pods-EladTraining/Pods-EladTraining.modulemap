@@ -1,0 +1,6 @@
+framework module Pods_EladTraining {
+  umbrella header "Pods-EladTraining-umbrella.h"
+
+  export *
+  module * { export * }
+}
