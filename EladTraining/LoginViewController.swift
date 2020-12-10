@@ -7,7 +7,7 @@
 
 import UIKit
 import Firebase
-import MRCountryPicker
+//import MRCountryPicker
 import FirebaseAuth
 
 
@@ -22,9 +22,10 @@ class LoginViewController: UIViewController {
             if user != nil {
             // User is signed in. Show home screen
                 print("success user alreaddy logged in")
-//                let vc = ViewController() //your view controller
-//                vc.modalPresentationStyle = .fullScreen
-//                self.present(vc, animated: true, completion: nil)
+                
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let newViewController = storyBoard.instantiateViewController(withIdentifier: "createProfile") as! CreateProfileViewController
+                        self.present(newViewController, animated: true, completion: nil)
           } else {
             // No User is signed in. Show user the login screen
           }
@@ -36,7 +37,8 @@ class LoginViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "proceedSeg"{
-            guard let NumberCom:String = phoneNumber.text else{return}
+            
+             let NumberCom:String = countryCode.text ?? "" + phoneNumber.text!
 
             PhoneAuthProvider.provider().verifyPhoneNumber(NumberCom , uiDelegate: nil) { (verificationId,ers) in
                 if ers == nil {

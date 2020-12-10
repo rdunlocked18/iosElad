@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="EladTraining" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="ViewController" customModule="EladTraining" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -193,24 +193,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9uP-Kr-ZWy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="918.84057971014499" y="79.6875"/>
+            <point key="canvasLocation" x="862" y="80"/>
         </scene>
         <!--Verify Otp View Controller-->
         <scene sceneID="vAR-Sb-dZy">
             <objects>
-                <viewController storyboardIdentifier="verifyOtp" id="wwu-W8-Jt1" customClass="VerifyOtpViewController" customModule="EladTraining" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="verifyOtp" modalPresentationStyle="fullScreen" id="wwu-W8-Jt1" customClass="VerifyOtpViewController" customModule="EladTraining" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rYA-fF-Wa7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="verifyImage" translatesAutoresizingMaskIntoConstraints="NO" id="cSp-sC-v83">
-                                <rect key="frame" x="86" y="121" width="242" height="196"/>
+                                <rect key="frame" x="86" y="165" width="242" height="196"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="196" id="O7B-o5-Ga6"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please type the verification code sent to your Phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cmw-Rj-bpp">
-                                <rect key="frame" x="69" y="395" width="276" height="69"/>
+                                <rect key="frame" x="69" y="449" width="276" height="69"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="69" id="Q8d-uE-SLp"/>
                                 </constraints>
@@ -225,7 +225,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVJ-Nv-sJb">
-                                <rect key="frame" x="69" y="680" width="276" height="64"/>
+                                <rect key="frame" x="69" y="734" width="276" height="64"/>
                                 <color key="backgroundColor" name="someCyan"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="ZED-AB-PaL"/>
@@ -247,7 +247,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="AGG-Ny-1Ev" customClass="MDCTextField">
-                                <rect key="frame" x="60" y="508" width="294" height="70"/>
+                                <rect key="frame" x="60" y="562" width="294" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="nbK-ne-5sU"/>
                                 </constraints>
@@ -296,7 +296,7 @@
         <!--Create Profile View Controller-->
         <scene sceneID="m3O-8Q-wn6">
             <objects>
-                <viewController id="gDM-UV-gGe" customClass="CreateProfileViewController" customModule="EladTraining" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createProfile" modalPresentationStyle="fullScreen" id="gDM-UV-gGe" customClass="CreateProfileViewController" customModule="EladTraining" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uXG-9S-yRe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
