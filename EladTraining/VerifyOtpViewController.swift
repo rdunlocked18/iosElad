@@ -37,6 +37,10 @@ class VerifyOtpViewController: UIViewController {
         Auth.auth().signIn(with: credientials) { (success, error) in
             if error == nil{
                 print("success")
+                let vc = CreateProfileViewController() //your view controller
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+                //self.dismiss(animated: true, completion: nil)
                 
             }else{
                 print("Failed to signin with otp ",error?.localizedDescription)

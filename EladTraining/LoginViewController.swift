@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import MRCountryPicker
+import FirebaseAuth
 
 
 class LoginViewController: UIViewController {
@@ -17,6 +18,17 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if user != nil {
+            // User is signed in. Show home screen
+                print("success user alreaddy logged in")
+//                let vc = ViewController() //your view controller
+//                vc.modalPresentationStyle = .fullScreen
+//                self.present(vc, animated: true, completion: nil)
+          } else {
+            // No User is signed in. Show user the login screen
+          }
+        }
                
     }
     
@@ -31,6 +43,7 @@ class LoginViewController: UIViewController {
                     //print(verificationId as Any)
                     UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
                     let destinationView = segue.destination as! VerifyOtpViewController
+                    destinationView.modalPresentationStyle = .fullScreen
                     destinationView.comingId = verificationId!
                 }else{
                     print("Unable to Send verification Id Check Log",ers?.localizedDescription)
