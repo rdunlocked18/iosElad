@@ -18,11 +18,13 @@
 		BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35587B257E93F400EA1CCE /* LoginViewController.swift */; };
 		BF355881257E986F00EA1CCE /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355880257E986F00EA1CCE /* GradientView.swift */; };
 		BF355884257E9A2600EA1CCE /* TextFieldDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355883257E9A2600EA1CCE /* TextFieldDecorator.swift */; };
+		BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A6C7E258401320008D4BA /* PaddingFields.swift */; };
 		BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF75696D257F6AF400F4F45A /* TextViewPadding.swift */; };
 		BF756971257FCC3000F4F45A /* PhoneFieldMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF756970257FCC3000F4F45A /* PhoneFieldMod.swift */; };
 		BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */; };
 		BFC4F2DE257FE2DC00C85267 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */; };
 		BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */; };
+		BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFB1D082582A31600329BDD /* KeyboardHide.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,11 +43,13 @@
 		BF35587B257E93F400EA1CCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BF355880257E986F00EA1CCE /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		BF355883257E9A2600EA1CCE /* TextFieldDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDecorator.swift; sourceTree = "<group>"; };
+		BF6A6C7E258401320008D4BA /* PaddingFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingFields.swift; sourceTree = "<group>"; };
 		BF75696D257F6AF400F4F45A /* TextViewPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewPadding.swift; sourceTree = "<group>"; };
 		BF756970257FCC3000F4F45A /* PhoneFieldMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneFieldMod.swift; sourceTree = "<group>"; };
 		BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOtpViewController.swift; sourceTree = "<group>"; };
+		BFFB1D082582A31600329BDD /* KeyboardHide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHide.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,8 @@
 		BF355863257E90E800EA1CCE /* EladTraining */ = {
 			isa = PBXGroup;
 			children = (
+				BFFB1D082582A31600329BDD /* KeyboardHide.swift */,
+				BFFB1D072582A30400329BDD /* extensions */,
 				BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */,
 				BF35587B257E93F400EA1CCE /* LoginViewController.swift */,
 				BF355864257E90E800EA1CCE /* AppDelegate.swift */,
@@ -105,8 +111,16 @@
 				BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */,
 				BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */,
 				BF01ACD32581460F004DD088 /* CreateProfileViewController.swift */,
+				BF6A6C7E258401320008D4BA /* PaddingFields.swift */,
 			);
 			path = EladTraining;
+			sourceTree = "<group>";
+		};
+		BFFB1D072582A30400329BDD /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 		F1CB3A75EBCE7EE52C57EF7A /* Pods */ = {
@@ -233,6 +247,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */,
+				BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */,
 				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
 				BF355869257E90E800EA1CCE /* ViewController.swift in Sources */,
 				BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */,

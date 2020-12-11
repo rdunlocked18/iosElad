@@ -8,7 +8,14 @@ target 'EladTraining' do
 	pod 'Firebase/Database'
 	pod 'MaterialComponents'
 	pod "FlagPhoneNumber"
-	pod 'MRCountryPicker', '~> 0.0.8'
+	
   # Pods for EladTraining
 
+end
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
+        end
+    end
 end

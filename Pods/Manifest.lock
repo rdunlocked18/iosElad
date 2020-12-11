@@ -686,7 +686,6 @@ PODS:
   - MotionAnimator (2.8.1):
     - MotionInterchange (~> 1.6)
   - MotionInterchange (1.6.0)
-  - MRCountryPicker (0.0.8)
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
     - nanopb/encode (= 2.30906.0)
@@ -699,7 +698,6 @@ DEPENDENCIES:
   - Firebase/Database
   - FlagPhoneNumber
   - MaterialComponents
-  - MRCountryPicker (~> 0.0.8)
 
 SPEC REPOS:
   trunk:
@@ -718,7 +716,6 @@ SPEC REPOS:
     - MDFTextAccessibility
     - MotionAnimator
     - MotionInterchange
-    - MRCountryPicker
     - nanopb
     - PromisesObjC
 
@@ -738,10 +735,9 @@ SPEC CHECKSUMS:
   MDFTextAccessibility: 85c09a1bd9c321f494348e632a25063bcda35a53
   MotionAnimator: ee16aa30567c5bae0fb2750c132915829cfaaf8a
   MotionInterchange: ead0e3ae1f3a5fb539e289debbc7ae036160a10d
-  MRCountryPicker: 1aeea66de25cdef79dce3b91d8ad9db643c1cc01
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
 
-PODFILE CHECKSUM: 432b293d8e1103d38be428d237756e88478cb83d
+PODFILE CHECKSUM: 8f18deeb3a49c620a199cecd35e091c3a5c150d7
 
 COCOAPODS: 1.9.3
