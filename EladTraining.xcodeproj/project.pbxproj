@@ -17,10 +17,13 @@
 		BF355871257E90EA00EA1CCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */; };
 		BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35587B257E93F400EA1CCE /* LoginViewController.swift */; };
 		BF355881257E986F00EA1CCE /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355880257E986F00EA1CCE /* GradientView.swift */; };
-		BF355884257E9A2600EA1CCE /* TextFieldDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355883257E9A2600EA1CCE /* TextFieldDecorator.swift */; };
+		BF52987E2584CD4300D41B1F /* SuperHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */; };
+		BF5298832584D1AF00D41B1F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5298822584D1AF00D41B1F /* HomeViewController.swift */; };
+		BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5298852584D1C100D41B1F /* ScheduleViewController.swift */; };
+		BF5298892584D1D100D41B1F /* MyClassesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5298882584D1D100D41B1F /* MyClassesViewController.swift */; };
+		BF52988C2584D1DF00D41B1F /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52988B2584D1DF00D41B1F /* MoreViewController.swift */; };
 		BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A6C7E258401320008D4BA /* PaddingFields.swift */; };
 		BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF75696D257F6AF400F4F45A /* TextViewPadding.swift */; };
-		BF756971257FCC3000F4F45A /* PhoneFieldMod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF756970257FCC3000F4F45A /* PhoneFieldMod.swift */; };
 		BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */; };
 		BFC4F2DE257FE2DC00C85267 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */; };
 		BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */; };
@@ -42,10 +45,13 @@
 		BF355872257E90EA00EA1CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF35587B257E93F400EA1CCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BF355880257E986F00EA1CCE /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		BF355883257E9A2600EA1CCE /* TextFieldDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldDecorator.swift; sourceTree = "<group>"; };
+		BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperHomeViewController.swift; sourceTree = "<group>"; };
+		BF5298822584D1AF00D41B1F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		BF5298852584D1C100D41B1F /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
+		BF5298882584D1D100D41B1F /* MyClassesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassesViewController.swift; sourceTree = "<group>"; };
+		BF52988B2584D1DF00D41B1F /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		BF6A6C7E258401320008D4BA /* PaddingFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingFields.swift; sourceTree = "<group>"; };
 		BF75696D257F6AF400F4F45A /* TextViewPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewPadding.swift; sourceTree = "<group>"; };
-		BF756970257FCC3000F4F45A /* PhoneFieldMod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneFieldMod.swift; sourceTree = "<group>"; };
 		BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOtpViewController.swift; sourceTree = "<group>"; };
@@ -93,7 +99,7 @@
 		BF355863257E90E800EA1CCE /* EladTraining */ = {
 			isa = PBXGroup;
 			children = (
-				BFFB1D082582A31600329BDD /* KeyboardHide.swift */,
+				BF5298802584D12800D41B1F /* Tabs */,
 				BFFB1D072582A30400329BDD /* extensions */,
 				BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */,
 				BF35587B257E93F400EA1CCE /* LoginViewController.swift */,
@@ -105,20 +111,31 @@
 				BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */,
 				BF355872257E90EA00EA1CCE /* Info.plist */,
 				BF355880257E986F00EA1CCE /* GradientView.swift */,
-				BF355883257E9A2600EA1CCE /* TextFieldDecorator.swift */,
 				BF75696D257F6AF400F4F45A /* TextViewPadding.swift */,
-				BF756970257FCC3000F4F45A /* PhoneFieldMod.swift */,
 				BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */,
 				BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */,
 				BF01ACD32581460F004DD088 /* CreateProfileViewController.swift */,
-				BF6A6C7E258401320008D4BA /* PaddingFields.swift */,
+				BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */,
 			);
 			path = EladTraining;
+			sourceTree = "<group>";
+		};
+		BF5298802584D12800D41B1F /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				BF5298822584D1AF00D41B1F /* HomeViewController.swift */,
+				BF5298852584D1C100D41B1F /* ScheduleViewController.swift */,
+				BF5298882584D1D100D41B1F /* MyClassesViewController.swift */,
+				BF52988B2584D1DF00D41B1F /* MoreViewController.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 		BFFB1D072582A30400329BDD /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BF6A6C7E258401320008D4BA /* PaddingFields.swift */,
+				BFFB1D082582A31600329BDD /* KeyboardHide.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -250,14 +267,17 @@
 				BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */,
 				BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */,
 				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
+				BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */,
 				BF355869257E90E800EA1CCE /* ViewController.swift in Sources */,
 				BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */,
+				BF5298832584D1AF00D41B1F /* HomeViewController.swift in Sources */,
 				BF01ACD42581460F004DD088 /* CreateProfileViewController.swift in Sources */,
 				BF355881257E986F00EA1CCE /* GradientView.swift in Sources */,
-				BF756971257FCC3000F4F45A /* PhoneFieldMod.swift in Sources */,
+				BF52988C2584D1DF00D41B1F /* MoreViewController.swift in Sources */,
+				BF52987E2584CD4300D41B1F /* SuperHomeViewController.swift in Sources */,
+				BF5298892584D1D100D41B1F /* MyClassesViewController.swift in Sources */,
 				BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */,
 				BFC4F2DE257FE2DC00C85267 /* SimpleViewController.swift in Sources */,
-				BF355884257E9A2600EA1CCE /* TextFieldDecorator.swift in Sources */,
 				BF355865257E90E800EA1CCE /* AppDelegate.swift in Sources */,
 				BF355867257E90E800EA1CCE /* SceneDelegate.swift in Sources */,
 			);

@@ -52,9 +52,10 @@ class LoginViewController: UIViewController {
 
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let newViewController = storyBoard.instantiateViewController(withIdentifier: "createProfile") as! CreateProfileViewController
-                      //  self.present(newViewController, animated: true, completion: nil)
+                      self.present(newViewController, animated: true, completion: nil)
           } else {
             // No User is signed in. Show user the login screen
+            
           }
         }
         
@@ -73,7 +74,7 @@ class LoginViewController: UIViewController {
                     destinationView.modalPresentationStyle = .fullScreen
                     destinationView.comingId = verificationId!
                 }else{
-                    print("Unable to Send verification Id Check Log",ers?.localizedDescription)
+                    print("Unable to Send verification Id Check Log \(ers?.localizedDescription ?? "")")
                 }
             }
             
