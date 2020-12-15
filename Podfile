@@ -8,6 +8,8 @@ target 'EladTraining' do
 	pod 'Firebase/Database'
 	pod 'MaterialComponents'
 	pod "FlagPhoneNumber"
+	pod 'MDatePickerView'
+	pod 'EzPopup'
 	
   # Pods for EladTraining
 

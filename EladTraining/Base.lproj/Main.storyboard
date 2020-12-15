@@ -16,40 +16,8 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U9w-p0-WrJ">
-                                <rect key="frame" x="66" y="179" width="275" height="62"/>
-                                <color key="backgroundColor" name="AccentColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="62" id="0xr-xe-iBW"/>
-                                </constraints>
-                                <state key="normal" title="Goto login">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-Cs-1PB">
-                                <rect key="frame" x="66" y="352" width="275" height="62"/>
-                                <color key="backgroundColor" name="AccentColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="62" id="SGr-aZ-dvS"/>
-                                </constraints>
-                                <state key="normal" title="Goto Signup">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="U9w-p0-WrJ" secondAttribute="trailing" constant="73" id="AAx-HN-y0o"/>
-                            <constraint firstItem="U9w-p0-WrJ" firstAttribute="trailing" secondItem="yYA-Cs-1PB" secondAttribute="trailing" id="GUQ-1W-OsE"/>
-                            <constraint firstItem="U9w-p0-WrJ" firstAttribute="leading" secondItem="yYA-Cs-1PB" secondAttribute="leading" id="NOr-YZ-Pkc"/>
-                            <constraint firstItem="U9w-p0-WrJ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="135" id="XOk-fQ-69B"/>
-                            <constraint firstItem="U9w-p0-WrJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="66" id="hpx-fQ-6nQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yYA-Cs-1PB" secondAttribute="bottom" constant="448" id="psW-Ub-87Q"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -435,7 +403,7 @@
             </objects>
             <point key="canvasLocation" x="-906" y="1945"/>
         </scene>
-        <!--Schedule-->
+        <!--Schedule View Controller-->
         <scene sceneID="215-9i-q4U">
             <objects>
                 <viewController id="y7d-O3-Va0" customClass="ScheduleViewController" customModule="EladTraining" customModuleProvider="target" sceneMemberID="viewController">
@@ -445,11 +413,11 @@
                         <viewLayoutGuide key="safeArea" id="RHb-mP-YIG"/>
                         <color key="backgroundColor" name="darkBlue"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Schedule" image="calendar" catalog="system" id="u06-Wo-tsj"/>
+                    <navigationItem key="navigationItem" id="QOK-LN-TMu"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zkB-98-rxp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="97" y="1945"/>
+            <point key="canvasLocation" x="1005.7971014492755" y="1944.6428571428571"/>
         </scene>
         <!--My Classes-->
         <scene sceneID="ERc-DR-flA">
@@ -465,7 +433,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xRD-Bp-dVj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1089.8550724637682" y="2004.9107142857142"/>
+            <point key="canvasLocation" x="2000.0000000000002" y="2004.9107142857142"/>
         </scene>
         <!--More-->
         <scene sceneID="uEq-nK-DC4">
@@ -605,7 +573,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHb-tz-Udw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1960.8695652173915" y="1944.6428571428571"/>
+            <point key="canvasLocation" x="2871.0144927536235" y="1944.6428571428571"/>
         </scene>
         <!--Super Home View Controller-->
         <scene sceneID="pMI-i6-KRX">
@@ -619,7 +587,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="GT7-yM-QOQ" kind="relationship" relationship="viewControllers" id="X3c-PU-IzO"/>
-                        <segue destination="y7d-O3-Va0" kind="relationship" relationship="viewControllers" id="pNp-ot-xcW"/>
+                        <segue destination="msD-9o-dGd" kind="relationship" relationship="viewControllers" id="pNp-ot-xcW"/>
                         <segue destination="XdJ-l9-k4V" kind="relationship" relationship="viewControllers" id="puH-JJ-p0Z"/>
                         <segue destination="eVG-S6-uPd" kind="relationship" relationship="viewControllers" id="HTr-Cq-lap"/>
                     </connections>
@@ -627,6 +595,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n2x-Ys-fqA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="9" y="1153"/>
+        </scene>
+        <!--Schedule-->
+        <scene sceneID="nOH-SL-nyV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="msD-9o-dGd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Schedule" image="calendar" catalog="system" id="u06-Wo-tsj"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RBN-nM-5ys">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="y7d-O3-Va0" kind="relationship" relationship="rootViewController" id="Iog-oH-bmL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wTI-no-sGG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="95.652173913043484" y="1944.6428571428571"/>
         </scene>
     </scenes>
     <resources>
@@ -639,9 +626,6 @@
         <image name="person.fill.viewfinder" catalog="system" width="128" height="115"/>
         <image name="phone.fill" catalog="system" width="128" height="114"/>
         <image name="verifyImage" width="1050" height="751"/>
-        <namedColor name="AccentColor">
-            <color red="0.3449999988079071" green="0.33700001239776611" blue="0.83899998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="darkBlue">
             <color red="0.082352941176470587" green="0.090196078431372548" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
