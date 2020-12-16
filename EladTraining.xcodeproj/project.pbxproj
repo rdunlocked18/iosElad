@@ -24,8 +24,9 @@
 		BF52988C2584D1DF00D41B1F /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52988B2584D1DF00D41B1F /* MoreViewController.swift */; };
 		BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A6C7E258401320008D4BA /* PaddingFields.swift */; };
 		BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF75696D257F6AF400F4F45A /* TextViewPadding.swift */; };
+		BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8187A2258A31B9006482C6 /* ScheduleModel.swift */; };
+		BF8187EC258A7DEC006482C6 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */; };
 		BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */; };
-		BFC4F2DE257FE2DC00C85267 /* SimpleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */; };
 		BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */; };
 		BFCEB065258886E000D73D39 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFCEB05F258886DF00D73D39 /* Poppins-SemiBold.ttf */; };
 		BFCEB066258886E000D73D39 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFCEB060258886DF00D73D39 /* Poppins-Black.ttf */; };
@@ -58,8 +59,9 @@
 		BF52988B2584D1DF00D41B1F /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		BF6A6C7E258401320008D4BA /* PaddingFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingFields.swift; sourceTree = "<group>"; };
 		BF75696D257F6AF400F4F45A /* TextViewPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewPadding.swift; sourceTree = "<group>"; };
+		BF8187A2258A31B9006482C6 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
+		BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleViewController.swift; sourceTree = "<group>"; };
 		BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOtpViewController.swift; sourceTree = "<group>"; };
 		BFCEB05F258886DF00D73D39 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		BFCEB060258886DF00D73D39 /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
@@ -111,24 +113,19 @@
 		BF355863257E90E800EA1CCE /* EladTraining */ = {
 			isa = PBXGroup;
 			children = (
+				BF8187A5258A31E8006482C6 /* viewControllers */,
+				BF8187A0258A319B006482C6 /* Models */,
 				BFCEB05E2588865300D73D39 /* Fonts */,
 				BF5298802584D12800D41B1F /* Tabs */,
 				BFFB1D072582A30400329BDD /* extensions */,
 				BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */,
-				BF35587B257E93F400EA1CCE /* LoginViewController.swift */,
 				BF355864257E90E800EA1CCE /* AppDelegate.swift */,
 				BF355866257E90E800EA1CCE /* SceneDelegate.swift */,
-				BF355868257E90E800EA1CCE /* ViewController.swift */,
 				BF35586A257E90E800EA1CCE /* Main.storyboard */,
+				BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */,
 				BF35586D257E90EA00EA1CCE /* Assets.xcassets */,
 				BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */,
 				BF355872257E90EA00EA1CCE /* Info.plist */,
-				BF355880257E986F00EA1CCE /* GradientView.swift */,
-				BF75696D257F6AF400F4F45A /* TextViewPadding.swift */,
-				BFC4F2DD257FE2DC00C85267 /* SimpleViewController.swift */,
-				BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */,
-				BF01ACD32581460F004DD088 /* CreateProfileViewController.swift */,
-				BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */,
 			);
 			path = EladTraining;
 			sourceTree = "<group>";
@@ -142,6 +139,26 @@
 				BF52988B2584D1DF00D41B1F /* MoreViewController.swift */,
 			);
 			path = Tabs;
+			sourceTree = "<group>";
+		};
+		BF8187A0258A319B006482C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BF8187A2258A31B9006482C6 /* ScheduleModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BF8187A5258A31E8006482C6 /* viewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BF35587B257E93F400EA1CCE /* LoginViewController.swift */,
+				BF355868257E90E800EA1CCE /* ViewController.swift */,
+				BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */,
+				BF01ACD32581460F004DD088 /* CreateProfileViewController.swift */,
+				BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */,
+			);
+			path = viewControllers;
 			sourceTree = "<group>";
 		};
 		BFCEB05E2588865300D73D39 /* Fonts */ = {
@@ -160,6 +177,8 @@
 		BFFB1D072582A30400329BDD /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BF355880257E986F00EA1CCE /* GradientView.swift */,
+				BF75696D257F6AF400F4F45A /* TextViewPadding.swift */,
 				BF6A6C7E258401320008D4BA /* PaddingFields.swift */,
 				BFFB1D082582A31600329BDD /* KeyboardHide.swift */,
 			);
@@ -307,9 +326,10 @@
 				BF355881257E986F00EA1CCE /* GradientView.swift in Sources */,
 				BF52988C2584D1DF00D41B1F /* MoreViewController.swift in Sources */,
 				BF52987E2584CD4300D41B1F /* SuperHomeViewController.swift in Sources */,
+				BF8187EC258A7DEC006482C6 /* ScheduleTableViewCell.swift in Sources */,
 				BF5298892584D1D100D41B1F /* MyClassesViewController.swift in Sources */,
+				BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */,
 				BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */,
-				BFC4F2DE257FE2DC00C85267 /* SimpleViewController.swift in Sources */,
 				BF355865257E90E800EA1CCE /* AppDelegate.swift in Sources */,
 				BF355867257E90E800EA1CCE /* SceneDelegate.swift in Sources */,
 			);

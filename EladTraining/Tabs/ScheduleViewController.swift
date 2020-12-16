@@ -7,8 +7,11 @@
 
 import UIKit
 import MDatePickerView
+import Firebase
+
 
 class ScheduleViewController: UIViewController {
+    //start filter
     lazy var MDate : MDatePickerView = {
            let mdate = MDatePickerView()
            mdate.delegate = self
@@ -36,8 +39,7 @@ class ScheduleViewController: UIViewController {
         }()
     
     @objc func filterDate() {
-        
-            MDate.selectDate = Date()
+        MDate.selectDate = Date()
         if(MDate.isHidden){
             MDate.isHidden = false
             Today.isHidden = false
@@ -52,10 +54,22 @@ class ScheduleViewController: UIViewController {
             MDate.selectDate = Date()
        
     }
+    
+    //end filters
+    //table view
+    
+    @IBOutlet weak var scheduleTableMain:UITableView!
+    
+    var classList = [ScheduleClasses]()
+    var ref:DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Schedule"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter Date", style: .plain, target: self, action: #selector(filterDate))
+        
+        scheduleTableMain.delegate = self
+        scheduleTableMain.dataSource = self
 
         view.addSubview(MDate)
         MDate.isHidden = true
@@ -74,10 +88,61 @@ class ScheduleViewController: UIViewController {
         view.addSubview(Label)
         Label.topAnchor.constraint(equalTo: Today.bottomAnchor, constant: 30).isActive = true
         Label.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0).isActive = true
+        
+        
+        //table and Firebase
+        ref = Database.database().reference().child("Classes");
+        ref.observe(DataEventType.value,with:{(snapshot) in
+            if snapshot.childrenCount > 0{
+                self.classList.removeAll()
+                for classesSch in snapshot.children.allObjects as![DataSnapshot]{
+                    let classesSchObject = classesSch.value as? [String:AnyObject]
+                    let capacity = classesSchObject?["capacity"]
+                    let coach = classesSchObject?["coach"]
+                    let date = classesSchObject?["date"]
+                    let description = classesSchObject?["description"]
+                    let name = classesSchObject?["name"]
+                    let timings = classesSchObject?["timings"]
+                    
+                    let lister = ScheduleClasses(capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String)
+                    self.classList.append(lister)
+                }
+                self.scheduleTableMain.reloadData()
+                
+            }
+            
+        })
+        
+        
+        
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        //self.tabBarController?.tabBar.barTintColor = UIColor(named: "someCyan")
+        self.scheduleTableMain.backgroundColor = UIColor(named: "someCyan")
+        self.scheduleTableMain.rowHeight = 200
+        
+    }
+}
+    
+extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return classList.count
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell" , for: indexPath) as! ScheduleTableViewCell
+        let classes : ScheduleClasses
+        classes = classList[indexPath.row]
+        cell.classNameGet.text = classes.name
+        return cell
+        
+    }
+    
+    
+}
+
 extension ScheduleViewController : MDatePickerViewDelegate {
     func mdatePickerView(selectDate: Date) {
         

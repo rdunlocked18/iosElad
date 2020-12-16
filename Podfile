@@ -9,7 +9,7 @@ target 'EladTraining' do
 	pod 'MaterialComponents'
 	pod "FlagPhoneNumber"
 	pod 'MDatePickerView'
-	pod 'EzPopup'
+	
 	
   # Pods for EladTraining
 

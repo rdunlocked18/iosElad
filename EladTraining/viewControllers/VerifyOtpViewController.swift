@@ -43,7 +43,7 @@ class VerifyOtpViewController: UIViewController {
                 //self.dismiss(animated: true, completion: nil)
                 
             }else{
-                print("Failed to signin with otp ",error?.localizedDescription)
+            print("Failed to signin with otp ",error!.localizedDescription)
                 let alert = UIAlertController(title: "OTP Failed", message: "Failed To Verify The OTP Entered Please Reenter the OTP", preferredStyle: UIAlertController.Style.alert)
                         // add an action (button)
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
