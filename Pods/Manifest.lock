@@ -1,4 +1,5 @@
 PODS:
+  - BulletinBoard (5.0.0)
   - Firebase/Auth (7.1.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 7.1.0)
@@ -695,6 +696,7 @@ PODS:
   - PromisesObjC (1.2.11)
 
 DEPENDENCIES:
+  - BulletinBoard (~> 5.0.0-rc.2)
   - Firebase/Auth
   - Firebase/Database
   - FlagPhoneNumber
@@ -703,6 +705,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - BulletinBoard
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -723,6 +726,7 @@ SPEC REPOS:
     - PromisesObjC
 
 SPEC CHECKSUMS:
+  BulletinBoard: dba77053c2a7b64953f63073f7534165af2edd21
   Firebase: 78e8dd2e39d653de6270432ad84fe8b59f7bf4e8
   FirebaseAuth: f82c2cfcc1c107bb0a97735cdbce4eb2a601f710
   FirebaseCore: 20046127eef0fcb8fa25df7fc12f7b97d4e48611
@@ -742,6 +746,6 @@ SPEC CHECKSUMS:
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
 
-PODFILE CHECKSUM: 4d4770940e88a53c15eada563d02643e37e62853
+PODFILE CHECKSUM: 27c7ecebc8c94459f190186ee0a320a4b9c72787
 
 COCOAPODS: 1.9.3

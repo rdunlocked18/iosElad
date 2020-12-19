@@ -13,15 +13,15 @@ struct ScheduleClasses {
     var description:String
     var name:String
     var timings:String
-    //var usersJoined:[String]
-    init(capacity:Int?,coach:String?,date:String?,description:String?,name:String?,timings:String?) {
+    var usersJoined:[String]
+    init(capacity:Int?,coach:String?,date:String?,description:String?,name:String?,timings:String?,userJoined:[String]?) {
         self.capacity = capacity ?? 0
         self.coach = coach ?? ""
         self.date = date ?? ""
         self.description = description ?? ""
         self.name = name ?? ""
         self.timings = timings ?? ""
-        
+        self.usersJoined = userJoined ?? [""]
     }
     
 }

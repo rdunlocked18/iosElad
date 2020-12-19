@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		26B9CEB6C54F8E64C379D9F3 /* Pods_EladTraining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02B18391A41BFF3933274FD4 /* Pods_EladTraining.framework */; };
 		BF01ACD42581460F004DD088 /* CreateProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF01ACD32581460F004DD088 /* CreateProfileViewController.swift */; };
+		BF058BEC258BC33A00F15055 /* CardViewTabUi.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF058BEB258BC33A00F15055 /* CardViewTabUi.swift */; };
+		BF058BEF258BD4AC00F15055 /* CustomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF058BEE258BD4AC00F15055 /* CustomCard.swift */; };
 		BF355865257E90E800EA1CCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355864257E90E800EA1CCE /* AppDelegate.swift */; };
 		BF355867257E90E800EA1CCE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355866257E90E800EA1CCE /* SceneDelegate.swift */; };
 		BF355869257E90E800EA1CCE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355868257E90E800EA1CCE /* ViewController.swift */; };
@@ -42,6 +44,8 @@
 		7BE88214F8173EA342F16F3C /* Pods-EladTraining.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EladTraining.release.xcconfig"; path = "Target Support Files/Pods-EladTraining/Pods-EladTraining.release.xcconfig"; sourceTree = "<group>"; };
 		8641F4EBCBB47C736A0ADDC1 /* Pods-EladTraining.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EladTraining.debug.xcconfig"; path = "Target Support Files/Pods-EladTraining/Pods-EladTraining.debug.xcconfig"; sourceTree = "<group>"; };
 		BF01ACD32581460F004DD088 /* CreateProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileViewController.swift; sourceTree = "<group>"; };
+		BF058BEB258BC33A00F15055 /* CardViewTabUi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewTabUi.swift; sourceTree = "<group>"; };
+		BF058BEE258BD4AC00F15055 /* CustomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCard.swift; sourceTree = "<group>"; };
 		BF355861257E90E800EA1CCE /* EladTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EladTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF355864257E90E800EA1CCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF355866257E90E800EA1CCE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 				BF75696D257F6AF400F4F45A /* TextViewPadding.swift */,
 				BF6A6C7E258401320008D4BA /* PaddingFields.swift */,
 				BFFB1D082582A31600329BDD /* KeyboardHide.swift */,
+				BF058BEB258BC33A00F15055 /* CardViewTabUi.swift */,
+				BF058BEE258BD4AC00F15055 /* CustomCard.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -319,6 +325,7 @@
 				BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */,
 				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
 				BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */,
+				BF058BEF258BD4AC00F15055 /* CustomCard.swift in Sources */,
 				BF355869257E90E800EA1CCE /* ViewController.swift in Sources */,
 				BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */,
 				BF5298832584D1AF00D41B1F /* HomeViewController.swift in Sources */,
@@ -331,6 +338,7 @@
 				BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */,
 				BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */,
 				BF355865257E90E800EA1CCE /* AppDelegate.swift in Sources */,
+				BF058BEC258BC33A00F15055 /* CardViewTabUi.swift in Sources */,
 				BF355867257E90E800EA1CCE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

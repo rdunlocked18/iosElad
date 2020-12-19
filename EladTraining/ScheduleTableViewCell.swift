@@ -8,22 +8,29 @@
 import UIKit
 
 class ScheduleTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak  var mainVirew: UIView!
     @IBOutlet weak var classTimeGet: UILabel!
     @IBOutlet weak var classNameGet: UILabel!
     @IBOutlet weak var coachNameGet: UILabel!
     @IBOutlet weak var classCapacityGet: UILabel!
     @IBOutlet weak var totalMembersGet: UILabel!
+    @IBOutlet weak var joinClassBtn: UIButton!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        
     }
-
+    
+    
 }

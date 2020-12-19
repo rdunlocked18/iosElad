@@ -8,6 +8,7 @@ target 'EladTraining' do
 	pod 'Firebase/Database'
 	pod 'MaterialComponents'
 	pod "FlagPhoneNumber"
+	pod 'BulletinBoard' , '~> 5.0.0-rc.2'
 	pod 'MDatePickerView'
 	
 	

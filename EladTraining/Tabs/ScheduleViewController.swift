@@ -8,10 +8,14 @@
 import UIKit
 import MDatePickerView
 import Firebase
-
+import BLTNBoard
 
 class ScheduleViewController: UIViewController {
     //start filter
+
+    
+    
+    
     lazy var MDate : MDatePickerView = {
            let mdate = MDatePickerView()
            mdate.delegate = self
@@ -103,8 +107,9 @@ class ScheduleViewController: UIViewController {
                     let description = classesSchObject?["description"]
                     let name = classesSchObject?["name"]
                     let timings = classesSchObject?["timings"]
+                    let usersJoined = classesSchObject?["usersJoined"]
                     
-                    let lister = ScheduleClasses(capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String)
+                    let lister = ScheduleClasses(capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,userJoined: usersJoined as! [String]?)
                     self.classList.append(lister)
                 }
                 self.scheduleTableMain.reloadData()
@@ -113,19 +118,61 @@ class ScheduleViewController: UIViewController {
             
         })
         
-        
+    
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         //self.tabBarController?.tabBar.barTintColor = UIColor(named: "someCyan")
-        self.scheduleTableMain.backgroundColor = UIColor(named: "someCyan")
-        self.scheduleTableMain.rowHeight = 200
-        
+        self.scheduleTableMain.backgroundColor = UIColor.lightGray
+       self.scheduleTableMain.rowHeight = 300
+        self.scheduleTableMain.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -29, right: 0);
+    
     }
+    
+    
+    static func actionButtonClicked(){
+        print("join kar bidu")
+    }
+    static func moreInfoButtonClicked(){
+        print("print time")
+    }
+    
 }
     
 extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource{
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell" , for: indexPath) as! ScheduleTableViewCell
+        let classes : ScheduleClasses
+        
+        classes = classList[indexPath.row]
+        let boardManagere : BLTNItemManager = {
+            
+            let item = BLTNPageItem(title: classes.name)
+            item.requiresCloseButton = false
+            item.descriptionText = classes.description
+            //item.image = UIImage(named: "circleLogo")
+            item.actionButtonTitle = "Join Class"
+            item.alternativeButtonTitle = "More Info"
+            item.isDismissable = true
+            item.appearance.actionButtonColor = UIColor(named: "someCyan") ?? UIColor.blue
+            item.actionHandler = {(item: BLTNActionItem) in
+                    print("Action button tapped")
+            }
+            item.alternativeHandler = {(item: BLTNActionItem) in
+                print("Action button tapped")
+            }
+            
+            return BLTNItemManager(rootItem: item)
+            
+        }()
+        boardManagere.backgroundViewStyle = .blurredDark
+        boardManagere.showBulletin(above: self)
+    
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return classList.count
@@ -134,11 +181,27 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell" , for: indexPath) as! ScheduleTableViewCell
         let classes : ScheduleClasses
+        
         classes = classList[indexPath.row]
         cell.classNameGet.text = classes.name
+        cell.classTimeGet.text = classes.timings
+        cell.classCapacityGet.text = "\(classes.capacity - classes.usersJoined.count) spots remaining"
+        cell.totalMembersGet.text = "\(classes.usersJoined.count) Joined"
+        cell.coachNameGet.text = classes.coach
+        cell.joinClassBtn.tag = indexPath.row
+        cell.joinClassBtn.addTarget(self, action: Selector(("buttonClicked:")), for: UIControl.Event.touchUpInside)
+        
+        func buttonClicked(sender:UIButton) {
+
+            let buttonRow = sender.tag
+            print(indexPath.row)
+        }
+        
         return cell
         
     }
+    
+    
     
     
 }
