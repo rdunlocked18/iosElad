@@ -1091,6 +1091,11 @@ NSString *const kMDCBottomDrawerScrollViewAccessibilityIdentifier =
 
   CGFloat scrollingDistance = _contentHeaderTopInset + totalHeight;
   _contentHeightSurplus = scrollingDistance - containerHeight;
+  // readded `presentingViewYOffset` because offset is cancelled out
+  // by being included in both the `scrollingDistance` and `containerHeight`.
+  // Because `containerHeight` is used in independent calculations
+  // we can't remove the offset from there.
+  _contentHeightSurplus += self.presentingViewYOffset;
   if ([self shouldPresentFullScreen]) {
     self.drawerState = MDCBottomDrawerStateFullScreen;
   } else if (_contentHeightSurplus <= 0) {
@@ -1158,8 +1163,7 @@ NSString *const kMDCBottomDrawerScrollViewAccessibilityIdentifier =
 
 - (CGFloat)presentingViewYOffset {
   CGFloat yOffset = CGRectGetHeight(self.view.frame) - CGRectGetHeight(self.presentingViewBounds);
-  if (yOffset > 0 && self.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassRegular &&
-      ![self shouldUseMaximumDrawerHeight]) {
+  if (yOffset > 0 && ![self shouldUseMaximumDrawerHeight]) {
     return yOffset;
   }
   return 0;

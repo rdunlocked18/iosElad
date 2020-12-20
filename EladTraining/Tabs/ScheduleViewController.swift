@@ -189,7 +189,7 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource{
         cell.totalMembersGet.text = "\(classes.usersJoined.count) Joined"
         cell.coachNameGet.text = classes.coach
         cell.joinClassBtn.tag = indexPath.row
-        cell.joinClassBtn.addTarget(self, action: Selector(("buttonClicked:")), for: UIControl.Event.touchUpInside)
+        //cell.joinClassBtn.addTarget(self, action: "buttonClicked:");, for: .touchUpInside)
         
         func buttonClicked(sender:UIButton) {
 

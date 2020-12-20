@@ -10,6 +10,9 @@ target 'EladTraining' do
 	pod "FlagPhoneNumber"
 	pod 'BulletinBoard' , '~> 5.0.0-rc.2'
 	pod 'MDatePickerView'
+	pod 'PMAlertController'
+	pod 'FoldingCell'
+	pod "EasyPeasy"
 	
 	
   # Pods for EladTraining

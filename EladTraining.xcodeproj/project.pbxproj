@@ -26,6 +26,9 @@
 		BF52988C2584D1DF00D41B1F /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52988B2584D1DF00D41B1F /* MoreViewController.swift */; };
 		BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A6C7E258401320008D4BA /* PaddingFields.swift */; };
 		BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF75696D257F6AF400F4F45A /* TextViewPadding.swift */; };
+		BF7F5AF3258FB3CB002F68B1 /* DemoFoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7F5AF2258FB3CB002F68B1 /* DemoFoldingCell.swift */; };
+		BF7F5AF6258FB750002F68B1 /* MyClassesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7F5AF5258FB750002F68B1 /* MyClassesModel.swift */; };
+		BF7F5AF9258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */; };
 		BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8187A2258A31B9006482C6 /* ScheduleModel.swift */; };
 		BF8187EC258A7DEC006482C6 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */; };
 		BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */; };
@@ -63,6 +66,9 @@
 		BF52988B2584D1DF00D41B1F /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		BF6A6C7E258401320008D4BA /* PaddingFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingFields.swift; sourceTree = "<group>"; };
 		BF75696D257F6AF400F4F45A /* TextViewPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewPadding.swift; sourceTree = "<group>"; };
+		BF7F5AF2258FB3CB002F68B1 /* DemoFoldingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoFoldingCell.swift; sourceTree = "<group>"; };
+		BF7F5AF5258FB750002F68B1 /* MyClassesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassesModel.swift; sourceTree = "<group>"; };
+		BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassesCellTableViewCell.swift; sourceTree = "<group>"; };
 		BF8187A2258A31B9006482C6 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
 		BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -130,6 +136,7 @@
 				BF35586D257E90EA00EA1CCE /* Assets.xcassets */,
 				BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */,
 				BF355872257E90EA00EA1CCE /* Info.plist */,
+				BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */,
 			);
 			path = EladTraining;
 			sourceTree = "<group>";
@@ -149,6 +156,8 @@
 			isa = PBXGroup;
 			children = (
 				BF8187A2258A31B9006482C6 /* ScheduleModel.swift */,
+				BF7F5AF2258FB3CB002F68B1 /* DemoFoldingCell.swift */,
+				BF7F5AF5258FB750002F68B1 /* MyClassesModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -326,6 +335,7 @@
 				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
 				BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */,
 				BF058BEF258BD4AC00F15055 /* CustomCard.swift in Sources */,
+				BF7F5AF6258FB750002F68B1 /* MyClassesModel.swift in Sources */,
 				BF355869257E90E800EA1CCE /* ViewController.swift in Sources */,
 				BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */,
 				BF5298832584D1AF00D41B1F /* HomeViewController.swift in Sources */,
@@ -337,6 +347,8 @@
 				BF5298892584D1D100D41B1F /* MyClassesViewController.swift in Sources */,
 				BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */,
 				BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */,
+				BF7F5AF3258FB3CB002F68B1 /* DemoFoldingCell.swift in Sources */,
+				BF7F5AF9258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift in Sources */,
 				BF355865257E90E800EA1CCE /* AppDelegate.swift in Sources */,
 				BF058BEC258BC33A00F15055 /* CardViewTabUi.swift in Sources */,
 				BF355867257E90E800EA1CCE /* SceneDelegate.swift in Sources */,
