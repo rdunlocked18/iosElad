@@ -11,8 +11,8 @@ target 'EladTraining' do
 	pod 'BulletinBoard' , '~> 5.0.0-rc.2'
 	pod 'MDatePickerView'
 	pod 'PMAlertController'
-	pod 'FoldingCell'
-	pod "EasyPeasy"
+	pod 'Nuke', '~> 9.0'
+	pod 'Toast-Swift', '~> 5.0.1'
 	
 	
   # Pods for EladTraining

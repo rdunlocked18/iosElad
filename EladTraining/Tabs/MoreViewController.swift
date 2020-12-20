@@ -7,7 +7,19 @@
 import UIKit
 import PMAlertController
 import Firebase
+import Nuke
+import Toast_Swift
 class MoreViewController: UIViewController {
+    //ui vars
+    @IBOutlet weak var nameSuperProfile:UILabel!
+    @IBOutlet weak var phoneSuperProfile:UILabel!
+    @IBOutlet weak var emailSuperProfile:UILabel!
+    @IBOutlet weak var packageSuperProfile:UILabel!
+    @IBOutlet weak var sessionsSuperProfile:UILabel!
+    @IBOutlet weak var dpSuperProfile:UIImageView!
+    
+    
+
     //database vars
     var ref : DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
@@ -57,9 +69,9 @@ class MoreViewController: UIViewController {
             print("Capture action OK")
             self.ref.setValue(
                 [
-                    "age":  alertVC.textFields[2].text! ?? "",
-                    "email": alertVC.textFields[1].text! ?? "",
-                    "fullName": alertVC.textFields[0].text! ?? "",
+                    "age":  alertVC.textFields[2].text! ,
+                    "email": alertVC.textFields[1].text! ,
+                    "fullName": alertVC.textFields[0].text! ,
                     "imageUrl": self.imageUrl,
                     "phone" : self.phoneNumberGet,
                     "userRole": "user"
@@ -91,6 +103,7 @@ class MoreViewController: UIViewController {
         self.navigationItem.largeTitleDisplayMode = .always
     }
 
+    // MARK: - didLoad
     override func viewDidAppear(_ animated: Bool) {
         ref = Database.database().reference().child("Users").child(userID ?? "").child("userDetails");
         ref.observeSingleEvent(of: .value, with: {
@@ -101,7 +114,15 @@ class MoreViewController: UIViewController {
             self.emailGer = value?["email"] as? String ?? ""
             self.ageGet = value?["age"] as? String ?? ""
             self.imageUrl = value?["imageUrl"] as? String ?? ""
-            print(self.nameGet)
+            
+            self.nameSuperProfile.text = self.nameGet
+            self.phoneSuperProfile.text = self.phoneNumberGet
+            self.emailSuperProfile.text = self.emailGer
+            
+            print(self.nameGet ?? "def")
+            Nuke.loadImage(with: ImageRequest(url: URL(string: self.imageUrl)!, processors: [
+                ImageProcessors.Circle()
+            ]), into: self.dpSuperProfile)
         })
         {
             (error) in
@@ -142,8 +163,17 @@ extension MoreViewController:UITableViewDelegate{
             print(String(describing:"row at Settings Clicked"))
             tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         }
-        else if(indexPath.row == 2){
+        else if(indexPath.row == 3){
             print(String(describing:"row at Support Clicked"))
+            
+            do {
+                try //Auth.auth().signOut()
+                self.view.makeToast("Logging Out...",image: UIImage(named: "power"))
+                
+                
+            }
+            catch { print("already logged out") }
+            
             tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         }
     }

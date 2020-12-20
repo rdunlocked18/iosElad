@@ -8,6 +8,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import Nuke
 
 class MyClassesViewController: UIViewController {
     @IBOutlet weak var myClassesTableView: UITableView!

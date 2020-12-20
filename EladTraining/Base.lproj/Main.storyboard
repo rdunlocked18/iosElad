@@ -828,7 +828,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="vHi-NO-7cL"/>
                     <connections>
+                        <outlet property="dpSuperProfile" destination="fll-0P-4sl" id="WzP-Vm-5O8"/>
+                        <outlet property="emailSuperProfile" destination="HJk-zb-tVF" id="64I-iJ-W84"/>
+                        <outlet property="nameSuperProfile" destination="AXX-x6-Hpb" id="WCC-bu-1dT"/>
+                        <outlet property="packageSuperProfile" destination="xXB-Kw-Wvc" id="dFB-xH-4hv"/>
+                        <outlet property="phoneSuperProfile" destination="0pH-UB-Jgf" id="2KW-x2-4vv"/>
                         <outlet property="profileTabel" destination="AtT-3j-ReB" id="oYD-Ps-eir"/>
+                        <outlet property="sessionsSuperProfile" destination="2hl-1M-2uz" id="3P4-37-EKv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHb-tz-Udw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
