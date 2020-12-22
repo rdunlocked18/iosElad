@@ -15,6 +15,7 @@ target 'EladTraining' do
 	pod 'Toast-Swift', '~> 5.0.1'
 	
 	
+	
   # Pods for EladTraining
 
 end
@@ -22,6 +23,7 @@ post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
             config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
+	    config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
         end
     end
 end

@@ -19,6 +19,7 @@
 		BF355871257E90EA00EA1CCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */; };
 		BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35587B257E93F400EA1CCE /* LoginViewController.swift */; };
 		BF355881257E986F00EA1CCE /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355880257E986F00EA1CCE /* GradientView.swift */; };
+		BF4BA6542591BC41007DD2BE /* FontChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4BA6532591BC41007DD2BE /* FontChanger.swift */; };
 		BF52987E2584CD4300D41B1F /* SuperHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */; };
 		BF5298832584D1AF00D41B1F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5298822584D1AF00D41B1F /* HomeViewController.swift */; };
 		BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5298852584D1C100D41B1F /* ScheduleViewController.swift */; };
@@ -39,6 +40,7 @@
 		BFCEB068258886E000D73D39 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFCEB062258886E000D73D39 /* Poppins-Light.ttf */; };
 		BFCEB069258886E000D73D39 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFCEB063258886E000D73D39 /* Poppins-Regular.ttf */; };
 		BFCEB06A258886E000D73D39 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFCEB064258886E000D73D39 /* Poppins-Medium.ttf */; };
+		BFE406AF2591177100654944 /* IndicatorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE406AE2591177100654944 /* IndicatorExtension.swift */; };
 		BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFB1D082582A31600329BDD /* KeyboardHide.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,7 @@
 		BF355872257E90EA00EA1CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF35587B257E93F400EA1CCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BF355880257E986F00EA1CCE /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		BF4BA6532591BC41007DD2BE /* FontChanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontChanger.swift; sourceTree = "<group>"; };
 		BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperHomeViewController.swift; sourceTree = "<group>"; };
 		BF5298822584D1AF00D41B1F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BF5298852584D1C100D41B1F /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 		BFCEB062258886E000D73D39 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
 		BFCEB063258886E000D73D39 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		BFCEB064258886E000D73D39 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		BFE406AE2591177100654944 /* IndicatorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorExtension.swift; sourceTree = "<group>"; };
 		BFFB1D082582A31600329BDD /* KeyboardHide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHide.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +200,8 @@
 				BFFB1D082582A31600329BDD /* KeyboardHide.swift */,
 				BF058BEB258BC33A00F15055 /* CardViewTabUi.swift */,
 				BF058BEE258BD4AC00F15055 /* CustomCard.swift */,
+				BFE406AE2591177100654944 /* IndicatorExtension.swift */,
+				BF4BA6532591BC41007DD2BE /* FontChanger.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -333,6 +339,7 @@
 				BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */,
 				BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */,
 				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
+				BF4BA6542591BC41007DD2BE /* FontChanger.swift in Sources */,
 				BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */,
 				BF058BEF258BD4AC00F15055 /* CustomCard.swift in Sources */,
 				BF7F5AF6258FB750002F68B1 /* MyClassesModel.swift in Sources */,
@@ -345,6 +352,7 @@
 				BF52987E2584CD4300D41B1F /* SuperHomeViewController.swift in Sources */,
 				BF8187EC258A7DEC006482C6 /* ScheduleTableViewCell.swift in Sources */,
 				BF5298892584D1D100D41B1F /* MyClassesViewController.swift in Sources */,
+				BFE406AF2591177100654944 /* IndicatorExtension.swift in Sources */,
 				BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */,
 				BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */,
 				BF7F5AF3258FB3CB002F68B1 /* DemoFoldingCell.swift in Sources */,

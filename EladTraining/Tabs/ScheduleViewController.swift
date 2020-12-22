@@ -9,12 +9,15 @@ import UIKit
 import MDatePickerView
 import Firebase
 import BLTNBoard
+import MaterialComponents.MaterialActionSheet
+import MaterialComponents.MaterialActionSheet_Theming
 
 class ScheduleViewController: UIViewController {
     //start filter
 
-    
-    
+    public var className:String!
+    var bulletinManager: BLTNItemManager?
+    //var boardManagere : BLTNItemManager?
     
     lazy var MDate : MDatePickerView = {
            let mdate = MDatePickerView()
@@ -123,11 +126,10 @@ class ScheduleViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //self.tabBarController?.tabBar.barTintColor = UIColor(named: "someCyan")
-        self.scheduleTableMain.backgroundColor = UIColor.lightGray
-       self.scheduleTableMain.rowHeight = 300
-        self.scheduleTableMain.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -29, right: 0);
-    
+        self.scheduleTableMain.backgroundColor = UIColor(named: "someCyan")
+        self.scheduleTableMain.showActivityIndicator()
+        //self.scheduleTableMain.backgroundColor = UIColor.white
+        self.scheduleTableMain.rowHeight = 230
     }
     
     
@@ -144,32 +146,55 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell" , for: indexPath) as! ScheduleTableViewCell
+        
         let classes : ScheduleClasses
         
         classes = classList[indexPath.row]
-        let boardManagere : BLTNItemManager = {
-            
-            let item = BLTNPageItem(title: classes.name)
-            item.requiresCloseButton = false
-            item.descriptionText = classes.description
-            //item.image = UIImage(named: "circleLogo")
-            item.actionButtonTitle = "Join Class"
-            item.alternativeButtonTitle = "More Info"
-            item.isDismissable = true
-            item.appearance.actionButtonColor = UIColor(named: "someCyan") ?? UIColor.blue
-            item.actionHandler = {(item: BLTNActionItem) in
-                    print("Action button tapped")
-            }
-            item.alternativeHandler = {(item: BLTNActionItem) in
-                print("Action button tapped")
-            }
-            
-            return BLTNItemManager(rootItem: item)
-            
-        }()
-        boardManagere.backgroundViewStyle = .blurredDark
-        boardManagere.showBulletin(above: self)
+        let actionSheet = MDCActionSheetController(title: "Action Sheet",
+                                                   message: "Secondary line text"
+        )
+        
+        let actionOne = MDCActionSheetAction(title: "Home",
+                                             image: UIImage(named: "Home"))
+        let actionTwo = MDCActionSheetAction(title: "Email",
+                                             image: UIImage(named: "Email"),handler: {(_) in
+                                                print(classes.coach)
+                                             })
+        actionSheet.titleFont
+        actionSheet.backgroundColor = UIColor(named: "darkBlue") ?? .white
+        actionSheet.addAction(actionOne)
+        actionSheet.addAction(actionTwo)
+
+        present(actionSheet, animated: true, completion: nil)
+        
+        
+        
+//        let boardManagere : BLTNItemManager = {
+//
+//            let item = BLTNPageItem(title: classes.name)
+//            item.requiresCloseButton = false
+//            item.descriptionText = classes.description
+//            //item.image = UIImage(named: "circleLogo")
+//            item.actionButtonTitle = "Join Class"
+//            item.alternativeButtonTitle = "More Info"
+//            item.isDismissable = true
+//            item.appearance.actionButtonColor = UIColor(named: "someCyan") ?? UIColor.blue
+//            item.actionHandler = {(item: BLTNActionItem) in
+//                    print("Action button tapped")
+//            }
+//            item.alternativeHandler = {(item: BLTNActionItem) in
+//                print("Action button tapped")
+//            }
+//
+//            return BLTNItemManager(rootItem: item)
+//
+//        }()
+//
+//        boardManagere.backgroundViewStyle = .blurredDark
+//
+//        boardManagere.showBulletin(above: self)
     
     }
     
@@ -183,12 +208,13 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource{
         let classes : ScheduleClasses
         
         classes = classList[indexPath.row]
+        scheduleTableMain.hideActivityIndicator()
         cell.classNameGet.text = classes.name
         cell.classTimeGet.text = classes.timings
         cell.classCapacityGet.text = "\(classes.capacity - classes.usersJoined.count) spots remaining"
         cell.totalMembersGet.text = "\(classes.usersJoined.count) Joined"
         cell.coachNameGet.text = classes.coach
-        cell.joinClassBtn.tag = indexPath.row
+//        cell.joinClassBtn.tag = indexPath.row
         //cell.joinClassBtn.addTarget(self, action: "buttonClicked:");, for: .touchUpInside)
         
         func buttonClicked(sender:UIButton) {
