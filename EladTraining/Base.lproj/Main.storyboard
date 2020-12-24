@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wjx-PE-oq5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wjx-PE-oq5">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -396,39 +395,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WIw-Yr-dYJ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
-                                <color key="backgroundColor" name="darkBlue"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6Ya-0o-a1c">
-                                    <size key="itemSize" width="151" height="148"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" id="ZIq-OV-Ehr" customClass="CustomCell" customModule="MDatePickerView">
-                                        <rect key="frame" x="0.0" y="0.0" width="151" height="148"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="top" insetsLayoutMarginsFromSafeArea="NO" id="tQy-DP-hhJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="151" height="148"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <size key="customSize" width="151" height="148"/>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ef-S0-fs5" customClass="DateScrollPicker" customModule="DateScrollPicker">
+                                <rect key="frame" x="20" y="44" width="374" height="159"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="159" id="SR2-Hq-S5w"/>
+                                    <constraint firstAttribute="width" constant="374" id="wGp-fU-Zzu"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jOR-Bu-Gx7"/>
                         <color key="backgroundColor" name="darkBlue"/>
                         <constraints>
-                            <constraint firstItem="jOR-Bu-Gx7" firstAttribute="trailing" secondItem="WIw-Yr-dYJ" secondAttribute="trailing" id="MPS-Ef-8QU"/>
-                            <constraint firstItem="WIw-Yr-dYJ" firstAttribute="leading" secondItem="jOR-Bu-Gx7" secondAttribute="leading" id="OHr-4n-ueM"/>
-                            <constraint firstItem="WIw-Yr-dYJ" firstAttribute="top" secondItem="jOR-Bu-Gx7" secondAttribute="top" id="Tcm-3s-JgQ"/>
-                            <constraint firstItem="jOR-Bu-Gx7" firstAttribute="bottom" secondItem="WIw-Yr-dYJ" secondAttribute="bottom" id="VKA-zg-fkR"/>
+                            <constraint firstItem="jOR-Bu-Gx7" firstAttribute="bottom" secondItem="2ef-S0-fs5" secondAttribute="bottom" constant="610" id="8Zn-pT-iK4"/>
+                            <constraint firstItem="jOR-Bu-Gx7" firstAttribute="trailing" secondItem="2ef-S0-fs5" secondAttribute="trailing" constant="20" id="EUb-Aq-3RO"/>
+                            <constraint firstItem="2ef-S0-fs5" firstAttribute="leading" secondItem="jOR-Bu-Gx7" secondAttribute="leading" constant="20" id="OZm-Ej-6eG"/>
+                            <constraint firstItem="2ef-S0-fs5" firstAttribute="top" secondItem="jOR-Bu-Gx7" secondAttribute="top" id="RTc-NE-3RL"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="Iu8-7O-3f3"/>
+                    <connections>
+                        <outlet property="dateScrollPicker" destination="2ef-S0-fs5" id="ij4-Bs-LVc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e91-Bd-EHr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -454,7 +442,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYb-DK-GZf" customClass="CardViewTabUi" customModule="EladTraining" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="11" width="374" height="208"/>
+                                                    <rect key="frame" x="8" y="4" width="398" height="222"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="fGD-Sf-y2D">
                                                             <rect key="frame" x="20" y="19.5" width="119.5" height="20.5"/>
@@ -532,12 +520,12 @@
                                                         <constraint firstItem="fGD-Sf-y2D" firstAttribute="top" secondItem="dYb-DK-GZf" secondAttribute="top" constant="19.5" id="1OD-28-QIf"/>
                                                         <constraint firstItem="l6e-0G-MRp" firstAttribute="leading" secondItem="ACX-w1-3Oy" secondAttribute="leading" id="4WL-7N-biO"/>
                                                         <constraint firstItem="ACX-w1-3Oy" firstAttribute="top" secondItem="l6e-0G-MRp" secondAttribute="bottom" constant="8" symbolic="YES" id="5Vv-0n-pA3"/>
-                                                        <constraint firstAttribute="width" constant="374" id="H9Y-sS-uq7"/>
+                                                        <constraint firstAttribute="width" constant="398" id="H9Y-sS-uq7"/>
                                                         <constraint firstItem="fGD-Sf-y2D" firstAttribute="leading" secondItem="l6e-0G-MRp" secondAttribute="leading" id="MkQ-0o-nPY"/>
                                                         <constraint firstItem="vji-bx-gun" firstAttribute="top" secondItem="ACX-w1-3Oy" secondAttribute="bottom" constant="17.5" id="OPO-m1-hQ7"/>
                                                         <constraint firstItem="fGD-Sf-y2D" firstAttribute="leading" secondItem="dYb-DK-GZf" secondAttribute="leading" constant="20" id="ZY1-EN-UP6"/>
                                                         <constraint firstItem="auK-E0-GCg" firstAttribute="top" secondItem="vji-bx-gun" secondAttribute="bottom" constant="16.5" id="fBM-Cx-gjj"/>
-                                                        <constraint firstAttribute="height" constant="198" id="h7z-Y8-HrZ"/>
+                                                        <constraint firstAttribute="height" constant="222" id="h7z-Y8-HrZ"/>
                                                         <constraint firstItem="ACX-w1-3Oy" firstAttribute="leading" secondItem="vji-bx-gun" secondAttribute="leading" id="hR2-dX-9bU"/>
                                                         <constraint firstItem="l6e-0G-MRp" firstAttribute="top" secondItem="fGD-Sf-y2D" secondAttribute="bottom" constant="12" id="scI-5h-9jM"/>
                                                         <constraint firstItem="vji-bx-gun" firstAttribute="leading" secondItem="auK-E0-GCg" secondAttribute="leading" id="xfE-yu-nrH"/>
@@ -550,12 +538,12 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="dYb-DK-GZf" firstAttribute="leading" secondItem="0aH-0j-FEH" secondAttribute="leading" constant="20" id="76a-EF-4To"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="dYb-DK-GZf" secondAttribute="bottom" id="FA3-uR-soV"/>
-                                                <constraint firstAttribute="trailing" secondItem="dYb-DK-GZf" secondAttribute="trailing" constant="20" id="Q4D-sc-0eW"/>
-                                                <constraint firstItem="dYb-DK-GZf" firstAttribute="leading" secondItem="0aH-0j-FEH" secondAttribute="leading" constant="20" id="YKy-AZ-K8O"/>
-                                                <constraint firstAttribute="trailing" secondItem="dYb-DK-GZf" secondAttribute="trailing" constant="20" id="Zhp-1d-YwP"/>
-                                                <constraint firstItem="dYb-DK-GZf" firstAttribute="top" secondItem="0aH-0j-FEH" secondAttribute="topMargin" id="faO-Fp-VNV"/>
+                                                <constraint firstItem="dYb-DK-GZf" firstAttribute="leading" secondItem="0aH-0j-FEH" secondAttribute="leading" constant="8" id="76a-EF-4To"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="dYb-DK-GZf" secondAttribute="bottom" constant="-7" id="FA3-uR-soV"/>
+                                                <constraint firstAttribute="trailing" secondItem="dYb-DK-GZf" secondAttribute="trailing" constant="8" id="Q4D-sc-0eW"/>
+                                                <constraint firstItem="dYb-DK-GZf" firstAttribute="leading" secondItem="0aH-0j-FEH" secondAttribute="leading" constant="8" id="YKy-AZ-K8O"/>
+                                                <constraint firstAttribute="trailing" secondItem="dYb-DK-GZf" secondAttribute="trailing" constant="8" id="Zhp-1d-YwP"/>
+                                                <constraint firstItem="dYb-DK-GZf" firstAttribute="top" secondItem="0aH-0j-FEH" secondAttribute="topMargin" constant="-7" id="faO-Fp-VNV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="someCyan"/>
@@ -574,10 +562,10 @@
                         <viewLayoutGuide key="safeArea" id="RHb-mP-YIG"/>
                         <color key="backgroundColor" name="darkBlue"/>
                         <constraints>
-                            <constraint firstItem="38v-cM-3BS" firstAttribute="bottom" secondItem="RHb-mP-YIG" secondAttribute="bottom" id="2ei-oF-xYe"/>
-                            <constraint firstAttribute="trailing" secondItem="38v-cM-3BS" secondAttribute="trailing" id="HXU-U7-vyT"/>
-                            <constraint firstItem="38v-cM-3BS" firstAttribute="leading" secondItem="EJb-2O-PIM" secondAttribute="leading" id="Het-to-2iY"/>
-                            <constraint firstItem="38v-cM-3BS" firstAttribute="top" secondItem="RHb-mP-YIG" secondAttribute="top" id="e4V-VD-PnG"/>
+                            <constraint firstItem="38v-cM-3BS" firstAttribute="bottom" secondItem="RHb-mP-YIG" secondAttribute="bottom" id="Nfa-6g-qah"/>
+                            <constraint firstItem="38v-cM-3BS" firstAttribute="top" secondItem="RHb-mP-YIG" secondAttribute="top" id="bF8-62-A5i"/>
+                            <constraint firstItem="38v-cM-3BS" firstAttribute="trailing" secondItem="RHb-mP-YIG" secondAttribute="trailing" id="iEH-fm-Ryr"/>
+                            <constraint firstItem="38v-cM-3BS" firstAttribute="leading" secondItem="RHb-mP-YIG" secondAttribute="leading" id="luQ-Ng-IZH"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QOK-LN-TMu"/>

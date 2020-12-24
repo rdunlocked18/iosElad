@@ -32,7 +32,7 @@ class CreateProfileViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //text Colors
-        fullName.textColor = UIColor.white
+       // fullName.textColor = UIColor.white
         phoneNumberGet.textColor = UIColor.white
         createEmail.textColor = UIColor.white
         createAge.textColor = UIColor.white

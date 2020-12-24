@@ -176,6 +176,9 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DatePicker/DatePicker.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DateScrollPicker/DateScrollPicker.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Extended/Extended.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework"
@@ -186,7 +189,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MDatePickerView/MDatePickerView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework"
@@ -199,6 +201,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DatePicker/DatePicker.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DateScrollPicker/DateScrollPicker.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Extended/Extended.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework"
@@ -209,7 +214,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MDFTextAccessibility/MDFTextAccessibility.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/MDatePickerView/MDatePickerView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MotionAnimator/MotionAnimator.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MotionInterchange/MotionInterchange.framework"

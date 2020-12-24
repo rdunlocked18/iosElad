@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import MDatePickerView
+
 
 
 class ViewController: UIViewController {
@@ -19,6 +19,20 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor(named: "darkBlue")
                 
              
+        
+        //for joining class
+        // click button
+        // check capacity else full
+        // if yes
+         // add 3 ths
+         // userClasses > name of class
+            // key + 1
+        // inside className key + 1 add uid
+            // session -1 userPackages
+        
+        
+        
+        
     }
 
 

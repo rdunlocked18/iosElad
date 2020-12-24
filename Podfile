@@ -9,10 +9,11 @@ target 'EladTraining' do
 	pod 'MaterialComponents'
 	pod "FlagPhoneNumber"
 	pod 'BulletinBoard' , '~> 5.0.0-rc.2'
-	pod 'MDatePickerView'
 	pod 'PMAlertController'
 	pod 'Nuke', '~> 9.0'
 	pod 'Toast-Swift', '~> 5.0.1'
+	pod 'DateScrollPicker'
+	pod 'DatePicker', '~> 1.3.0'
 	
 	
 	
@@ -23,7 +24,7 @@ post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
             config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = "YES"
-	    config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+	    config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '11.0'
         end
     end
 end

@@ -7,6 +7,7 @@
 
 import UIKit
 struct ScheduleClasses {
+    var id:String
     var capacity:Int
     var coach:String
     var date:String
@@ -14,14 +15,15 @@ struct ScheduleClasses {
     var name:String
     var timings:String
     var usersJoined:[String]
-    init(capacity:Int?,coach:String?,date:String?,description:String?,name:String?,timings:String?,userJoined:[String]?) {
+    init(id:String? ,capacity:Int?,coach:String?,date:String?,description:String?,name:String?,timings:String?,userJoined:[String]!) {
+        self.id = id ?? ""
         self.capacity = capacity ?? 0
         self.coach = coach ?? ""
         self.date = date ?? ""
         self.description = description ?? ""
         self.name = name ?? ""
         self.timings = timings ?? ""
-        self.usersJoined = userJoined ?? [""]
+        self.usersJoined = userJoined ?? []
     }
     
 }
