@@ -699,6 +699,7 @@ PODS:
   - Nuke (9.2.0)
   - PMAlertController (4.0.1)
   - PromisesObjC (1.2.11)
+  - SwiftDate (5.1.0)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
@@ -711,6 +712,7 @@ DEPENDENCIES:
   - MaterialComponents
   - Nuke (~> 9.0)
   - PMAlertController
+  - SwiftDate (~> 5.0)
   - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
@@ -738,6 +740,7 @@ SPEC REPOS:
     - Nuke
     - PMAlertController
     - PromisesObjC
+    - SwiftDate
     - Toast-Swift
 
 SPEC CHECKSUMS:
@@ -764,8 +767,9 @@ SPEC CHECKSUMS:
   Nuke: 1394e48b0940e01dd20f52ac56b121ab154e370d
   PMAlertController: ab5fcf4d085b7878c9451466d701449c4bf6efb8
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 66e021e83ddf428a9a252dae4e6c98a548054153
+PODFILE CHECKSUM: a196fc96edd92781449642e25a31d73c24abce3d
 
 COCOAPODS: 1.10.0

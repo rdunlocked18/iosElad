@@ -14,6 +14,7 @@ target 'EladTraining' do
 	pod 'Toast-Swift', '~> 5.0.1'
 	pod 'DateScrollPicker'
 	pod 'DatePicker', '~> 1.3.0'
+	pod 'SwiftDate', '~> 5.0'
 	
 	
 	
