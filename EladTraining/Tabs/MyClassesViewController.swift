@@ -19,8 +19,10 @@ class MyClassesViewController: UIViewController {
     
     
     @IBOutlet weak var myClassesTableView: UITableView!
-    var classNamesList:[String] = []
+    var userJoinedClassesList:[String] = []
     var classFulldetList = [ScheduleClasses]()
+    var packageDetailsList = [UserPackageModel]()
+    
     
     var ref:DatabaseReference!
     
@@ -31,7 +33,7 @@ class MyClassesViewController: UIViewController {
     var userClassesRef:DatabaseReference!
     var classesRef:DatabaseReference!
     var userPkgRef:DatabaseReference!
-    
+    var userRef:DatabaseReference!
     
     
     
@@ -51,12 +53,15 @@ class MyClassesViewController: UIViewController {
         title = "My Classes"
       
         //inits of database vars
-       userClassesRef = Database.database().reference().child("Users").child(authUid).child("userClasses")
         
-        classesRef = Database.database().reference().child("Classes").child("").child("usersJoined")
+        
+        userClassesRef = Database.database().reference().child("Users").child(authUid).child("userClasses")
+        
+        classesRef = Database.database().reference().child("Classes")
         
         userPkgRef = Database.database().reference().child("Users").child(authUid).child("userPackages")
         
+        userRef = Database.database().reference().child("Users").child(authUid)
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         self.myclassView.addGestureRecognizer(gesture)
@@ -73,11 +78,22 @@ class MyClassesViewController: UIViewController {
                 for child in snapshot.children {
                     let ns = child as! DataSnapshot
                     let dict = ns.value as! String
-                    self.classNamesList.append(dict)
-                print(self.classNamesList)
+                    self.userJoinedClassesList.append(dict)
+                print(self.userJoinedClassesList)
               }
                 self.myClassesTableView.reloadData()
             }
+        
+        
+        
+//        userRef.observeSingleEvent(of: .value) { (snapshot) in
+//            if snapshot.hasChild("userPackages"){
+//                self.readUserpkgData()
+//            }
+//        }
+       
+        getClassesFromIds()
+        //readUsersJoinedData()
         
         
     }
@@ -87,18 +103,55 @@ class MyClassesViewController: UIViewController {
             for child in snapshot.children {
                 let ns = child as! DataSnapshot
                 let dict = ns.value as! String
-                self.classNamesList.append(dict)
-            print(self.classNamesList)
+                self.userJoinedClassesList.append(dict)
+            print(self.userJoinedClassesList)
           }
             self.myClassesTableView.reloadData()
         }
     
     }
-    func readUserpkgData() {
+    
+    func getClassesFromIds(){
+        classesRef.observe(.childChanged) { (snapshot) in
+            for ds in self.userJoinedClassesList {
+                if(self.userJoinedClassesList.isEmpty){
+                    print("not joined")
+                }else{
+                    self.readClassesData(classId: ds)
+                    
+                }
+            }
+            
+        }
         
     }
+    
+    
+    func readUserpkgData() {
         
-    func readClassesData(){
+       //MARK:- Get Firebase Data
+       userPkgRef.observe(DataEventType.value,with: {
+            (snapshot) in
+        if snapshot.childrenCount > 0 {
+                self.packageDetailsList.removeAll()
+                for classesSch in snapshot.children.allObjects as![DataSnapshot] {
+                    let userPackageDetailsObject = classesSch.value as? [String:AnyObject]
+                    let packageId = userPackageDetailsObject?["packageId"]
+                    let endDate = userPackageDetailsObject?["endDate"]
+                    let startDate = userPackageDetailsObject?["startDate"]
+                    let isActive = userPackageDetailsObject?["isActive"]
+                    let sessions = userPackageDetailsObject?["sessions"]
+                   
+                    let lister = UserPackageModel(endDate: endDate as! String, isActive: isActive as! Bool, packageId: packageId as! String, sessions:sessions as! Int, startDate: startDate as! String)
+                    
+                    self.packageDetailsList.append(lister)
+                }
+                
+            }
+        })
+    }
+        
+    func readClassesData(classId:String){
         //MARK:- Get Firebase Data
         ref.child("Classes").observe(DataEventType.value,with:{
             (snapshot) in
@@ -116,6 +169,7 @@ class MyClassesViewController: UIViewController {
                     let timings = classesSchObject?["timings"]
                     let usersJoined = classesSchObject?["usersJoined"]
                     let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,userJoined: usersJoined as! [String]?)
+                    print(self.classFulldetList)
                     self.classFulldetList.append(lister)
                 }
                 
@@ -144,14 +198,14 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return classNamesList.count
+        return userJoinedClassesList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = myClassesTableView.dequeueReusableCell(withIdentifier: "cell" , for: indexPath) as! MyClassesCellTableViewCell
         
         myClassesTableView.hideActivityIndicator()
-        cell.classNameLbl?.text =  classNamesList[indexPath.row]
+        cell.classNameLbl?.text =  userJoinedClassesList[indexPath.row]
     
         return cell
         
@@ -166,7 +220,7 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
         // 1
             let shareAction = UITableViewRowAction(style: .default, title: "Leave Class" , handler: { (action:UITableViewRowAction, indexPath: IndexPath) -> Void in
             // 2
-                let shareMenu = UIAlertController(title: "Confirm Leave \(self.classNamesList[indexPath.row]) ?" , message: "Are You Sure want to Leave the class ? This might lead to punishment if you leave the class just within 8 hours duration", preferredStyle: .alert)
+                let shareMenu = UIAlertController(title: "Confirm Leave \(self.userJoinedClassesList[indexPath.row]) ?" , message: "Are You Sure want to Leave the class ? This might lead to punishment if you leave the class just within 8 hours duration", preferredStyle: .alert)
                     
                 let twitterAction = UIAlertAction(title: "Sure", style: .default, handler: { _ in handleTrue()})
                     let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
