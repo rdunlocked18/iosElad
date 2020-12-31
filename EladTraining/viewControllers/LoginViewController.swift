@@ -10,97 +10,84 @@ import Firebase
 import FlagPhoneNumber
 import FirebaseAuth
 import MaterialComponents
+import Toast_Swift
 
 
 
 class LoginViewController: UIViewController {
-    @IBOutlet weak var countryCode: MDCTextField!
-    @IBOutlet weak var phoneNumber: FPNTextField!
-    var completeNumber : String? = ""
+    @IBOutlet weak var passwordInp: MDCTextField!
+    @IBOutlet weak var emailAddressInp: MDCTextField!
+    
+    @IBOutlet weak var forgotPassBtn: MDCButton!
+    @IBOutlet weak var proceedBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
     
         
-        phoneNumber.displayMode = .picker
-        phoneNumber.textColor = UIColor.white
-        phoneNumber.adjustsFontSizeToFitWidth = true
-        phoneNumber.textAlignment = .center
-        phoneNumber.placeholder = "999-999-9999"
-        phoneNumber.delegate = self
-    
-       
         
+      
         
         
                
     }
     
-//    func viewConfigs(){
-//        phoneNumber.textColor = UIColor.white
-//        phoneNumber.clearButton.tintColor = UIColor.white
-//        countryCode.textColor = UIColor.white
-//        countryCode.clearButton.tintColor = UIColor.white
-//
-//    }
-    override func viewDidAppear(_ animated: Bool){
+    
+    @objc
+    func  loginTry(){
+        let email:String = emailAddressInp.text ?? ""
+        let password:String  = passwordInp.text ?? ""
+        
+        
+        
+        
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+          guard let strongSelf = self else { return }
+            if error == nil{
+                self?.view.makeToast("Logged in Successfully")
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                               let newViewController = storyBoard.instantiateViewController(withIdentifier: "createProfile") as! CreateProfileViewController
+                self?.present(newViewController, animated: true, completion: nil)
+                
+                
+            }else {
+                print("\(String(describing: error?.localizedDescription))")
+                self?.view.makeToast("Error Logginng In")
+            }
+            
+          // ...
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool){
+        
+        
+        emailAddressInp.placeholderLabel.font = UIFont.appRegularFontWith(size: 17)
+        passwordInp.placeholderLabel.font = UIFont.appRegularFontWith(size: 17)
+        proceedBtn.addTarget(self, action: #selector(loginTry), for: .touchUpInside)
+        
+        
+        
+        
         
         Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
             // User is signed in. Show home screen
                 print("success user alreaddy logged in")
-
+                self.view.makeToast("Already Signed in")
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let newViewController = storyBoard.instantiateViewController(withIdentifier: "createProfile") as! CreateProfileViewController
                       self.present(newViewController, animated: true, completion: nil)
           } else {
             // No User is signed in. Show user the login screen
+            self.view.makeToast("Login To Continue")
             
           }
         }
         
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "proceedSeg"{
-            
-             let NumberCom:String = phoneNumber.getFormattedPhoneNumber(format: .E164) ?? "E164: nil"
-
-            PhoneAuthProvider.provider().verifyPhoneNumber(NumberCom , uiDelegate: nil) { (verificationId,ers) in
-                if ers == nil {
-                    //print(verificationId as Any)
-                    UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
-                    let destinationView = segue.destination as! VerifyOtpViewController
-                    destinationView.modalPresentationStyle = .fullScreen
-                    destinationView.comingId = verificationId!
-                }else{
-                    print("Unable to Send verification Id Check Log \(ers?.localizedDescription ?? "")")
-                }
-            }
-            
-        }
-    }
     
-}
-extension LoginViewController: FPNTextFieldDelegate {
-    
-
-    func fpnDisplayCountryList() {}
-
-    func fpnDidValidatePhoneNumber(textField: FPNTextField, isValid: Bool) {
-
-        print(
-            isValid,
-            textField.getFormattedPhoneNumber(format: .E164) ?? "E164: nil",
-            textField.getFormattedPhoneNumber(format: .International) ?? "International: nil",
-            textField.getFormattedPhoneNumber(format: .National) ?? "National: nil",
-            textField.getFormattedPhoneNumber(format: .RFC3966) ?? "RFC3966: nil",
-            textField.getRawPhoneNumber() ?? "Raw: nil"
-        )
-    }
-
-    func fpnDidSelectCountry(name: String, dialCode: String, code: String) {
-        print(name, dialCode, code)
-    }
     
 }

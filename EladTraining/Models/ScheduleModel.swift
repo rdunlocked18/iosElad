@@ -14,8 +14,9 @@ struct ScheduleClasses {
     var description:String
     var name:String
     var timings:String
+    var timestamp:Int
     var usersJoined:[String]
-    init(id:String? ,capacity:Int?,coach:String?,date:String?,description:String?,name:String?,timings:String?,userJoined:[String]!) {
+    init(id:String? ,capacity:Int?,coach:String?,date:String?,description:String?,name:String?,timings:String?,timestamp:Int?,userJoined:[String]!) {
         self.id = id ?? ""
         self.capacity = capacity ?? 0
         self.coach = coach ?? ""
@@ -23,6 +24,7 @@ struct ScheduleClasses {
         self.description = description ?? ""
         self.name = name ?? ""
         self.timings = timings ?? ""
+        self.timestamp = timestamp ?? 0
         self.usersJoined = userJoined ?? []
     }
     

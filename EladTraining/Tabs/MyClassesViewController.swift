@@ -10,6 +10,8 @@ import Firebase
 import FirebaseDatabase
 import Nuke
 import MaterialComponents.MaterialBottomSheet
+import SwiftDate
+import ClockKit
 
 class MyClassesViewController: UIViewController {
     
@@ -38,6 +40,18 @@ class MyClassesViewController: UIViewController {
     
     
     
+    // packageDetails
+    
+    
+    var packageId:String?
+    var endDate:String?
+    var startDate:String?
+    var isActive:Bool?
+    var sessions:Int?
+    var punishmentTimeStamp:Int?
+    var punishment : Bool?
+    
+    
     @objc
     func checkAction(sender : UITapGestureRecognizer) {
         let viewController: ViewController = ViewController()
@@ -46,15 +60,15 @@ class MyClassesViewController: UIViewController {
         // At this point perform any customizations, like adding a slider, for example.
         // Present the bottom sheet
         present(bottomSheet, animated: true, completion: nil)
-       
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "My Classes"
-      
+        
         //inits of database vars
         
-        
+        //self.navigationController?.navigationBar.backgroundColor = .black
         userClassesRef = Database.database().reference().child("Users").child(authUid).child("userClasses")
         
         classesRef = Database.database().reference().child("Classes")
@@ -65,7 +79,7 @@ class MyClassesViewController: UIViewController {
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         self.myclassView.addGestureRecognizer(gesture)
-
+        
         
         
         myClassesTableView.dataSource = self
@@ -73,51 +87,38 @@ class MyClassesViewController: UIViewController {
         
         
         ref = Database.database().reference()
-       
-            ref.child("Users").child(authUid).child("userClasses").observe(.value) { snapshot in
-                for child in snapshot.children {
-                    let ns = child as! DataSnapshot
-                    let dict = ns.value as! String
-                    self.userJoinedClassesList.append(dict)
-                print(self.userJoinedClassesList)
-              }
-                self.myClassesTableView.reloadData()
-            }
         
-        
-        
-//        userRef.observeSingleEvent(of: .value) { (snapshot) in
-//            if snapshot.hasChild("userPackages"){
-//                self.readUserpkgData()
-//            }
-//        }
-       
-        getClassesFromIds()
-        //readUsersJoinedData()
-        
-        
-    }
-    
-    func readUsersJoinedData()  {
         ref.child("Users").child(authUid).child("userClasses").observe(.value) { snapshot in
             for child in snapshot.children {
                 let ns = child as! DataSnapshot
                 let dict = ns.value as! String
                 self.userJoinedClassesList.append(dict)
-            print(self.userJoinedClassesList)
-          }
-            self.myClassesTableView.reloadData()
+                print(self.userJoinedClassesList)
+                
+                
+            }
+            
+            self.readClassesData(classId: self.userJoinedClassesList)
+            
         }
-    
+        
+        
+        readUserpkgData()
+        
+        
+        
     }
     
+
+    
     func getClassesFromIds(){
-        classesRef.observe(.childChanged) { (snapshot) in
+        classesRef.observe(.value) { (snapshot) in
             for ds in self.userJoinedClassesList {
                 if(self.userJoinedClassesList.isEmpty){
                     print("not joined")
                 }else{
-                    self.readClassesData(classId: ds)
+                    print("value of \(ds)")
+                    self.readClassesData(classId: [ds])
                     
                 }
             }
@@ -129,30 +130,29 @@ class MyClassesViewController: UIViewController {
     
     func readUserpkgData() {
         
-       //MARK:- Get Firebase Data
-       userPkgRef.observe(DataEventType.value,with: {
+        //MARK:- Get Firebase Data
+        self.userPkgRef.observeSingleEvent(of:.value,with: {
             (snapshot) in
-        if snapshot.childrenCount > 0 {
-                self.packageDetailsList.removeAll()
-                for classesSch in snapshot.children.allObjects as![DataSnapshot] {
-                    let userPackageDetailsObject = classesSch.value as? [String:AnyObject]
-                    let packageId = userPackageDetailsObject?["packageId"]
-                    let endDate = userPackageDetailsObject?["endDate"]
-                    let startDate = userPackageDetailsObject?["startDate"]
-                    let isActive = userPackageDetailsObject?["isActive"]
-                    let sessions = userPackageDetailsObject?["sessions"]
-                   
-                    let lister = UserPackageModel(endDate: endDate as! String, isActive: isActive as! Bool, packageId: packageId as! String, sessions:sessions as! Int, startDate: startDate as! String)
-                    
-                    self.packageDetailsList.append(lister)
-                }
-                
-            }
+            
+            let value = snapshot.value as? NSDictionary
+            
+            self.packageId = value?["packageId"] as? String  ?? ""
+            self.endDate = value?["endDate"] as? String ?? ""
+            self.startDate = value?["startDate"] as? String ?? ""
+            self.isActive = value?["active"] as? Bool ?? true
+            self.sessions = value?["sessions"] as? Int ?? 0
+            self.punishment = value?["punishment"] as? Bool ?? false
+            self.punishmentTimeStamp = value?["punishmentTimeStamp"] as? Int ?? 0
+            //let  = userPackageDetailsObject?["sessions"]
+            print (" inside 8 less \(String(describing: self.packageId))")
+         
+            
         })
     }
-        
-    func readClassesData(classId:String){
+    
+    func readClassesData(classId:[String]){
         //MARK:- Get Firebase Data
+        print("Got class id \(classId)")
         ref.child("Classes").observe(DataEventType.value,with:{
             (snapshot) in
             if snapshot.childrenCount > 0{
@@ -167,28 +167,54 @@ class MyClassesViewController: UIViewController {
                     let description = classesSchObject?["description"]
                     let name = classesSchObject?["name"]
                     let timings = classesSchObject?["timings"]
+                    let timeStamp = classesSchObject?["timeStamp"]
                     let usersJoined = classesSchObject?["usersJoined"]
-                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,userJoined: usersJoined as! [String]?)
+                    
+                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
+                    
                     print(self.classFulldetList)
-                    self.classFulldetList.append(lister)
+                    
+                    for ids in classId {
+                        if ids == id as! String {
+                            self.classFulldetList.append(lister)
+                            print("my joined classes \(self.classFulldetList.count)")
+                            
+                        }
+                        
+                    }
+                    
                 }
-                
+                self.myClassesTableView.reloadData()
             }
+            
+                
+           
+            
         })
-        
-        
+        self.myClassesTableView.rowHeight = 155
+        self.myClassesTableView.reloadData()
+//        if classFulldetList.isEmpty{
+//
+//            self.view.makeToast("No Classes Found")
+//            self.myClassesTableView.hideActivityIndicator()
+//            self.myClassesTableView.removeFromSuperview()
+//
+//        }else {
+//
+//        }
         
         
         
     }
     
     
-override func viewDidAppear(_ animated: Bool) {
-    self.myClassesTableView.backgroundColor = UIColor(named: "someCyan")
-    self.myClassesTableView.showActivityIndicator()
+    override func viewDidAppear(_ animated: Bool) {
+        //self.myClassesTableView.backgroundColor = .white
+        //self.myClassesTableView.showActivityIndicator()
+       // self.myClassesTableView.rowHeight = 155
+    }
 }
-}
-        
+
 extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
     
     
@@ -198,15 +224,26 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userJoinedClassesList.count
+        return classFulldetList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = myClassesTableView.dequeueReusableCell(withIdentifier: "cell" , for: indexPath) as! MyClassesCellTableViewCell
         
         myClassesTableView.hideActivityIndicator()
-        cell.classNameLbl?.text =  userJoinedClassesList[indexPath.row]
-    
+        let addedClasses : ScheduleClasses
+        addedClasses = classFulldetList[indexPath.row]
+        cell.classNameLbl?.text =  addedClasses.name
+        cell.classDateLbl?.text = addedClasses.date
+        cell.classTimeLbl?.text = addedClasses.timings
+        
+        
+        //setup ui
+        cell.classNameLbl.font = UIFont.appBoldFontWith(size: 22)
+        cell.classDateLbl.font = UIFont.appRegularFontWith(size: 17)
+        cell.classTimeLbl.font = UIFont.appRegularFontWith(size: 17)
+        
+        
         return cell
         
     }
@@ -214,49 +251,161 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
         
         let cell = self.myClassesTableView.dequeueReusableCell(withIdentifier: "cell" , for: indexPath) as! MyClassesCellTableViewCell
         
+        
+        
         self.myClassesTableView.hideActivityIndicator()
-
+        let addedClasses : ScheduleClasses
+        addedClasses = classFulldetList[indexPath.row]
+        
         
         // 1
-            let shareAction = UITableViewRowAction(style: .default, title: "Leave Class" , handler: { (action:UITableViewRowAction, indexPath: IndexPath) -> Void in
+        let shareAction = UITableViewRowAction(style: .default, title: "Leave Class" , handler: { (action:UITableViewRowAction, indexPath: IndexPath) -> Void in
             // 2
-                let shareMenu = UIAlertController(title: "Confirm Leave \(self.userJoinedClassesList[indexPath.row]) ?" , message: "Are You Sure want to Leave the class ? This might lead to punishment if you leave the class just within 8 hours duration", preferredStyle: .alert)
+            let shareMenu = UIAlertController(title: "Confirm Leave \(addedClasses.name) ?" , message: "Are You Sure want to Leave the class ? This might lead to punishment if you leave the class just within 8 hours duration", preferredStyle: .alert)
+            
+            let twitterAction = UIAlertAction(title: "Sure", style: .default, handler: { _ in handleTrue()})
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            func handleTrue(){
+                print("hello")
+                // punishment
+                // if current time is equal to or less than class timings minus 8 hours then apply punishment}
+                // else refund the sessions i.e add plus session back to user
+                // and remove all the details from userClasses, classes -> userJoined
+                // @todo add variable : isActive and onPunishment
+                let gotTimeStamp = addedClasses.timestamp
+                print("got time \(gotTimeStamp)")
+                
+                
+                let timestamp = Int(NSDate().timeIntervalSince1970)
+                //let timeStamp = Date.currentTimeMillis()
+                print("current \(timestamp)")
+                
+                
+                // To get the hours
+                
+                let difference = Int(gotTimeStamp-timestamp)
+                let inHours = difference / 3600
+                print ("date is \(inHours)")
+                
+                
+                // MARK:- Logic for main punishment and set value of array
+                
+                print(addedClasses.usersJoined)
+                
+                var usersInClassList:[String] = addedClasses.usersJoined
+                for users in usersInClassList {
+                    if users == self.authUid {
+                        print("user is present")
+                        usersInClassList.remove(at: usersInClassList.firstIndex(of: self.authUid)!)
+                        print("removed list : \(usersInClassList)")
+                        //push the new lst now
+                        // setval(newlist)/
+                        self.userClassesRef.setValue(usersInClassList) { (error, ref) in
+                            if error == nil {
+                                print("Pushedup")
+                            } else {
+                                print("pushed faied ")
+                            }
+                            
+                        }
+                    }
                     
-                let twitterAction = UIAlertAction(title: "Sure", style: .default, handler: { _ in handleTrue()})
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                }
+                var userClssjoinedIdList:[String] = self.userJoinedClassesList
+                print(userClssjoinedIdList)
+                for classId in userClssjoinedIdList {
+                    if classId == addedClasses.id {
+                        print("id in user list \(userClssjoinedIdList)")
+                    }
+                }
+                //print("removed list : \(usersInClassList)")
+                
+                if (inHours <= 8){
+                    //apply punishment
                     
-                func handleTrue(){
-                    print("hello")
-                    // punishment
-                    // if current time is equal to or less than class timings minus 8 hours then apply punishment}
-                    // else refund the sessions i.e add plus session back to user
-                    // and remove all the details from userClasses, classes -> userJoined
-                    // @todo add variable : isActive and onPunishment
+                    if self.isActive ?? true  {
+                        if self.punishment ?? true {
+                            self.view.makeToast("Already on Punishment")
+                        }else{
+                            
+                            
+                            
+                            
+                            
+                            
+//                            let currentPunishmentTimeStamp = Int(NSDate().timeIntervalSince1970)
+//                            self.userPkgRef.child("punishment").setValue(true)
+//                            self.userPkgRef.child("punishmentTimeStamp") .setValue(currentPunishmentTimeStamp)
+//                            self.view.makeToast("Punishment Applied Classes Disabled")
+                        }
+                    } else {
+                        self.view.makeToast("package is not active ask admins")
+                    }
                     
+                    print ("inside 8 less \(String(describing: self.packageId!))")
                     
-                    
-                    
-                    
-                    
+                }else {
+                    // remove without punishment
+                    if self.isActive ?? true  {
+                        if self.punishment ?? true {
+                            self.view.makeToast("Already on Punishment")
+                        }else{
+                            self.userPkgRef.child("punishment").setValue(false) { (error, ref) in
+                                self.userPkgRef.child("punishmentTimeStamp") .setValue(0)
+                                // @add refund session here and remove the classId from userClasses & remove the uid from class-> usersJoined
+                                // remove Id from userClasses and remove uid from usersJoined from Class Id
+                                self.userPkgRef.child("sessions").setValue(self.sessions! + 1)
+                                //var animals = ["Dog", "Cat", "Mouse", "Dog"]
+                                let userToRemove = self.authUid
+
+                                for object in self.userJoinedClassesList {
+                                    if object == userToRemove {
+                                        print(self.userJoinedClassesList)
+                                            //to remove
+                                        
+                                       // self.userJoinedClassesList.remove(at: self.userJoinedClassesList.firstIndex(of: userToRemove!)!)
+                                        //push same list to firebase
+                                        
+                                    }
+                                }
+                                
+                                
+                                
+                                // view refresh
+                                self.classFulldetList.removeAll()
+                                self.myClassesTableView.beginUpdates()
+                                self.myClassesTableView.reloadData()
+                                
+                                
+                            }
+                            
+                            
+                            
+                        }
+                        
+                    }
+                    print (" outside 8 less \(String(describing: self.packageId!))")
                     
                 }
                 
+                
+                
+                
+                
+            }
+            
             shareMenu.addAction(twitterAction)
             shareMenu.addAction(cancelAction)
-                    
+            
             self.present(shareMenu, animated: true, completion: nil)
-            })
-
-       
-            return [shareAction]
+        })
+        
+        
+        return [shareAction]
     }
     
     
     
     
 }
-
-
-
-
-

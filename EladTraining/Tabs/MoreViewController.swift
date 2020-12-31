@@ -9,6 +9,10 @@ import PMAlertController
 import Firebase
 import Nuke
 import Toast_Swift
+import YPImagePicker
+import AVFoundation
+import AVKit
+
 class MoreViewController: UIViewController {
     //ui vars
     @IBOutlet weak var nameSuperProfile:UILabel!
@@ -18,8 +22,13 @@ class MoreViewController: UIViewController {
     @IBOutlet weak var sessionsSuperProfile:UILabel!
     @IBOutlet weak var dpSuperProfile:UIImageView!
     
+    @IBOutlet weak var uploadNewPhoto: UIButton!
     
 
+    var config = YPImagePickerConfiguration()
+    // [Edit configuration here ...]
+    // Build a picker with your configuration
+    
     //database vars
     var ref : DatabaseReference!
     let userID = Auth.auth().currentUser?.uid
@@ -91,13 +100,64 @@ class MoreViewController: UIViewController {
         }))
         view.addSubview(blurView)
         self.present(alertVC, animated: true, completion: nil)
+       
     }
+    
+    @objc
+    func startPicker(){
+        
+       print("hello")
+        let picker = YPImagePicker(configuration: config)
+        config.isScrollToChangeModesEnabled = true
+        config.onlySquareImagesFromCamera = true
+        config.usesFrontCamera = false
+        config.showsPhotoFilters = true
+        config.showsVideoTrimmer = true
+        config.shouldSaveNewPicturesToAlbum = true
+        config.startOnScreen = YPPickerScreen.photo
+        config.screens = [.library, .photo]
+        config.showsCrop = .none
+        config.targetImageSize = YPImageSize.original
+        config.overlayView = UIView()
+        config.hidesStatusBar = true
+        config.hidesBottomBar = false
+        config.hidesCancelButton = false
+        config.preferredStatusBarStyle = UIStatusBarStyle.default
+        config.library.options = nil
+        config.library.onlySquare = false
+        config.library.isSquareByDefault = true
+        config.library.minWidthForItem = nil
+        config.library.mediaType = YPlibraryMediaType.photo
+        config.library.defaultMultipleSelection = false
+        config.library.maxNumberOfItems = 1
+        config.library.minNumberOfItems = 1
+        config.library.numberOfItemsInRow = 4
+        config.library.spacingBetweenItems = 1.0
+        config.library.skipSelectionsGallery = false
+        config.library.preselectedItems = nil
 
+        picker.didFinishPicking { [unowned picker] items, _ in
+            if let photo = items.singlePhoto {
+                print(photo.fromCamera) // Image source (camera or library)
+                print(photo.image) // Final image selected by the user
+                print(photo.originalImage) // original image selected by the user, unfiltered
+                print(photo.modifiedImage) // Transformed image, can be nil
+                print(photo.exifMeta) // Print exif meta data of original image.
+            }
+            picker.dismiss(animated: true, completion: nil)
+        }
+        
+        present(picker, animated: true, completion: nil)
+       
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        profileTabel.delegate = self
 //        profileTabel.dataSource = self
         self.title = "Profile"
+        uploadNewPhoto.addTarget(self, action: #selector(startPicker), for: .touchUpInside)
         let btnRefresh = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.compose, target: self, action: #selector(editProfile))
         navigationItem.rightBarButtonItem = btnRefresh
         self.navigationItem.largeTitleDisplayMode = .always
@@ -179,4 +239,20 @@ extension MoreViewController:UITableViewDelegate{
     }
 
 }
+extension MoreViewController {
+    /* Gives a resolution for the video by URL */
+    func resolutionForLocalVideo(url: URL) -> CGSize? {
+        guard let track = AVURLAsset(url: url).tracks(withMediaType: AVMediaType.video).first else { return nil }
+        let size = track.naturalSize.applying(track.preferredTransform)
+        return CGSize(width: abs(size.width), height: abs(size.height))
+    }
+}
 
+// YPImagePickerDelegate
+extension MoreViewController: YPImagePickerDelegate {
+    func noPhotos() {}
+
+    func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool {
+        return true// indexPath.row != 2
+    }
+}

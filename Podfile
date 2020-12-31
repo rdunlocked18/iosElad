@@ -15,7 +15,8 @@ target 'EladTraining' do
 	pod 'DateScrollPicker'
 	pod 'DatePicker', '~> 1.3.0'
 	pod 'SwiftDate', '~> 5.0'
-	
+	pod 'YPImagePicker'
+	pod 'iOSDropDown'
 	
 	
   # Pods for EladTraining

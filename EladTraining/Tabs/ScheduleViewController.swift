@@ -27,9 +27,7 @@ class ScheduleViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Schedule"
-        let play = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(todaySet))
-        navigationItem.rightBarButtonItems = [ play]
-        filterButton.addTarget(self, action: #selector(todaySet), for: .touchUpInside)
+    
         scheduleTableMain.delegate = self
         scheduleTableMain.dataSource = self
         //table and Firebase
@@ -48,8 +46,10 @@ class ScheduleViewController: UIViewController  {
                     let description = classesSchObject?["description"]
                     let name = classesSchObject?["name"]
                     let timings = classesSchObject?["timings"]
+                    let timeStamp = classesSchObject?["timestamp"]
                     let usersJoined = classesSchObject?["usersJoined"]
-                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,userJoined: usersJoined as! [String]?)
+                    
+                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String,timings: timings as? String, timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
                     self.classList.append(lister)
                 }
                 self.scheduleTableMain.reloadData()
@@ -69,10 +69,10 @@ class ScheduleViewController: UIViewController  {
             (snapshot) in
             let value = snapshot.value as? NSDictionary
             self.sessionsGet = value?["sessions"] as? Int
-            self.view.makeToast("\(self.sessionsGet!)")
+            self.view.makeToast("\(self.sessionsGet)")
         })
     }
-
+    
     // Scroll to current date
     @objc
     func todaySet(){
@@ -97,7 +97,7 @@ class ScheduleViewController: UIViewController  {
         // Display
         datePicker.show(in: self )
     }
-
+    
     func filterTableWithDate(ofDate:String){
         self.classList.removeAll()
         self.classList.filter {
@@ -106,9 +106,9 @@ class ScheduleViewController: UIViewController  {
         self.scheduleTableMain.beginUpdates()
         self.scheduleTableMain.reloadData()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
-        self.scheduleTableMain.backgroundColor = UIColor(named: "someCyan")
+        self.scheduleTableMain.backgroundColor = .white
         self.scheduleTableMain.showActivityIndicator()
         //self.scheduleTableMain.backgroundColor = UIColor.white
         self.scheduleTableMain.rowHeight = 230
@@ -117,7 +117,7 @@ class ScheduleViewController: UIViewController  {
         //MARK:- check date with classes and return tableview only if class is present on that day
         
     }
-
+    
 }
 extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -132,83 +132,88 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
         let actionOne = MDCActionSheetAction(title: "Join Class",
                                              image: .checkmark,
                                              handler: {
-                                                 (_) in
-                                                 //MARK:- start join classs handler
-                                                 var keyForNext:Int!
-                                                 if(classes.usersJoined.isEmpty){
-                                                     keyForNext = 0
-                                                 }
-                                                 else {
-                                                     keyForNext = (classes.usersJoined.count)
-                                                 }
-                                                 print(keyForNext!)
-                                                 self.ref.child("Classes").child(classes.id).child("usersJoined").child("\(keyForNext!)" ).setValue(self.authIDUser) {
-                                                     (error, ref) in
-                                                     if(error == nil){
-                                                         print("success")
-                                                         //MARK:- sent 1
-                                                         //MARK:- Reload Views
-                                                         self.scheduleTableMain.beginUpdates()
-                                                         self.scheduleTableMain.reloadData()
-                                                         //MARK:- Reading data 2
-                                                         var keytoUserClass:Int!
-                                                         var listIdList:[String]?
-                                                         self.ref.child("Users").child(self.authIDUser ?? "").child("userClasses").observe(.value) {
-                                                             snapshot in
-                                                             for child in snapshot.children {
-                                                                 let ns = child as! DataSnapshot
+                                                (_) in
+                                                //MARK:- start join classs handler
+                                                var keyForNext:Int!
+                                                if(classes.usersJoined.isEmpty){
+                                                    keyForNext = 0
+                                                }
+                                                else {
+                                                    keyForNext = (classes.usersJoined.count)
+                                                }
+                                                print(keyForNext!)
+                                                self.ref.child("Classes").child(classes.id).child("usersJoined").child("\(keyForNext!)" ).setValue(self.authIDUser) {
+                                                    (error, ref) in
+                                                    if(error == nil){
+                                                        print("success")
+                                                        //MARK:- sent 1
+                                                        //MARK:- Reload Views
+                                                        self.scheduleTableMain.beginUpdates()
+                                                        self.scheduleTableMain.reloadData()
+                                                        //MARK:- Reading data 2
+                                                        var keytoUserClass:Int!
+                                                        var listIdList:[String]?
+                                                        self.ref.child("Users").child(self.authIDUser ?? "").child("userClasses").observe(.value) {
+                                                            snapshot in
+                                                            for child in snapshot.children {
+                                                                let ns = child as! DataSnapshot
                                                                 let dict = ns.key
-                                                                 listIdList?.append(dict)
-                                                             }
-                                                         }
-                                                         if(listIdList == nil){
-                                                             keytoUserClass  = 0
-                                                         }
-                                                         else {
-                                                             keytoUserClass = listIdList?.count
-                                                         }
-                                                         //MARK:- Sending data 2 Actual
-                                                         self.ref.child("Users").child(self.authIDUser ?? "").child("userClasses").child("\(keytoUserClass!)")
-                                                         .setValue(classes.id){
-                                                             (error,ref) in
-                                                             if error == nil{
-                                                                 //MARK:- Reading data 3
-                                                                 
-                                                                self.ref.child("Users").child(self.authIDUser!).child("userPackages").child("sessions").setValue(self.sessionsGet-1) {
-                                                                     (error, ref) in
-                                                                     if(error == nil){
-                                                                         print("3rd Complete")
-                                                                     }
-                                                                     else{
-                                                                         print("3rd Failed")
-                                                                     }
-                                                                 }
-                                                             }
-                                                             else{
-                                                                 print("Error cannot send data 2")
-                                                             }
-                                                         }
-                                                     }
-                                                     else{
-                                                         //MARK:- d1 Error
-                                                         print("Error cannot send even d1")
-                                                     }
-                                                 }
+                                                                listIdList?.append(dict)
+                                                            }
+                                                        }
+                                                        if(listIdList == nil){
+                                                            keytoUserClass  = 0
+                                                        }
+                                                        else {
+                                                            keytoUserClass = listIdList?.count
+                                                        }
+                                                        //MARK:- Sending data 2 Actual
+                                                        self.ref.child("Users").child(self.authIDUser ?? "").child("userClasses").child("\(keytoUserClass!)")
+                                                            .setValue(classes.id){
+                                                                (error,ref) in
+                                                                if error == nil{
+                                                                    //MARK:- Reading data 3
+                                                                    
+                                                                    self.ref.child("Users").child(self.authIDUser!).child("userPackages").child("sessions").setValue(self.sessionsGet-1) {
+                                                                        (error, ref) in
+                                                                        if(error == nil){
+                                                                            print("3rd Complete")
+                                                                        }
+                                                                        else{
+                                                                            print("3rd Failed")
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else{
+                                                                    print("Error cannot send data 2")
+                                                                }
+                                                            }
+                                                    }
+                                                    else{
+                                                        //MARK:- d1 Error
+                                                        print("Error cannot send even d1")
+                                                    }
+                                                }
                                              })
         let actionTwo = MDCActionSheetAction(title: "Cancel",
                                              image: .remove,handler: {
-                                                 (_) in
-                                                 print(classes.coach)
+                                                (_) in
+                                                print(classes.coach)
                                              })
         let actionOpt = MDCActionSheetAction(title: "You have already Joined the Class",
                                              image: .strokedCheckmark ,handler: {
-                                                 (_) in
-                                                 //print(classes.coach)
+                                                (_) in
+                                                //print(classes.coach)
                                              })
+//        actionSheet.titleFont = UIFont.appBoldFontWith(size: 17)
+//       // actionSheet.titleTextColor = UIColor.white
+//        actionSheet.actionTextColor = UIColor.white
+//        actionSheet.actionTintColor = UIColor(named: "someCyan")
+//        actionSheet.messageTextColor = UIColor(named: "someCyan")
+        actionSheet.titleTextColor = .white
         actionSheet.titleFont = UIFont.appBoldFontWith(size: 17)
-        actionSheet.titleTextColor = UIColor.white
-        actionSheet.actionTextColor = UIColor.white
         actionSheet.actionTintColor = UIColor(named: "someCyan")
+        actionSheet.actionTextColor = UIColor.white
         actionSheet.messageTextColor = UIColor(named: "someCyan")
         actionSheet.messageFont = UIFont.appMediumFontWith(size: 15)
         actionSheet.backgroundColor = UIColor(named: "darkBlue") ?? .white
@@ -224,11 +229,11 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
         }
         present(actionSheet, animated: true, completion: nil)
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return classList.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell" , for: indexPath) as! ScheduleTableViewCell
         let classes : ScheduleClasses
@@ -249,5 +254,5 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
         cell.coachNameGet.text = classes.coach
         return cell
     }
-
+    
 }
