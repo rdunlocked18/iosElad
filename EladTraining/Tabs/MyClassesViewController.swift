@@ -301,14 +301,16 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
                         print("removed list : \(usersInClassList)")
                         //push the new lst now
                         // setval(newlist)/
-                        self.userClassesRef.setValue(usersInClassList) { (error, ref) in
+                        //push value to the classes > ClassesId > usersJoined > ["",""]
+                        self.classesRef.child(addedClasses.id).child("usersJoined").setValue(usersInClassList) { (error, ref) in
                             if error == nil {
                                 print("Pushedup")
                             } else {
-                                print("pushed faied ")
+                                print("push faied ")
                             }
                             
                         }
+                        
                     }
                     
                 }
@@ -317,6 +319,16 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
                 for classId in userClssjoinedIdList {
                     if classId == addedClasses.id {
                         print("id in user list \(userClssjoinedIdList)")
+                        
+                        //push value to the user > authid > userClasses > ["",""]
+                        self.userClassesRef.setValue(userClssjoinedIdList) { (error, ref) in
+                            if error == nil {
+                                print("Pushedup")
+                            } else {
+                                print("push faied ")
+                            }
+                            
+                        }
                     }
                 }
                 //print("removed list : \(usersInClassList)")
