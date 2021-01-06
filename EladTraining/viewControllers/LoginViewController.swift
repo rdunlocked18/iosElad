@@ -47,10 +47,8 @@ class LoginViewController: UIViewController {
             if error == nil{
                 self?.view.makeToast("Logged in Successfully")
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                               let newViewController = storyBoard.instantiateViewController(withIdentifier: "createProfile") as! CreateProfileViewController
+                               let newViewController = storyBoard.instantiateViewController(withIdentifier: "superHome") as! SuperHomeViewController
                 self?.present(newViewController, animated: true, completion: nil)
-                
-                
             }else {
                 print("\(String(describing: error?.localizedDescription))")
                 self?.view.makeToast("Error Logginng In")
@@ -77,7 +75,7 @@ class LoginViewController: UIViewController {
                 print("success user alreaddy logged in")
                 self.view.makeToast("Already Signed in")
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let newViewController = storyBoard.instantiateViewController(withIdentifier: "createProfile") as! CreateProfileViewController
+                let newViewController = storyBoard.instantiateViewController(withIdentifier: "superHome") as! SuperHomeViewController
                       self.present(newViewController, animated: true, completion: nil)
           } else {
             // No User is signed in. Show user the login screen

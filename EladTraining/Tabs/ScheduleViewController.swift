@@ -27,7 +27,7 @@ class ScheduleViewController: UIViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Schedule"
-    
+        filterButton.addTarget(self, action: #selector(todaySet), for: .touchUpInside)
         scheduleTableMain.delegate = self
         scheduleTableMain.dataSource = self
         //table and Firebase
@@ -92,6 +92,7 @@ class ScheduleViewController: UIViewController  {
             }
             else {
                 print("Cancelled")
+               
             }
         }
         // Display
@@ -111,20 +112,22 @@ class ScheduleViewController: UIViewController  {
         self.scheduleTableMain.backgroundColor = .white
         self.scheduleTableMain.showActivityIndicator()
         //self.scheduleTableMain.backgroundColor = UIColor.white
-        self.scheduleTableMain.rowHeight = 230
+        self.scheduleTableMain.rowHeight = 290
     }
-    override func viewWillAppear(_ animated: Bool) {
-        //MARK:- check date with classes and return tableview only if class is present on that day
-        
-    }
+   
     
-}
-extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell" , for: indexPath) as! ScheduleTableViewCell
+    
+    @objc
+    func jooinBtn(_ sender: AnyObject){
+        
+        var position: CGPoint = sender.convert(.zero, to: self.scheduleTableMain)
+        let indexPath = self.scheduleTableMain.indexPathForRow(at: position)
+        
+        let cell: ScheduleTableViewCell = scheduleTableMain.cellForRow(at: indexPath!)! as!
+                ScheduleTableViewCell
+        
         let classes : ScheduleClasses
-        classes = classList[indexPath.row]
+        classes = classList[indexPath?.row ?? 0]
         let actionSheet = MDCActionSheetController(title: "Join \(classes.name) ?",
                                                    message: "1 Session from your package will be consumed")
         let desc = MDCActionSheetAction(title:classes.description,
@@ -205,11 +208,7 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
                                                 (_) in
                                                 //print(classes.coach)
                                              })
-//        actionSheet.titleFont = UIFont.appBoldFontWith(size: 17)
-//       // actionSheet.titleTextColor = UIColor.white
-//        actionSheet.actionTextColor = UIColor.white
-//        actionSheet.actionTintColor = UIColor(named: "someCyan")
-//        actionSheet.messageTextColor = UIColor(named: "someCyan")
+
         actionSheet.titleTextColor = .white
         actionSheet.titleFont = UIFont.appBoldFontWith(size: 17)
         actionSheet.actionTintColor = UIColor(named: "someCyan")
@@ -229,6 +228,16 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
         }
         present(actionSheet, animated: true, completion: nil)
     }
+   
+    
+}
+extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        
+//    }
+   
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return classList.count
@@ -252,6 +261,7 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
         cell.classCapacityGet.text = "\(classes.capacity - classes.usersJoined.count) spots remaining"
         cell.totalMembersGet.text = "\(classes.usersJoined.count) Joined"
         cell.coachNameGet.text = classes.coach
+        cell.joinClassBtn.addTarget(self, action: #selector(ScheduleViewController.jooinBtn(_:)), for: .touchUpInside)
         return cell
     }
     

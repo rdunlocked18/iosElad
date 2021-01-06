@@ -50,7 +50,7 @@ class MyClassesViewController: UIViewController {
     var sessions:Int?
     var punishmentTimeStamp:Int?
     var punishment : Bool?
-    
+    let refreshControl = UIRefreshControl()
     
     @objc
     func checkAction(sender : UITapGestureRecognizer) {
@@ -62,10 +62,23 @@ class MyClassesViewController: UIViewController {
         present(bottomSheet, animated: true, completion: nil)
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //MARK:- check date with classes and return tableview only if class is present on that day
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "My Classes"
         
+        
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         //inits of database vars
         
         //self.navigationController?.navigationBar.backgroundColor = .black
@@ -84,7 +97,7 @@ class MyClassesViewController: UIViewController {
         
         myClassesTableView.dataSource = self
         myClassesTableView.delegate = self
-        
+        myClassesTableView.refreshControl = refreshControl
         
         ref = Database.database().reference()
         
@@ -108,8 +121,14 @@ class MyClassesViewController: UIViewController {
         
         
     }
-    
+    @objc
+    func refresh(sender:AnyObject)
+    {
+        // Updating your data here...
 
+        self.myClassesTableView.reloadData()
+        self.refreshControl.endRefreshing()
+    }
     
     func getClassesFromIds(){
         classesRef.observe(.value) { (snapshot) in
@@ -293,63 +312,21 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
                 
                 print(addedClasses.usersJoined)
                 
-                var usersInClassList:[String] = addedClasses.usersJoined
-                for users in usersInClassList {
-                    if users == self.authUid {
-                        print("user is present")
-                        usersInClassList.remove(at: usersInClassList.firstIndex(of: self.authUid)!)
-                        print("removed list : \(usersInClassList)")
-                        //push the new lst now
-                        // setval(newlist)/
-                        //push value to the classes > ClassesId > usersJoined > ["",""]
-                        self.classesRef.child(addedClasses.id).child("usersJoined").setValue(usersInClassList) { (error, ref) in
-                            if error == nil {
-                                print("Pushedup")
-                            } else {
-                                print("push faied ")
-                            }
-                            
-                        }
-                        
-                    }
-                    
-                }
-                var userClssjoinedIdList:[String] = self.userJoinedClassesList
-                print(userClssjoinedIdList)
-                for classId in userClssjoinedIdList {
-                    if classId == addedClasses.id {
-                        print("id in user list \(userClssjoinedIdList)")
-                        
-                        //push value to the user > authid > userClasses > ["",""]
-                        self.userClassesRef.setValue(userClssjoinedIdList) { (error, ref) in
-                            if error == nil {
-                                print("Pushedup")
-                            } else {
-                                print("push faied ")
-                            }
-                            
-                        }
-                    }
-                }
-                //print("removed list : \(usersInClassList)")
+               
                 
                 if (inHours <= 8){
                     //apply punishment
                     
-                    if self.isActive ?? true  {
-                        if self.punishment ?? true {
+                    if self.isActive!  {
+                        if self.punishment! {
                             self.view.makeToast("Already on Punishment")
                         }else{
+
+                            let currentPunishmentTimeStamp = Int(NSDate().timeIntervalSince1970)
+                            self.userPkgRef.child("punishment").setValue(true)
+                            self.userPkgRef.child("punishmentTimeStamp") .setValue(currentPunishmentTimeStamp)
+                            self.view.makeToast("Punishment Applied Classes Disabled")
                             
-                            
-                            
-                            
-                            
-                            
-//                            let currentPunishmentTimeStamp = Int(NSDate().timeIntervalSince1970)
-//                            self.userPkgRef.child("punishment").setValue(true)
-//                            self.userPkgRef.child("punishmentTimeStamp") .setValue(currentPunishmentTimeStamp)
-//                            self.view.makeToast("Punishment Applied Classes Disabled")
                         }
                     } else {
                         self.view.makeToast("package is not active ask admins")
@@ -359,8 +336,8 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
                     
                 }else {
                     // remove without punishment
-                    if self.isActive ?? true  {
-                        if self.punishment ?? true {
+                    if self.isActive!  {
+                        if self.punishment! {
                             self.view.makeToast("Already on Punishment")
                         }else{
                             self.userPkgRef.child("punishment").setValue(false) { (error, ref) in
@@ -368,19 +345,57 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
                                 // @add refund session here and remove the classId from userClasses & remove the uid from class-> usersJoined
                                 // remove Id from userClasses and remove uid from usersJoined from Class Id
                                 self.userPkgRef.child("sessions").setValue(self.sessions! + 1)
-                                //var animals = ["Dog", "Cat", "Mouse", "Dog"]
-                                let userToRemove = self.authUid
-
-                                for object in self.userJoinedClassesList {
-                                    if object == userToRemove {
-                                        print(self.userJoinedClassesList)
-                                            //to remove
+                                
+                                
+                                var usersInClassList:[String] = addedClasses.usersJoined
+                                for users in usersInClassList {
+                                    if users == self.authUid {
+                                        print("user is present")
+                                        usersInClassList.remove(at: usersInClassList.firstIndex(of: self.authUid)!)
+                                        print("removed list : \(usersInClassList)")
+                                        //push the new lst now
+                                        // setval(newlist)/
+                                        //push value to the classes > ClassesId > usersJoined > ["",""]
+                                        if !usersInClassList.isEmpty{
+                                        self.classesRef.child(addedClasses.id).child("usersJoined").setValue(usersInClassList) { (error, ref) in
+                                            if error == nil {
+                                                print("Pushedup")
+                                            } else {
+                                                print("push faied ")
+                                            }
+                                            
+                                        }
+                                        }else{
+                                            self.classesRef.child(addedClasses.id).child("usersJoined").removeValue()
+                                        }
+                                    
                                         
-                                       // self.userJoinedClassesList.remove(at: self.userJoinedClassesList.firstIndex(of: userToRemove!)!)
-                                        //push same list to firebase
+                                    }
+                                    
+                                }
+                                var userClssjoinedIdList:[String] = self.userJoinedClassesList
+                                print(userClssjoinedIdList)
+                                for classId in userClssjoinedIdList {
+                                    if classId == addedClasses.id {
+                                        userClssjoinedIdList.remove(at: userClssjoinedIdList.firstIndex(of: addedClasses.id)!)
+                                        print("id in user list \(userClssjoinedIdList)")
+                                        //push value to the user > authid > userClasses > ["",""]
+                                        if !userClssjoinedIdList.isEmpty {
+                                            self.userClassesRef.setValue(userClssjoinedIdList) { (error, ref) in
+                                                if error == nil {
+                                                    print("Pushedup")
+                                                } else {
+                                                    print("push faied ")
+                                                }
+                                            }
+                                        }else {
+                                            self.userClassesRef.removeValue()
+                                        }
+                                        
                                         
                                     }
                                 }
+                                //print("removed list : \(usersInClassList)")
                                 
                                 
                                 
@@ -397,7 +412,7 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
                         }
                         
                     }
-                    print (" outside 8 less \(String(describing: self.packageId!))")
+                    print ("outside 8 less \(String(describing: self.packageId!))")
                     
                 }
                 

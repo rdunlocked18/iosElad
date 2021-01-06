@@ -6,6 +6,7 @@ target 'EladTraining' do
   use_frameworks!
 	pod 'Firebase/Auth'
 	pod 'Firebase/Database'
+	pod 'Firebase/Storage'
 	pod 'MaterialComponents'
 	pod "FlagPhoneNumber"
 	pod 'BulletinBoard' , '~> 5.0.0-rc.2'

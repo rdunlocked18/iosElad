@@ -15,7 +15,13 @@ class HomeViewController: UIViewController {
       
 
       
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
 
       override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,10 +107,7 @@ class HomeViewController: UIViewController {
 
         
       }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-      }
+    
     
 
 }
