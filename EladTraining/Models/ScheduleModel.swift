@@ -16,6 +16,7 @@ struct ScheduleClasses {
     var timings:String
     var timestamp:Int
     var usersJoined:[String]
+    
     init(id:String? ,capacity:Int?,coach:String?,date:String?,description:String?,name:String?,timings:String?,timestamp:Int?,userJoined:[String]!) {
         self.id = id ?? ""
         self.capacity = capacity ?? 0

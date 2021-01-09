@@ -8,106 +8,140 @@
 import UIKit
 import MaterialComponents.MaterialCards
 import DateScrollPicker
+import FirebaseDatabase
+import FirebaseAuth
+import Firebase
 
-class HomeViewController: UIViewController {
+class HomeViewController : UIViewController{
+    
+    @IBOutlet weak var homeNewsTableView: UITableView!
+    @IBOutlet weak var tabSwitch: UISegmentedControl!
+    
+    @IBOutlet weak var yourActivityView: UIView!
+    //table
+    var homeNewsList = [NewsModel]()
+    
+    
        
-    @IBOutlet weak var dateScrollPicker: DateScrollPicker!
-      
+   
+    var homeNewsRef:DatabaseReference!
+    var userRef:DatabaseReference!
+    var authUid:String! = Auth.auth().currentUser?.uid
+    var dbQuery:DatabaseQuery!
 
+    var name:String!
       
-    override func viewWillAppear(_ animated: Bool) {
+    
+    override
+    func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNeedsStatusBarAppearanceUpdate()
+       
+        // fetch firebase
+        userRef = Database.database().reference().child("Users").child(authUid)
+        homeNewsRef = Database.database().reference().child("HomeInfo").child("News")
+        dbQuery = homeNewsRef.queryOrdered(byChild: "timeStamp")
+        readNewsData()
+        
+        
+        
     }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-
-      override func viewDidLoad() {
-        super.viewDidLoad()
-        var format = DateScrollPickerFormat()
-
-        /// Number of days
-        format.days = 7
-
-        /// Top label date format
-        format.topDateFormat = "EEE"
-
-        /// Top label font
-        format.topFont = UIFont.systemFont(ofSize: 10, weight: .regular)
-
-        /// Top label text color
-        format.topTextColor = UIColor.black
-
-        /// Top label selected text color
-        format.topTextSelectedColor = UIColor.white
-
-        /// Medium label date format
-        format.mediumDateFormat = "dd"
-
-        /// Medium label font
-        format.mediumFont = UIFont.systemFont(ofSize: 30, weight: .bold)
-
-        /// Medium label text color
-        format.mediumTextColor = UIColor.black
-
-        /// Medium label selected text color
-        format.mediumTextSelectedColor = UIColor.white
-
-        /// Bottom label date format
-        format.bottomDateFormat = "MMM"
-
-        /// Bottom label font
-        format.bottomFont = UIFont.systemFont(ofSize: 10, weight: .regular)
-
-        /// Bottom label text color
-        format.bottomTextColor = UIColor.black
-
-        /// Bottom label selected text color
-        format.bottomTextSelectedColor = UIColor.white
-
-        /// Day radius
-       // format.dayRadius : CGFloat = 5
-
-        /// Day background color
-        format.dayBackgroundColor = UIColor(named: "someCyan") ?? .lightGray
-
-        /// Day background selected color
-        format.dayBackgroundSelectedColor = UIColor.darkGray
-
-        /// Selection animation
-        format.animatedSelection = true
-
-        /// Separator enabled
-        format.separatorEnabled = true
-
-        /// Separator top label date format
-        format.separatorTopDateFormat = "MMM"
-
-        /// Separator top label font
-        format.separatorTopFont = UIFont.systemFont(ofSize: 20, weight: .bold)
-
-        /// Separator top label text color
-        format.separatorTopTextColor = UIColor.black
-
-        /// Separator bottom label date format
-        format.separatorBottomDateFormat = "yyyy"
-
-        /// Separator bottom label font
-        format.separatorBottomFont = UIFont.systemFont(ofSize: 20, weight: .regular)
-
-        /// Separator bottom label text color
-        format.separatorBottomTextColor = UIColor.black
-
-        /// Separator background color
-        format.separatorBackgroundColor = UIColor.lightGray.withAlphaComponent(0.2)
-
-        /// Fade enabled
-        format.fadeEnabled = true
+    
+    func readNewsData(){
+        //MARK:- Get Firebase Data
+        self.homeNewsTableView.showActivityIndicator()
+        dbQuery.observe(.value) { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                self.homeNewsList.removeAll()
+                for news in snapshot.children.allObjects as! [DataSnapshot]{
+                    let newsObject = news.value as? [String:AnyObject]
+                    
+                    //with keys
+                    let title  = newsObject?["title"]
+                    let description = newsObject?["body"]
+                    let imageUrl = newsObject?["imageUrl"]
+                    let timeStamp = newsObject?["timeStamp"]
+                    
+                    let newsModLister = NewsModel(body: description as? String, imageUrl: imageUrl as? String, timeStamp: timeStamp as? Int, title: title as? String)
+                   
+                    print(title ?? "not got")
+                    self.homeNewsList.append(newsModLister)
+                    
+                }
+                self.homeNewsTableView.reloadData()
+            }
+        }
+        
+       
+        
+            
+                
+           
+            
+        
+    
 
         
+        
+        
+    }
+    
+    
+      
+    @IBAction func tabChanged(_ sender: Any) {
+        if tabSwitch.selectedSegmentIndex == 0 {
+            homeNewsTableView.isHidden = false
+            yourActivityView.isHidden = true
+        } else if tabSwitch.selectedSegmentIndex == 1 {
+            homeNewsTableView.isHidden = true
+            yourActivityView.isHidden = false
+        }
+    }
+    func showNews (){
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        yourActivityView.isHidden = true
+        self.homeNewsTableView.dataSource = self
+        self.homeNewsTableView.delegate = self
+        self.homeNewsTableView.rowHeight = 286
+        self.homeNewsTableView.showsVerticalScrollIndicator = false
+        
+        
+        
+
+       
       }
     
     
+    
 
+}
+extension HomeViewController : UITableViewDelegate , UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return homeNewsList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = homeNewsTableView.dequeueReusableCell(withIdentifier: "hcell",for: indexPath) as! HomeTableViewCell
+        let news : NewsModel
+        news = homeNewsList[indexPath.row]
+        homeNewsTableView.hideActivityIndicator()
+        
+        cell.titleGet.textColor = .white
+        cell.descriptionGet.textColor = .white
+        cell.titleGet.font = UIFont.appRegularFontWith(size: 17)
+        cell.descriptionGet.font = UIFont.appRegularFontWith(size: 17)
+        
+        //setup actual data
+        cell.descriptionGet.text = news.body
+        cell.titleGet.text = news.title
+        cell.fullImage.image = UIImage(named: "circleLogo")
+        
+        return cell
+    }
+    
+    
 }

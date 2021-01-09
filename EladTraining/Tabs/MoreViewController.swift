@@ -96,7 +96,7 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
             let img = value?["imgurl"] as! String
                 
             self.nameSuperProfile.text = name
-            self.phoneSuperProfile.text = phone
+            //self.phoneSuperProfile.text = phone
             self.emailSuperProfile.text = email
                         
             
@@ -156,11 +156,11 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
         //font configs
         
         self.nameSuperProfile.font = UIFont.appBoldFontWith(size: 25)
-        self.phoneSuperProfile.font = UIFont.appRegularFontWith(size: 16)
+//        self.phoneSuperProfile.font = UIFont.appRegularFontWith(size: 16)
         self.emailSuperProfile.font = UIFont.appRegularFontWith(size: 16)
         
         self.nameSuperProfile.textColor = .black
-        self.phoneSuperProfile.textColor = .black
+        //self.phoneSuperProfile.textColor = .black
         self.emailSuperProfile.textColor = .black
     }
 

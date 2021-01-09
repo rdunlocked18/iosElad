@@ -92,7 +92,7 @@ class ScheduleViewController: UIViewController  {
             }
             else {
                 print("Cancelled")
-               
+            
             }
         }
         // Display

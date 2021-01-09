@@ -19,7 +19,11 @@
 		BF355871257E90EA00EA1CCE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */; };
 		BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35587B257E93F400EA1CCE /* LoginViewController.swift */; };
 		BF355881257E986F00EA1CCE /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF355880257E986F00EA1CCE /* GradientView.swift */; };
+		BF4286FC25A81BA700BDAC68 /* NewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4286FB25A81BA700BDAC68 /* NewsModel.swift */; };
+		BF4286FF25A836D000BDAC68 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4286FE25A836D000BDAC68 /* HomeTableViewCell.swift */; };
 		BF4BA6542591BC41007DD2BE /* FontChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF4BA6532591BC41007DD2BE /* FontChanger.swift */; };
+		BF50001425A5DDA0005E6B6F /* default_cover.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF50001225A5DDA0005E6B6F /* default_cover.jpg */; };
+		BF50001525A5DDA0005E6B6F /* def_c.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF50001325A5DDA0005E6B6F /* def_c.jpg */; };
 		BF52987E2584CD4300D41B1F /* SuperHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */; };
 		BF5298832584D1AF00D41B1F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5298822584D1AF00D41B1F /* HomeViewController.swift */; };
 		BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5298852584D1C100D41B1F /* ScheduleViewController.swift */; };
@@ -63,7 +67,11 @@
 		BF355872257E90EA00EA1CCE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF35587B257E93F400EA1CCE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BF355880257E986F00EA1CCE /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		BF4286FB25A81BA700BDAC68 /* NewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsModel.swift; sourceTree = "<group>"; };
+		BF4286FE25A836D000BDAC68 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		BF4BA6532591BC41007DD2BE /* FontChanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontChanger.swift; sourceTree = "<group>"; };
+		BF50001225A5DDA0005E6B6F /* default_cover.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_cover.jpg; sourceTree = "<group>"; };
+		BF50001325A5DDA0005E6B6F /* def_c.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = def_c.jpg; sourceTree = "<group>"; };
 		BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperHomeViewController.swift; sourceTree = "<group>"; };
 		BF5298822584D1AF00D41B1F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		BF5298852584D1C100D41B1F /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +139,7 @@
 		BF355863257E90E800EA1CCE /* EladTraining */ = {
 			isa = PBXGroup;
 			children = (
+				BF50001125A5DD87005E6B6F /* res */,
 				BF8187A5258A31E8006482C6 /* viewControllers */,
 				BF8187A0258A319B006482C6 /* Models */,
 				BFCEB05E2588865300D73D39 /* Fonts */,
@@ -145,8 +154,18 @@
 				BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */,
 				BF355872257E90EA00EA1CCE /* Info.plist */,
 				BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */,
+				BF4286FE25A836D000BDAC68 /* HomeTableViewCell.swift */,
 			);
 			path = EladTraining;
+			sourceTree = "<group>";
+		};
+		BF50001125A5DD87005E6B6F /* res */ = {
+			isa = PBXGroup;
+			children = (
+				BF50001325A5DDA0005E6B6F /* def_c.jpg */,
+				BF50001225A5DDA0005E6B6F /* default_cover.jpg */,
+			);
+			path = res;
 			sourceTree = "<group>";
 		};
 		BF5298802584D12800D41B1F /* Tabs */ = {
@@ -167,6 +186,7 @@
 				BF7F5AF2258FB3CB002F68B1 /* DemoFoldingCell.swift */,
 				BF7F5AF5258FB750002F68B1 /* MyClassesModel.swift */,
 				BF59996425934FE900212BEB /* UserModel.swift */,
+				BF4286FB25A81BA700BDAC68 /* NewsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,10 +301,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFCEB066258886E000D73D39 /* Poppins-Black.ttf in Resources */,
+				BF50001525A5DDA0005E6B6F /* def_c.jpg in Resources */,
 				BFCEB065258886E000D73D39 /* Poppins-SemiBold.ttf in Resources */,
 				BFCEB067258886E000D73D39 /* Poppins-Bold.ttf in Resources */,
 				BFCEB069258886E000D73D39 /* Poppins-Regular.ttf in Resources */,
 				BFCEB068258886E000D73D39 /* Poppins-Light.ttf in Resources */,
+				BF50001425A5DDA0005E6B6F /* default_cover.jpg in Resources */,
 				BF355871257E90EA00EA1CCE /* LaunchScreen.storyboard in Resources */,
 				BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */,
 				BF35586E257E90EA00EA1CCE /* Assets.xcassets in Resources */,
@@ -344,7 +366,9 @@
 			files = (
 				BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */,
 				BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */,
+				BF4286FF25A836D000BDAC68 /* HomeTableViewCell.swift in Sources */,
 				BF72DEA7259271EC00D4AFD5 /* DateExt.swift in Sources */,
+				BF4286FC25A81BA700BDAC68 /* NewsModel.swift in Sources */,
 				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
 				BF4BA6542591BC41007DD2BE /* FontChanger.swift in Sources */,
 				BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */,

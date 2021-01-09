@@ -66,12 +66,9 @@ class MyClassesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //MARK:- check date with classes and return tableview only if class is present on that day
-        setNeedsStatusBarAppearanceUpdate()
+       
     }
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
