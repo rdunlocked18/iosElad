@@ -10,7 +10,6 @@ import Firebase
 import FirebaseDatabase
 import Nuke
 import MaterialComponents.MaterialBottomSheet
-import SwiftDate
 import ClockKit
 
 class MyClassesViewController: UIViewController {

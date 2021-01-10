@@ -1,8 +1,6 @@
 PODS:
-  - BulletinBoard (5.0.0)
   - DatePicker (1.3.1):
     - Extended
-  - DateScrollPicker (1.1.0)
   - Extended (1.0.5)
   - Firebase/Auth (7.3.0):
     - Firebase/CoreOnly
@@ -706,18 +704,10 @@ PODS:
   - Nuke (9.2.0)
   - PMAlertController (4.0.1)
   - PromisesObjC (1.2.11)
-  - PryntTrimmerView (4.0.2)
-  - SteviaLayout (4.7.3)
-  - SwiftDate (5.1.0)
   - Toast-Swift (5.0.1)
-  - YPImagePicker (4.4.0):
-    - PryntTrimmerView (~> 4.0.2)
-    - SteviaLayout (~> 4.7.3)
 
 DEPENDENCIES:
-  - BulletinBoard (~> 5.0.0-rc.2)
   - DatePicker (~> 1.3.0)
-  - DateScrollPicker
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
@@ -726,15 +716,11 @@ DEPENDENCIES:
   - MaterialComponents
   - Nuke (~> 9.0)
   - PMAlertController
-  - SwiftDate (~> 5.0)
   - Toast-Swift (~> 5.0.1)
-  - YPImagePicker
 
 SPEC REPOS:
   trunk:
-    - BulletinBoard
     - DatePicker
-    - DateScrollPicker
     - Extended
     - Firebase
     - FirebaseAuth
@@ -757,16 +743,10 @@ SPEC REPOS:
     - Nuke
     - PMAlertController
     - PromisesObjC
-    - PryntTrimmerView
-    - SteviaLayout
-    - SwiftDate
     - Toast-Swift
-    - YPImagePicker
 
 SPEC CHECKSUMS:
-  BulletinBoard: dba77053c2a7b64953f63073f7534165af2edd21
   DatePicker: 05ddbd2b57d00ce6f44c1f0611ced32f948d33a6
-  DateScrollPicker: 95cbb220b28a5dd95c97018dd278c074842c7e21
   Extended: c463225e0c29b2823847866c1b106827772ac678
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
@@ -789,12 +769,8 @@ SPEC CHECKSUMS:
   Nuke: 1394e48b0940e01dd20f52ac56b121ab154e370d
   PMAlertController: ab5fcf4d085b7878c9451466d701449c4bf6efb8
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
-  PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
-  SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
-  SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
-  YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: d3424269c2375dd0f7ce139057dfb14ecd465603
+PODFILE CHECKSUM: 925886bfbb7a53d2374d9fec14f82e6ec91ec618
 
 COCOAPODS: 1.10.0

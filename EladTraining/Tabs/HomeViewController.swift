@@ -7,23 +7,21 @@
 
 import UIKit
 import MaterialComponents.MaterialCards
-import DateScrollPicker
 import FirebaseDatabase
 import FirebaseAuth
 import Firebase
+import Nuke
 
 class HomeViewController : UIViewController{
     
+    @IBOutlet weak var homeWelcome: UILabel!
     @IBOutlet weak var homeNewsTableView: UITableView!
     @IBOutlet weak var tabSwitch: UISegmentedControl!
+    @IBOutlet weak var homeDp: UIImageView!
     
     @IBOutlet weak var yourActivityView: UIView!
     //table
     var homeNewsList = [NewsModel]()
-    
-    
-       
-   
     var homeNewsRef:DatabaseReference!
     var userRef:DatabaseReference!
     var authUid:String! = Auth.auth().currentUser?.uid
@@ -35,15 +33,12 @@ class HomeViewController : UIViewController{
     override
     func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
         // fetch firebase
         userRef = Database.database().reference().child("Users").child(authUid)
         homeNewsRef = Database.database().reference().child("HomeInfo").child("News")
         dbQuery = homeNewsRef.queryOrdered(byChild: "timeStamp")
         readNewsData()
-        
-        
-        
+        readUserData()
     }
     
     func readNewsData(){
@@ -70,21 +65,30 @@ class HomeViewController : UIViewController{
                 self.homeNewsTableView.reloadData()
             }
         }
-        
-       
-        
-            
-                
-           
-            
-        
     
-
-        
-        
-        
     }
-    
+    func readUserData(){
+        self.userRef.child("userDetails").observeSingleEvent(of: .value) { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let name = value?["fullName"] as? String ?? ""
+            let phone  = value?["phone"] as? String ?? ""
+            let email = value?["email"] as? String ?? ""
+            let age = value?["age"] as? String ?? ""
+            let img = value?["imgurl"] as? String ?? ""
+            
+            
+            self.homeWelcome.text = "Welcome \(name) 😀"
+            
+            if img == "" || img == nil  || img == "null"{
+
+            }else{
+                Nuke.loadImage(with: ImageRequest(url: URL(string: img)!, processors: [
+                    ImageProcessors.Circle()
+                
+                ]), into: self.homeDp)
+            }
+        }
+    }
     
       
     @IBAction func tabChanged(_ sender: Any) {
@@ -138,8 +142,10 @@ extension HomeViewController : UITableViewDelegate , UITableViewDataSource{
         //setup actual data
         cell.descriptionGet.text = news.body
         cell.titleGet.text = news.title
-        cell.fullImage.image = UIImage(named: "circleLogo")
-        
+       // cell.fullImage.image = UIImage(named: "circleLogo")
+        if !(news.imageUrl == "" || news.imageUrl == "null" || news.imageUrl == " "){
+            Nuke.loadImage(with: ImageRequest(url: URL(string: news.imageUrl)!) ,into: cell.fullImage)
+        }
         return cell
     }
     

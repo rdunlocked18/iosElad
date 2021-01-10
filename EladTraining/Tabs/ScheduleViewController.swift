@@ -6,55 +6,70 @@
 //
 import UIKit
 import Firebase
-import BLTNBoard
 import MaterialComponents.MaterialActionSheet
-import DateScrollPicker
 import DatePicker
 import Toast_Swift
 class ScheduleViewController: UIViewController  {
     @IBOutlet weak var filterButton: UIButton!
     //start filter
+    @IBOutlet weak var filterDatePicker: UIDatePicker!
     public var className:String!
-    var bulletinManager: BLTNItemManager?
     var authIDUser = Auth.auth().currentUser?.uid
     var sessionsGet:Int!
+    
     //end filters
     //table view
+    var date = Date()
+    @IBOutlet weak var noDataTitle: UILabel?
+    @IBOutlet weak var noDataMessage: UILabel?
     @IBOutlet weak var scheduleTableMain:UITableView!
     var classList = [ScheduleClasses]()
+    var filteredClassList = [ScheduleClasses]()
     var ref:DatabaseReference!
+    var classesRef : DatabaseReference!
+    @IBOutlet weak var noDataView: UIView!
     var userClassesNameList : [String] = []
+    
+    var fullTodayDate:String?
+    
+    
+    
+    @IBAction func dateChanged(_ sender: Any) {
+        
+        let day = filterDatePicker.date.day()
+        let month = filterDatePicker.date.month()
+        let year = filterDatePicker.date.year()
+        let forDate = "\(String(describing: day))/\(String(describing: month))/\(String(describing: year))"
+        self.view.makeToast("\(forDate)")
+        
+        readClassDateData(dateData: forDate)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Schedule"
-        filterButton.addTarget(self, action: #selector(todaySet), for: .touchUpInside)
+        
+        classesRef = Database.database().reference().child("Classes")
+        
+        //font for no data
+        noDataTitle?.font = UIFont.appBoldFontWith(size: 20)
+        noDataMessage?.font = UIFont.appLightFontWith(size: 15)
+        
+        let daye = date.day()
+        let monthe = date.month()
+        let yeare = date.year()
+        fullTodayDate = "\(daye)/\(monthe)/\(yeare))"
+        print("\(daye)/\(monthe)/\(yeare)")
+        
+        readClassDateData(dateData: fullTodayDate ?? "")
+        
+        
+       // filterButton.addTarget(self, action: #selector(todaySet), for: .touchUpInside)
         scheduleTableMain.delegate = self
         scheduleTableMain.dataSource = self
         //table and Firebase
-        ref = Database.database().reference();
-        ref.child("Classes").observe(DataEventType.value,with:{
-            (snapshot) in
-            if snapshot.childrenCount > 0{
-                self.classList.removeAll()
-                for classesSch in snapshot.children.allObjects as![DataSnapshot]{
-                    let classesSchObject = classesSch.value as? [String:AnyObject]
-                    //MARK:- Get Firebase Data
-                    let id = classesSchObject?["id"]
-                    let capacity = classesSchObject?["capacity"]
-                    let coach = classesSchObject?["coach"]
-                    let date = classesSchObject?["date"]
-                    let description = classesSchObject?["description"]
-                    let name = classesSchObject?["name"]
-                    let timings = classesSchObject?["timings"]
-                    let timeStamp = classesSchObject?["timestamp"]
-                    let usersJoined = classesSchObject?["usersJoined"]
-                    
-                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String,timings: timings as? String, timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
-                    self.classList.append(lister)
-                }
-                self.scheduleTableMain.reloadData()
-            }
-        })
+        ref = Database.database().reference()
+        
         self.ref.child("Users").child(self.authIDUser ?? "").child("userClasses").observe(.value) {
             snapshot in
             for child in snapshot.children {
@@ -69,7 +84,51 @@ class ScheduleViewController: UIViewController  {
             (snapshot) in
             let value = snapshot.value as? NSDictionary
             self.sessionsGet = value?["sessions"] as? Int
-            self.view.makeToast("\(self.sessionsGet)")
+            //self.view.makeToast("\(self.sessionsGet)")
+        })
+    }
+    func readClassDateData(dateData:String){
+        self.classesRef.observe(DataEventType.value,with:{
+            (snapshot) in
+            if snapshot.childrenCount > 0{
+                
+                for classesSch in snapshot.children.allObjects as![DataSnapshot]{
+                    let classesSchObject = classesSch.value as? [String:AnyObject]
+                    //MARK:- Get Firebase Data
+                    let id = classesSchObject?["id"]
+                    let capacity = classesSchObject?["capacity"]
+                    let coach = classesSchObject?["coach"]
+                    let date = classesSchObject?["date"]
+                    let description = classesSchObject?["description"]
+                    let name = classesSchObject?["name"]
+                    let timings = classesSchObject?["timings"]
+                    let timeStamp = classesSchObject?["timestamp"]
+                    let usersJoined = classesSchObject?["usersJoined"]
+                    
+                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String,timings: timings as? String, timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
+                    
+                    print("\(lister.date) + \(dateData)")
+//                    if lister.date == dateData {
+//                        self.classList.removeAll()
+                        self.classList.append(lister)
+//                        self.noDataView.isHidden = true
+//                        self.scheduleTableMain.hideActivityIndicator()
+//                        self.scheduleTableMain.isHidden = false
+//                        self.scheduleTableMain.beginUpdates()
+//                        self.scheduleTableMain.reloadData()
+                        
+//                    }
+//                    else {
+//                        self.scheduleTableMain.hideActivityIndicator()
+//                        //self.scheduleTableMain.removeFromSuperview()
+//                        self.noDataView.isHidden = false
+//
+//                    }
+                   
+                    
+                }
+                self.scheduleTableMain.reloadData()
+            }
         })
     }
     
@@ -86,7 +145,7 @@ class ScheduleViewController: UIViewController  {
         datePicker.setup(beginWith: today, min: minDate, max: maxDate) {
             (selected, date) in
             if selected, let selectedDate = date {
-                var ofd:String = "\(selectedDate.day())/\(selectedDate.month())/\(selectedDate.year())"
+                let ofd:String = "\(selectedDate.day())/\(selectedDate.month())/\(selectedDate.year())"
                 print(ofd)
                 //self.filterTableWithDate(ofDate: ofd)
             }
@@ -100,12 +159,7 @@ class ScheduleViewController: UIViewController  {
     }
     
     func filterTableWithDate(ofDate:String){
-        self.classList.removeAll()
-        self.classList.filter {
-            $0.date == ofDate
-        }
-        self.scheduleTableMain.beginUpdates()
-        self.scheduleTableMain.reloadData()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -125,9 +179,10 @@ class ScheduleViewController: UIViewController  {
         
         let cell: ScheduleTableViewCell = scheduleTableMain.cellForRow(at: indexPath!)! as!
                 ScheduleTableViewCell
-        
+        self.filteredClassList = self.classList.filter{$0.date == fullTodayDate}
         let classes : ScheduleClasses
-        classes = classList[indexPath?.row ?? 0]
+    
+        classes = filteredClassList[indexPath?.row ?? 0]
         let actionSheet = MDCActionSheetController(title: "Join \(classes.name) ?",
                                                    message: "1 Session from your package will be consumed")
         let desc = MDCActionSheetAction(title:classes.description,
@@ -247,6 +302,7 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
         let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell" , for: indexPath) as! ScheduleTableViewCell
         let classes : ScheduleClasses
         classes = classList[indexPath.row]
+        
         scheduleTableMain.hideActivityIndicator()
         //MARK:- Setup Fonts
         cell.classNameGet.textColor = .white
@@ -262,6 +318,9 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
         cell.totalMembersGet.text = "\(classes.usersJoined.count) Joined"
         cell.coachNameGet.text = classes.coach
         cell.joinClassBtn.addTarget(self, action: #selector(ScheduleViewController.jooinBtn(_:)), for: .touchUpInside)
+        
+        
+        
         return cell
     }
     

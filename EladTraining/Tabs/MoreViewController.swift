@@ -9,7 +9,6 @@ import PMAlertController
 import Firebase
 import Nuke
 import Toast_Swift
-import YPImagePicker
 import AVFoundation
 import AVKit
 import FirebaseStorage
@@ -181,10 +180,4 @@ extension MoreViewController {
 }
 
 // YPImagePickerDelegate
-extension MoreViewController: YPImagePickerDelegate {
-    func noPhotos() {}
 
-    func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool {
-        return true// indexPath.row != 2
-    }
-}
