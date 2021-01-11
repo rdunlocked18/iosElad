@@ -16,33 +16,52 @@ class ScheduleViewController: UIViewController  {
     public var className:String!
     var authIDUser = Auth.auth().currentUser?.uid
     var sessionsGet:Int!
-    
     //end filters
     //table view
     var date = Date()
     @IBOutlet weak var noDataTitle: UILabel?
     @IBOutlet weak var noDataMessage: UILabel?
     @IBOutlet weak var scheduleTableMain:UITableView!
-    var classList = [ScheduleClasses]()
-    var filteredClassList = [ScheduleClasses]()
-    var ref:DatabaseReference!
+        var ref:DatabaseReference!
     var classesRef : DatabaseReference!
     @IBOutlet weak var noDataView: UIView!
+    
     var userClassesNameList : [String] = []
     
     var fullTodayDate:String?
+    
+    //filter
+    var classList = [ScheduleClasses]()
+    var filteredClasses = [ScheduleClasses]()
+    var isFiltering = false
     
     
     
     @IBAction func dateChanged(_ sender: Any) {
         
-        let day = filterDatePicker.date.day()
-        let month = filterDatePicker.date.month()
-        let year = filterDatePicker.date.year()
-        let forDate = "\(String(describing: day))/\(String(describing: month))/\(String(describing: year))"
+        
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "DD/MM/YYYY"
+        let forDate = dateFormatterGet.string(from: filterDatePicker.date)
         self.view.makeToast("\(forDate)")
         
-        readClassDateData(dateData: forDate)
+        
+        
+        //readClassDateData(dateData: forDate)
+        print(classList.filter{$0.date == forDate})
+        isFiltering = true
+        filteredClasses = classList.filter{$0.date == forDate}
+        print(filteredClasses)
+        scheduleTableMain.reloadData()
+        if filteredClasses.isEmpty {
+            self.scheduleTableMain.hideActivityIndicator()
+                                 //self.scheduleTableMain.removeFromSuperview()
+            self.noDataView.isHidden = false
+        }else {
+            self.scheduleTableMain.showActivityIndicator()
+                                 //self.scheduleTableMain.removeFromSuperview()
+            self.noDataView.isHidden = true
+        }
     }
     
     override func viewDidLoad() {
@@ -58,15 +77,19 @@ class ScheduleViewController: UIViewController  {
         let daye = date.day()
         let monthe = date.month()
         let yeare = date.year()
-        fullTodayDate = "\(daye)/\(monthe)/\(yeare))"
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "dd/mm/yy"
+        
+        fullTodayDate =  dateFormatterGet.string(from: filterDatePicker.date)
         print("\(daye)/\(monthe)/\(yeare)")
         
-        readClassDateData(dateData: fullTodayDate ?? "")
+        readClassesDetails()
         
         
-       // filterButton.addTarget(self, action: #selector(todaySet), for: .touchUpInside)
+       
         scheduleTableMain.delegate = self
         scheduleTableMain.dataSource = self
+        
         //table and Firebase
         ref = Database.database().reference()
         
@@ -87,7 +110,7 @@ class ScheduleViewController: UIViewController  {
             //self.view.makeToast("\(self.sessionsGet)")
         })
     }
-    func readClassDateData(dateData:String){
+    func readClassesDetails(){
         self.classesRef.observe(DataEventType.value,with:{
             (snapshot) in
             if snapshot.childrenCount > 0{
@@ -107,7 +130,7 @@ class ScheduleViewController: UIViewController  {
                     
                     let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String,timings: timings as? String, timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
                     
-                    print("\(lister.date) + \(dateData)")
+                
 //                    if lister.date == dateData {
 //                        self.classList.removeAll()
                         self.classList.append(lister)
@@ -158,9 +181,7 @@ class ScheduleViewController: UIViewController  {
         datePicker.show(in: self )
     }
     
-    func filterTableWithDate(ofDate:String){
-        
-    }
+
     
     override func viewDidAppear(_ animated: Bool) {
         self.scheduleTableMain.backgroundColor = .white
@@ -179,10 +200,9 @@ class ScheduleViewController: UIViewController  {
         
         let cell: ScheduleTableViewCell = scheduleTableMain.cellForRow(at: indexPath!)! as!
                 ScheduleTableViewCell
-        self.filteredClassList = self.classList.filter{$0.date == fullTodayDate}
+        
         let classes : ScheduleClasses
-    
-        classes = filteredClassList[indexPath?.row ?? 0]
+        classes = classList[indexPath?.row ?? 0]
         let actionSheet = MDCActionSheetController(title: "Join \(classes.name) ?",
                                                    message: "1 Session from your package will be consumed")
         let desc = MDCActionSheetAction(title:classes.description,
@@ -295,14 +315,26 @@ extension ScheduleViewController : UITableViewDelegate,UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return classList.count
+        if isFiltering {
+            print(filteredClasses)
+            return filteredClasses.count
+            
+        } else {
+            return classList.count
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell" , for: indexPath) as! ScheduleTableViewCell
         let classes : ScheduleClasses
-        classes = classList[indexPath.row]
-        
+        if isFiltering  {
+            classes = filteredClasses[indexPath.row]
+        }else {
+            classes = classList[indexPath.row]
+            
+        }
+        //self.classList.filter{ $0.date == fullTodayDate }
         scheduleTableMain.hideActivityIndicator()
         //MARK:- Setup Fonts
         cell.classNameGet.textColor = .white

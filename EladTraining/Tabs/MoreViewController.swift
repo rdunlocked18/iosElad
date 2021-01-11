@@ -87,36 +87,36 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
             self.emailGer = value?["email"] as? String ?? ""
             self.ageGet = value?["age"] as? String ?? ""
             self.imageUrl = value?["imgurl"] as? String ?? ""
-            
+
             let name = value?["fullName"] as? String ?? ""
             let phone  = value?["phone"] as? String ?? ""
             let email = value?["email"] as? String ?? ""
             let age = value?["age"] as? String ?? ""
-            let img = value?["imgurl"] as! String
-                
+            let img = value?["imgurl"] as? String ?? ""
+
             self.nameSuperProfile.text = name
             //self.phoneSuperProfile.text = phone
             self.emailSuperProfile.text = email
-                        
-            
+
+
             print(self.nameGet ?? "def")
-            
-            
+
+
             if img == "" || img == nil  || img == "null"{
 
             }else{
                 Nuke.loadImage(with: ImageRequest(url: URL(string: img)!, processors: [
                     ImageProcessors.Circle()
-                
+
                 ]), into: self.dpSuperProfile)
             }
-           
+
         })
         {
             (error) in
             print(error.localizedDescription)
         }
-       
+
     }
     
     
@@ -124,31 +124,11 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
         super.viewDidLoad()
 
         self.title = "Profile"
-      //  uploadNewPhoto.addTarget(self, action: #selector(startPicker), for: .touchUpInside)
+    
         
         
         
-        
-        
-//        let storageRef = Storage.storage().reference().child("userProfileImages").child("\(self.userID!).jepg")
-//        if let uploadData = photo.image.jpegData(compressionQuality: 0.4) {
-//            storageRef.putData(uploadData, metadata: nil) { (meta, error) in
-//                if error == nil {
-//
-//                    storageRef.downloadURL(completion: { (url, error) in
-//
-//                        print(url?.absoluteString ?? "")
-//                        self.ref.child("userDetails").child("imgurl").setValue("\(url!)")
-//                        Nuke.loadImage(with: ImageRequest(url: url!, processors: [
-//                            ImageProcessors.Circle()
-//                        ]), into: self.dpSuperProfile)
-//                                    })
-//
-//
-//                }
-//            }
-//
-//    }
+
         
         
         
@@ -157,7 +137,7 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
         self.nameSuperProfile.font = UIFont.appBoldFontWith(size: 25)
 //        self.phoneSuperProfile.font = UIFont.appRegularFontWith(size: 16)
         self.emailSuperProfile.font = UIFont.appRegularFontWith(size: 16)
-        
+
         self.nameSuperProfile.textColor = .black
         //self.phoneSuperProfile.textColor = .black
         self.emailSuperProfile.textColor = .black
