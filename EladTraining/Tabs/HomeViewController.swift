@@ -71,13 +71,24 @@ class HomeViewController : UIViewController{
         self.userRef.child("userDetails").observeSingleEvent(of: .value) { (snapshot) in
             let value = snapshot.value as? NSDictionary
             let name = value?["fullName"] as? String ?? ""
-            let phone  = value?["phone"] as? String ?? ""
-            let email = value?["email"] as? String ?? ""
-            let age = value?["age"] as? String ?? ""
-            let img = value?["imgurl"] as? String ?? ""
+//            let phone  = value?["phone"] as? String ?? ""
+//            let email = value?["email"] as? String ?? ""
+//            let age = value?["dateOfBirth"] as? String ?? ""
+            let img = value?["imageUrl"] as? String ?? ""
+            let height = value?["height"] as? String ?? ""
+            let weight = value?["weight"] as? String  ?? ""
+        
+            if height == nil || weight == nil || height == "" || weight == "" {
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let newViewController = storyBoard.instantiateViewController(withIdentifier: "createProfile") as! CreateProfileViewController
+                      self.present(newViewController, animated: true, completion: nil)
+            }
             
             
-            self.homeWelcome.text = "Welcome \(name) 😀"
+            self.homeWelcome.font = UIFont.appRegularFontWith(size: 20)
+            self.homeWelcome.text = "Welcome \(name)"
+            
+            
             
             if img == "" || img == nil  || img == "null"{
 

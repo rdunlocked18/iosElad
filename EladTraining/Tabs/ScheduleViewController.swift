@@ -35,6 +35,18 @@ class ScheduleViewController: UIViewController  {
     var filteredClasses = [ScheduleClasses]()
     var isFiltering = false
     
+    let refreshControl = UIRefreshControl()
+    
+    
+    @objc
+    func refresh(sender:AnyObject)
+    {
+        // Updating your data here...
+
+        self.scheduleTableMain.reloadData()
+        self.refreshControl.endRefreshing()
+    }
+    
     
     
     @IBAction func dateChanged(_ sender: Any) {
@@ -68,6 +80,7 @@ class ScheduleViewController: UIViewController  {
         super.viewDidLoad()
         title = "Schedule"
         
+        refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         classesRef = Database.database().reference().child("Classes")
         
         //font for no data
@@ -89,6 +102,7 @@ class ScheduleViewController: UIViewController  {
        
         scheduleTableMain.delegate = self
         scheduleTableMain.dataSource = self
+        scheduleTableMain.refreshControl = refreshControl
         
         //table and Firebase
         ref = Database.database().reference()
@@ -195,14 +209,21 @@ class ScheduleViewController: UIViewController  {
     @objc
     func jooinBtn(_ sender: AnyObject){
         
-        var position: CGPoint = sender.convert(.zero, to: self.scheduleTableMain)
+        let position: CGPoint = sender.convert(.zero, to: self.scheduleTableMain)
         let indexPath = self.scheduleTableMain.indexPathForRow(at: position)
         
-        let cell: ScheduleTableViewCell = scheduleTableMain.cellForRow(at: indexPath!)! as!
-                ScheduleTableViewCell
+        //let cell: ScheduleTableViewCell = scheduleTableMain.cellForRow(at: indexPath!)! as!
+                //ScheduleTableViewCell
         
         let classes : ScheduleClasses
-        classes = classList[indexPath?.row ?? 0]
+        
+        if isFiltering {
+            classes = filteredClasses[indexPath?.row ?? 0]
+        }else {
+            classes = classList[indexPath?.row ?? 0]
+        }
+        
+        
         let actionSheet = MDCActionSheetController(title: "Join \(classes.name) ?",
                                                    message: "1 Session from your package will be consumed")
         let desc = MDCActionSheetAction(title:classes.description,
@@ -256,6 +277,7 @@ class ScheduleViewController: UIViewController  {
                                                                         (error, ref) in
                                                                         if(error == nil){
                                                                             print("3rd Complete")
+                                                                            self.scheduleTableMain.reloadData()
                                                                         }
                                                                         else{
                                                                             print("3rd Failed")
@@ -290,7 +312,7 @@ class ScheduleViewController: UIViewController  {
         actionSheet.actionTextColor = UIColor.white
         actionSheet.messageTextColor = UIColor(named: "someCyan")
         actionSheet.messageFont = UIFont.appMediumFontWith(size: 15)
-        actionSheet.backgroundColor = UIColor(named: "darkBlue") ?? .white
+        actionSheet.backgroundColor = UIColor.black
         //add join or othe button logic
         if(classes.usersJoined.contains(authIDUser!)){
             actionSheet.title = "\(classes.name) is Added To Your Classes"

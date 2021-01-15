@@ -182,7 +182,7 @@ class CreateProfileViewController: UIViewController  {
                 "userRole": "user",
                 "weight" : weightTv.text!,
                 "gender"  : genderTv.text!,
-                "birthday" : dobTv.text!,
+                "dateOfBirth" : dobTv.text!,
                 
                 
             ]) { (error, ref) in
