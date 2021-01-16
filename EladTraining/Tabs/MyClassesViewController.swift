@@ -13,9 +13,7 @@ import MaterialComponents.MaterialBottomSheet
 import ClockKit
 
 class MyClassesViewController: UIViewController {
-    
-    
-    
+
     @IBOutlet weak var myclassView: UIView!
     
     
@@ -53,12 +51,26 @@ class MyClassesViewController: UIViewController {
     
     @objc
     func checkAction(sender : UITapGestureRecognizer) {
-        let viewController: ViewController = ViewController()
-        // Initialize the bottom sheet with the view controller just created
-        let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
-        // At this point perform any customizations, like adding a slider, for example.
-        // Present the bottom sheet
-        present(bottomSheet, animated: true, completion: nil)
+        let actionSheet = MDCActionSheetController(title: "My Classes",
+                                                   message: "This List Shows Upcoming List Of Classes You have Joined")
+        let actionOne = MDCActionSheetAction(title: "To Remove a Class from List Swipe towards Left",
+                                             image: .none,
+                                             handler: { _ in print("Home action")})
+        let actionTwo = MDCActionSheetAction(title: "*Punishment Condition May Apply*",
+                                             image: .none,
+                                             handler: { _ in print("Email action" )})
+        
+        actionSheet.titleFont = UIFont.appBoldFontWith(size: 15)
+        actionSheet.titleTextColor = .white
+        actionSheet.backgroundColor = .black
+        actionSheet.actionTextColor = .white
+        actionSheet.messageFont = UIFont.appRegularFontWith(size: 13)
+        actionSheet.messageTextColor = .white
+        actionSheet.actionFont = UIFont.appRegularFontWith(size: 13)
+        actionSheet.addAction(actionOne)
+        actionSheet.addAction(actionTwo)
+
+        present(actionSheet, animated: true, completion: nil)
         
     }
     

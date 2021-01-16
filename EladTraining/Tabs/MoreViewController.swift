@@ -52,6 +52,12 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
     @IBOutlet weak var img4: UIImageView!
     
     @IBOutlet weak var tabBar: UISegmentedControl!
+    @IBAction func editProfilePressed(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "createProfile") as! CreateProfileViewController
+        newViewController.modalPresentationStyle = .popover
+              self.present(newViewController, animated: true, completion: nil)
+    }
     
     @IBAction func tabChanged(_ sender: Any) {
         if tabBar.selectedSegmentIndex == 0 {

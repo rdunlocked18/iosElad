@@ -907,7 +907,7 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class 1 demo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJH-aH-9J6">
                                                             <rect key="frame" x="18" y="19" width="281" height="42"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="281" id="1wO-cO-Fqh"/>
+                                                                <constraint firstAttribute="width" constant="281" id="VKL-LE-onw"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -916,15 +916,15 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstItem="iFK-lo-MdY" firstAttribute="leading" secondItem="FBV-rU-Nad" secondAttribute="leading" id="3bx-X4-yQR"/>
+                                                        <constraint firstItem="iFK-lo-MdY" firstAttribute="top" secondItem="nJH-aH-9J6" secondAttribute="bottom" constant="15" id="FzP-oY-Otr"/>
+                                                        <constraint firstAttribute="bottom" secondItem="FBV-rU-Nad" secondAttribute="bottom" constant="27.5" id="H2f-P5-lcQ"/>
+                                                        <constraint firstItem="nJH-aH-9J6" firstAttribute="top" secondItem="jVx-Na-QYj" secondAttribute="top" constant="19" id="IaD-Ga-7ry"/>
+                                                        <constraint firstItem="nJH-aH-9J6" firstAttribute="leading" secondItem="iFK-lo-MdY" secondAttribute="leading" id="IcH-rs-s3a"/>
                                                         <constraint firstAttribute="height" constant="92" id="Kgb-Eu-nii"/>
-                                                        <constraint firstItem="iFK-lo-MdY" firstAttribute="top" secondItem="nJH-aH-9J6" secondAttribute="bottom" constant="15" id="Mdm-re-HYg"/>
-                                                        <constraint firstItem="nJH-aH-9J6" firstAttribute="leading" secondItem="jVx-Na-QYj" secondAttribute="leading" constant="18" id="Wtu-9I-LVE"/>
-                                                        <constraint firstItem="FBV-rU-Nad" firstAttribute="top" secondItem="iFK-lo-MdY" secondAttribute="bottom" constant="19.5" id="Xev-jb-Bxx"/>
-                                                        <constraint firstAttribute="bottom" secondItem="FBV-rU-Nad" secondAttribute="bottom" constant="27.5" id="eYD-J5-HDf"/>
+                                                        <constraint firstItem="nJH-aH-9J6" firstAttribute="leading" secondItem="jVx-Na-QYj" secondAttribute="leading" constant="18" id="a00-t6-qSd"/>
                                                         <constraint firstAttribute="width" constant="402" id="ftp-7G-bbj"/>
-                                                        <constraint firstItem="nJH-aH-9J6" firstAttribute="top" secondItem="jVx-Na-QYj" secondAttribute="top" constant="19" id="kFi-AL-6SO"/>
-                                                        <constraint firstItem="iFK-lo-MdY" firstAttribute="leading" secondItem="FBV-rU-Nad" secondAttribute="leading" id="sOJ-R1-gnN"/>
-                                                        <constraint firstItem="nJH-aH-9J6" firstAttribute="leading" secondItem="iFK-lo-MdY" secondAttribute="leading" id="y2U-9g-n5c"/>
+                                                        <constraint firstItem="FBV-rU-Nad" firstAttribute="top" secondItem="iFK-lo-MdY" secondAttribute="bottom" constant="19.5" id="uRX-j8-9SZ"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -1087,6 +1087,9 @@
                                                         <integer key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="editProfilePressed:" destination="eVG-S6-uPd" eventType="touchUpInside" id="oUC-QR-OlP"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
