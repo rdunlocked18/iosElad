@@ -22,7 +22,10 @@ class ScheduleViewController: UIViewController  {
     @IBOutlet weak var noDataTitle: UILabel?
     @IBOutlet weak var noDataMessage: UILabel?
     @IBOutlet weak var scheduleTableMain:UITableView!
-        var ref:DatabaseReference!
+    @IBOutlet weak var noDataImage: UIImageView!
+    
+    
+    var ref:DatabaseReference!
     var classesRef : DatabaseReference!
     @IBOutlet weak var noDataView: UIView!
     
@@ -47,8 +50,6 @@ class ScheduleViewController: UIViewController  {
         self.refreshControl.endRefreshing()
     }
     
-    
-    
     @IBAction func dateChanged(_ sender: Any) {
         
         
@@ -56,8 +57,6 @@ class ScheduleViewController: UIViewController  {
         dateFormatterGet.dateFormat = "DD/MM/YYYY"
         let forDate = dateFormatterGet.string(from: filterDatePicker.date)
         self.view.makeToast("\(forDate)")
-        
-        
         
         //readClassDateData(dateData: forDate)
         print(classList.filter{$0.date == forDate})
@@ -76,15 +75,20 @@ class ScheduleViewController: UIViewController  {
         }
     }
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Schedule"
+        
+        
+        
         
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         classesRef = Database.database().reference().child("Classes")
         
         //font for no data
-        noDataTitle?.font = UIFont.appBoldFontWith(size: 20)
+        noDataTitle?.font = UIFont.appBoldFontWith(size: 17)
         noDataMessage?.font = UIFont.appLightFontWith(size: 15)
         
         let daye = date.day()
@@ -97,7 +101,6 @@ class ScheduleViewController: UIViewController  {
         print("\(daye)/\(monthe)/\(yeare)")
         
         readClassesDetails()
-        
         
        
         scheduleTableMain.delegate = self
@@ -121,9 +124,37 @@ class ScheduleViewController: UIViewController  {
             (snapshot) in
             let value = snapshot.value as? NSDictionary
             self.sessionsGet = value?["sessions"] as? Int
+            let active = value?["active"] as? Bool ?? true
+            let punishment = value?["punishment"] as? Bool ?? false
+            
+            if (!active){
+                
+                self.scheduleTableMain.isHidden = true
+                self.filterDatePicker.isHidden = true
+                self.noDataView.isHidden = false
+                self.noDataImage.image = UIImage(named: "money")
+                self.noDataTitle?.text = "Your Package is Not Active !"
+                self.noDataMessage?.text = "Please ask Admins to Make Package Active or Recharge Package"
+                
+            }else if (punishment){
+                
+                self.scheduleTableMain.isHidden = true
+                self.filterDatePicker.isHidden = true
+                self.noDataView.isHidden = false
+                self.noDataImage.image = UIImage(named: "cross")
+                self.noDataTitle?.text = "You are on Punishment !"
+                self.noDataMessage?.text = "You will not be able to Access Classes \n untill Trainer Retains Punishment ( 48 Hours )"
+                self.noDataTitle?.font = UIFont.appBoldFontWith(size: 19)
+                self.noDataMessage?.font = UIFont.appRegularFontWith(size: 14)
+                self.noDataMessage?.textColor = .red
+                self.noDataTitle?.textColor = .red
+            }
             //self.view.makeToast("\(self.sessionsGet)")
         })
     }
+    
+    
+    
     func readClassesDetails(){
         self.classesRef.observe(DataEventType.value,with:{
             (snapshot) in
@@ -164,9 +195,34 @@ class ScheduleViewController: UIViewController  {
                    
                     
                 }
+                print(self.classList)
+                self.isFiltering = true
+                self.todayFilterAction()
                 self.scheduleTableMain.reloadData()
             }
         })
+        
+    }
+    
+    func todayFilterAction(){
+        let daye = date.day()
+        let monthe = date.month()
+        let yeare = date.year()
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "dd/mm/yy"
+        isFiltering = true
+        filteredClasses = classList.filter{$0.date == fullTodayDate}
+        print(filteredClasses)
+        scheduleTableMain.reloadData()
+        if filteredClasses.isEmpty {
+            self.scheduleTableMain.hideActivityIndicator()
+                                 //self.scheduleTableMain.removeFromSuperview()
+            self.noDataView.isHidden = false
+        }else {
+            self.scheduleTableMain.showActivityIndicator()
+                                 //self.scheduleTableMain.removeFromSuperview()
+            self.noDataView.isHidden = true
+        }
     }
     
     // Scroll to current date
@@ -195,16 +251,14 @@ class ScheduleViewController: UIViewController  {
         datePicker.show(in: self )
     }
     
-
-    
     override func viewDidAppear(_ animated: Bool) {
+  
         self.scheduleTableMain.backgroundColor = .white
         self.scheduleTableMain.showActivityIndicator()
         //self.scheduleTableMain.backgroundColor = UIColor.white
         self.scheduleTableMain.rowHeight = 290
     }
    
-    
     
     @objc
     func jooinBtn(_ sender: AnyObject){

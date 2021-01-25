@@ -76,36 +76,28 @@ class CreateProfileViewController: UIViewController  {
     override func viewWillAppear(_ animated: Bool) {
         var phone:String?
         var name:String?
-        var dateOfBirth : String?
-        var height:String?
-        var weight:String?
-    
+        
         ref.child("Users").child(Auth.auth().currentUser?.uid ?? "").observeSingleEvent(of: .value) { (snapshot) in
             let value = snapshot.value as? NSDictionary
             phone = value?["phone"] as? String ??  ""
             name = value?["fullName"] as? String ?? ""
-            dateOfBirth = value?["dob"] as? String ?? ""
-            height = value?["height"] as? String ??  ""
-            weight = value?["weight"] as? String ?? ""
-            
             
         }
-
-        if height == nil || weight == nil {
-
+    
+        if phone == "" || name == "" {
             
-            self.view.makeToast("Please Fill the Remaining Fields")
-
+            self.view.makeToast("Create Profile")
+            
         } else {
             //throw out of the view to Home Screen
-
+           
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let newViewController = storyBoard.instantiateViewController(withIdentifier: "superHome") as! SuperHomeViewController
                   self.present(newViewController, animated: true, completion: nil)
             print("switch")
-
+            
             self.view.makeToast("You Can update you profile in Settings")
-
+            
         }
     }
     
@@ -190,14 +182,14 @@ class CreateProfileViewController: UIViewController  {
                 "userRole": "user",
                 "weight" : weightTv.text!,
                 "gender"  : genderTv.text!,
-                "dob" : dobTv.text!,
+                "dateOfBirth" : dobTv.text!,
                 
                 
             ]) { (error, ref) in
             if error == nil{
                 print("Data Stored User Created")
                 let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let newViewController = storyBoard.instantiateViewController(withIdentifier: "superHome") as! SuperHomeViewController
+                let newViewController = storyBoard.instantiateViewController(withIdentifier: "superHome") as! HomeViewController
                       self.present(newViewController, animated: true, completion: nil)
                 
             }else {

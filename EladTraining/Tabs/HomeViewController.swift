@@ -12,7 +12,7 @@ import FirebaseAuth
 import Firebase
 import Nuke
 
-class HomeViewController : UIViewController{
+class HomeViewController : UIViewController {
     
     @IBOutlet weak var homeWelcome: UILabel!
     @IBOutlet weak var homeNewsTableView: UITableView!
@@ -32,14 +32,43 @@ class HomeViewController : UIViewController{
     
     override
     func viewWillAppear(_ animated: Bool) {
+        
+        
+        
         super.viewWillAppear(animated)
+        
         // fetch firebase
         userRef = Database.database().reference().child("Users").child(authUid)
+        
+        userRef.child("userClasses").observe(.value) { (snapshot) in
+            if snapshot.childrenCount == nil {
+                if let tabBarItems = self.tabBarController?.tabBar.items {
+                     let tabItem = tabBarItems[2]
+                     tabItem.badgeValue = "0"
+                }
+            } else {
+                if let tabBarItems = self.tabBarController?.tabBar.items {
+                     let tabItem = tabBarItems[2]
+                    tabItem.badgeValue = "\(snapshot.childrenCount)"
+                }
+
+            }
+            
+            
+            
+        }
+        
+        
+        
         homeNewsRef = Database.database().reference().child("HomeInfo").child("News")
         dbQuery = homeNewsRef.queryOrdered(byChild: "timeStamp")
         readNewsData()
         readUserData()
+        
     }
+    
+    
+    
     
     func readNewsData(){
         //MARK:- Get Firebase Data

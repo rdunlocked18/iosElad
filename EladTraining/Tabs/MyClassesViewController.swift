@@ -10,10 +10,12 @@ import Firebase
 import FirebaseDatabase
 import Nuke
 import MaterialComponents.MaterialBottomSheet
-import ClockKit
+//import ClockKit
 
 class MyClassesViewController: UIViewController {
-
+    
+    
+    
     @IBOutlet weak var myclassView: UIView!
     
     
@@ -51,26 +53,12 @@ class MyClassesViewController: UIViewController {
     
     @objc
     func checkAction(sender : UITapGestureRecognizer) {
-        let actionSheet = MDCActionSheetController(title: "My Classes",
-                                                   message: "This List Shows Upcoming List Of Classes You have Joined")
-        let actionOne = MDCActionSheetAction(title: "To Remove a Class from List Swipe towards Left",
-                                             image: .none,
-                                             handler: { _ in print("Home action")})
-        let actionTwo = MDCActionSheetAction(title: "*Punishment Condition May Apply*",
-                                             image: .none,
-                                             handler: { _ in print("Email action" )})
-        
-        actionSheet.titleFont = UIFont.appBoldFontWith(size: 15)
-        actionSheet.titleTextColor = .white
-        actionSheet.backgroundColor = .black
-        actionSheet.actionTextColor = .white
-        actionSheet.messageFont = UIFont.appRegularFontWith(size: 13)
-        actionSheet.messageTextColor = .white
-        actionSheet.actionFont = UIFont.appRegularFontWith(size: 13)
-        actionSheet.addAction(actionOne)
-        actionSheet.addAction(actionTwo)
-
-        present(actionSheet, animated: true, completion: nil)
+        let viewController: ViewController = ViewController()
+        // Initialize the bottom sheet with the view controller just created
+        let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
+        // At this point perform any customizations, like adding a slider, for example.
+        // Present the bottom sheet
+        present(bottomSheet, animated: true, completion: nil)
         
     }
     
@@ -122,13 +110,33 @@ class MyClassesViewController: UIViewController {
             self.readClassesData(classId: self.userJoinedClassesList)
             
         }
-        
-        
         readUserpkgData()
         
-        
-        
     }
+     
+    func hitNotification(classId: String, className: String, timeStamp: Int){
+        
+        let center = UNUserNotificationCenter.current()
+        let content = UNMutableNotificationContent()
+        content.title = "Hey ! Reminder for your class "
+        content.body = " your class \("testing") is after 30 mins"
+        content.sound = UNNotificationSound.default
+        content.categoryIdentifier = "yourIdentifier"
+        content.userInfo = ["example": "information"] // You can retrieve this when displaying notification
+
+        // Setup trigger time
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.current
+        let testDate = Date() + 5 // Set this to whatever date you need
+        //let trigger = UNCalendarNotificationTrigger(dateMatching: startDate, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeStamp - 1800), repeats: false)
+        // Create request
+        let uniqueID = UUID().uuidString // Keep a record of this if necessary
+        let request = UNNotificationRequest(identifier: classId, content: content, trigger: trigger)
+        center.add(request) // Add the notification request
+        print("time \(TimeInterval(timeStamp - 1800))")
+    }
+    
     @objc
     func refresh(sender:AnyObject)
     {
@@ -269,7 +277,7 @@ extension MyClassesViewController : UITableViewDelegate,UITableViewDataSource{
         cell.classNameLbl.font = UIFont.appBoldFontWith(size: 22)
         cell.classDateLbl.font = UIFont.appRegularFontWith(size: 17)
         cell.classTimeLbl.font = UIFont.appRegularFontWith(size: 17)
-        
+        hitNotification(classId: addedClasses.id, className: addedClasses.name ,timeStamp: addedClasses.timestamp)
         
         return cell
         

@@ -36,6 +36,9 @@
 		BF7F5AF9258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */; };
 		BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8187A2258A31B9006482C6 /* ScheduleModel.swift */; };
 		BF8187EC258A7DEC006482C6 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */; };
+		BF93E46C25BEA8FA003DAB4F /* ProfileTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */; };
+		BF93E46F25BECCFF003DAB4F /* DateDif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E46E25BECCFF003DAB4F /* DateDif.swift */; };
+		BF93E47225BED5C3003DAB4F /* TstoDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E47125BED5C3003DAB4F /* TstoDate.swift */; };
 		BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */; };
 		BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */; };
 		BFCEB065258886E000D73D39 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFCEB05F258886DF00D73D39 /* Poppins-SemiBold.ttf */; };
@@ -83,6 +86,9 @@
 		BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassesCellTableViewCell.swift; sourceTree = "<group>"; };
 		BF8187A2258A31B9006482C6 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
+		BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableCell.swift; sourceTree = "<group>"; };
+		BF93E46E25BECCFF003DAB4F /* DateDif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDif.swift; sourceTree = "<group>"; };
+		BF93E47125BED5C3003DAB4F /* TstoDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TstoDate.swift; sourceTree = "<group>"; };
 		BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOtpViewController.swift; sourceTree = "<group>"; };
 		BFCEB05F258886DF00D73D39 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 				BF355872257E90EA00EA1CCE /* Info.plist */,
 				BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */,
 				BF4286FE25A836D000BDAC68 /* HomeTableViewCell.swift */,
+				BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */,
 			);
 			path = EladTraining;
 			sourceTree = "<group>";
@@ -225,6 +232,8 @@
 				BFE406AE2591177100654944 /* IndicatorExtension.swift */,
 				BF4BA6532591BC41007DD2BE /* FontChanger.swift */,
 				BF72DEA6259271EC00D4AFD5 /* DateExt.swift */,
+				BF93E46E25BECCFF003DAB4F /* DateDif.swift */,
+				BF93E47125BED5C3003DAB4F /* TstoDate.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -360,6 +369,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF93E46C25BEA8FA003DAB4F /* ProfileTableCell.swift in Sources */,
 				BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */,
 				BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */,
 				BF4286FF25A836D000BDAC68 /* HomeTableViewCell.swift in Sources */,
@@ -377,9 +387,11 @@
 				BF355881257E986F00EA1CCE /* GradientView.swift in Sources */,
 				BF52988C2584D1DF00D41B1F /* MoreViewController.swift in Sources */,
 				BF52987E2584CD4300D41B1F /* SuperHomeViewController.swift in Sources */,
+				BF93E47225BED5C3003DAB4F /* TstoDate.swift in Sources */,
 				BF8187EC258A7DEC006482C6 /* ScheduleTableViewCell.swift in Sources */,
 				BF5298892584D1D100D41B1F /* MyClassesViewController.swift in Sources */,
 				BFE406AF2591177100654944 /* IndicatorExtension.swift in Sources */,
+				BF93E46F25BECCFF003DAB4F /* DateDif.swift in Sources */,
 				BF59996525934FE900212BEB /* UserModel.swift in Sources */,
 				BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */,
 				BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */,
@@ -536,8 +548,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 269WT5GLD9;
+				DEVELOPMENT_TEAM = JNV9QR9QHC;
 				INFOPLIST_FILE = EladTraining/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -556,8 +569,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 269WT5GLD9;
+				DEVELOPMENT_TEAM = JNV9QR9QHC;
 				INFOPLIST_FILE = EladTraining/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
