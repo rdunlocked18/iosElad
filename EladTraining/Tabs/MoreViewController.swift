@@ -20,7 +20,11 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
     @IBOutlet weak var emailSuperProfile:UILabel!
     @IBOutlet weak var dpSuperProfile:UIImageView!
     
+    //functional buttons
     @IBOutlet weak var uploadNewPhoto: UIButton!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var viewProfileButton: UIButton!
     
 
     
@@ -46,20 +50,103 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
     var emailGer:String!
     var ageGet:String!
     var imageUrl:String!
+    var heightGet:String!
+    var weightGet:String!
     
     
     var userRef : DatabaseReference!
     var classesRef : DatabaseReference!
 
     
-    @IBOutlet weak var data1: UILabel!
-    @IBOutlet weak var data2: UILabel!
-    @IBOutlet weak var data3: UILabel!
-    @IBOutlet weak var data4: UILabel!
-    @IBOutlet weak var img1: UIImageView!
-    @IBOutlet weak var img2: UIImageView!
-    @IBOutlet weak var img3: UIImageView!
-    @IBOutlet weak var img4: UIImageView!
+      
+        @objc
+        func editProfile() {
+            let blurView = UIVisualEffectView()
+            blurView.frame = view.frame
+            blurView.effect = UIBlurEffect(style: .systemChromeMaterial)
+            let alertVC = PMAlertController(title: "Edit Profile", description: phoneNumberGet,image: nil, style: .alert)
+            alertVC.addTextField {
+                (nameField) in
+                nameField?.placeholder = "Name"
+                nameField?.text = nameGet
+            }
+            alertVC.addTextField{
+                (emailField) in
+                emailField?.placeholder =  "Email"
+                emailField?.text = emailGer
+            }
+            alertVC.addTextField{
+                (ageField) in
+                ageField?.placeholder =  "DOB"
+                ageField?.text = ageGet
+                
+            }
+            alertVC.addTextField{
+                (weightFeild) in
+                weightFeild?.placeholder =  "Weight(in KG)"
+                weightFeild?.text = weightGet
+                
+            }
+            alertVC.addTextField{
+                (heightField) in
+                heightField?.placeholder =  "Height(in CM)"
+                heightField?.text = heightGet
+                
+            }
+            alertVC.addAction(PMAlertAction(title: "Cancel", style: .cancel, action: {
+                () -> Void in
+                print("Capture action Cancel")
+                for subview in self.view.subviews {
+                    if subview.isKind(of: UIVisualEffectView.self) {
+                        subview.removeFromSuperview()
+                    }
+                }
+            }))
+            alertVC.addAction(PMAlertAction(title: "OK", style: .default, action: {
+                () in
+                print("Capture action OK")
+                
+                self.userRef.child("userDetails").child("fullName").setValue(alertVC.textFields[0].text ?? self.nameGet)
+                self.userRef.child("userDetails").child("email").setValue(alertVC.textFields[1].text ?? self.ageGet)
+                self.userRef.child("userDetails").child("dob").setValue(alertVC.textFields[2].text ?? self.weightGet)
+                self.userRef.child("userDetails").child("weight").setValue(alertVC.textFields[3].text ?? self.heightGet)
+                self.userRef.child("userDetails").child("height").setValue(alertVC.textFields[4].text ?? self.heightGet)
+//                self.userRef.child("userDetails").child("fullname").setValue(alertVC.textFields[0].text! ?? "")
+//                self.userRef.child("userDetails").child("fullname").setValue(alertVC.textFields[0].text! ?? "")
+                
+                
+                
+                for subview in self.view.subviews {
+                    if subview.isKind(of: UIVisualEffectView.self) {
+                        self.readUserDetails()
+                        subview.removeFromSuperview()
+                    }
+                }
+            }))
+            view.addSubview(blurView)
+            self.present(alertVC, animated: true, completion: nil)
+            
+        }
+    
+    
+    
+    
+    @objc
+    func logoutProfile(){
+        do {
+            try Auth.auth().signOut()
+            self.view.makeToast("Logout Success")
+            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "loginVc") as! LoginViewController
+            newViewController.modalPresentationStyle = .fullScreen
+            self.present(newViewController, animated: true, completion: nil)
+            
+           
+        } catch let signOutError as NSError {
+          print ("Error signing out: %@", signOutError)
+        }
+       
+    }
     
     
     func readPackageDetails()  {
@@ -127,11 +214,28 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
     func readUserDetails(){
         self.userRef.child("userDetails").observeSingleEvent(of: .value) { (snapshot) in
             let value = snapshot.value as? NSDictionary
-            let birthday = value?["birthday"] as? String ?? ""
-            let height = value?["height"] as? String ?? ""
-            let weight = value?["weight"] as? String ?? ""
-            let gendet = value?["gender"] as? String ?? ""
+            self.nameGet = value?["fullName"] as? String ?? ""
+            self.phoneNumberGet = value?["phone"] as? String ?? ""
+            self.emailGer = value?["email"] as? String ?? ""
+            self.ageGet = value?["dob"] as? String ?? ""
+            self.imageUrl = value?["imgurl"] as? String ?? ""
+
+            let name = value?["fullName"] as? String ?? ""
+            let phone  = value?["phone"] as? String ?? ""
+            let email = value?["email"] as? String ?? ""
             
+            let img = value?["imageUrl"] as? String ?? ""
+            let weight = value?["weight"] as? String ?? ""
+            let height = value?["height"] as? String ?? ""
+            
+
+            self.nameSuperProfile.text = name
+            //self.phoneSuperProfile.text = phone
+            self.emailSuperProfile.text = email
+            self.weightLbl.text = "Weight = \(weight) KG"
+            self.heightLbl.text = "Height = \(height) CM"
+            self.heightGet = height
+            self.weightGet = weight
             
             
 
@@ -184,7 +288,7 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
         
         
         userRef = Database.database().reference().child("Users").child(userID!)
-        
+        self.readUserDetails()
         
         
         userRef.child("userClasses").observe(.value) { (snapshot) in
@@ -206,7 +310,7 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
             self.nameGet = value?["fullName"] as? String ?? ""
             self.phoneNumberGet = value?["phone"] as? String ?? ""
             self.emailGer = value?["email"] as? String ?? ""
-            self.ageGet = value?["age"] as? String ?? ""
+            self.ageGet = value?["dob"] as? String ?? ""
             self.imageUrl = value?["imgurl"] as? String ?? ""
 
             let name = value?["fullName"] as? String ?? ""
@@ -216,6 +320,7 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
             let img = value?["imageUrl"] as? String ?? ""
             let weight = value?["weight"] as? String ?? ""
             let height = value?["height"] as? String ?? ""
+            
 
             self.nameSuperProfile.text = name
             //self.phoneSuperProfile.text = phone
@@ -241,29 +346,26 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
             print(error.localizedDescription)
         }
 
+        
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         self.title = "Profile"
-    
         
-        
-
-        
-        
-        
-        //font configs
-        
+        self.editButton.addTarget(self, action: #selector(editProfile), for: .touchUpInside)
+        self.logoutButton.addTarget(self, action: #selector(logoutProfile), for: .touchUpInside)
         self.nameSuperProfile.font = UIFont.appBoldFontWith(size: 25)
 //        self.phoneSuperProfile.font = UIFont.appRegularFontWith(size: 16)
         self.emailSuperProfile.font = UIFont.appRegularFontWith(size: 16)
 
         self.nameSuperProfile.textColor = .black
-        //self.phoneSuperProfile.textColor = .black
+       
         self.emailSuperProfile.textColor = .black
+        
     }
 
     // MARK: - didLoad

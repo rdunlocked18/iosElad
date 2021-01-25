@@ -11,6 +11,7 @@ import FirebaseDatabase
 import FirebaseAuth
 import Firebase
 import Nuke
+import PMAlertController
 
 class HomeViewController : UIViewController {
     
@@ -28,7 +29,7 @@ class HomeViewController : UIViewController {
     var dbQuery:DatabaseQuery!
 
     var name:String!
-      
+  
     
     override
     func viewWillAppear(_ animated: Bool) {
