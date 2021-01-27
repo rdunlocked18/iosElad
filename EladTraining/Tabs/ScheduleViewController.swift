@@ -54,8 +54,9 @@ class ScheduleViewController: UIViewController  {
         
         
         let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "DD/MM/YYYY"
+        dateFormatterGet.dateFormat = "dd/MM/yyyy"
         let forDate = dateFormatterGet.string(from: filterDatePicker.date)
+        
         self.view.makeToast("\(forDate)")
         
         //readClassDateData(dateData: forDate)
@@ -209,7 +210,7 @@ class ScheduleViewController: UIViewController  {
         let monthe = date.month()
         let yeare = date.year()
         let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "dd/mm/yy"
+        dateFormatterGet.dateFormat = "DD/MM/YYYY"
         isFiltering = true
         filteredClasses = classList.filter{$0.date == fullTodayDate}
         print(filteredClasses)
@@ -287,6 +288,7 @@ class ScheduleViewController: UIViewController  {
                                              handler: {
                                                 (_) in
                                                 //MARK:- start join classs handler
+                                                
                                                 var keyForNext:Int!
                                                 if(classes.usersJoined.isEmpty){
                                                     keyForNext = 0
@@ -368,7 +370,17 @@ class ScheduleViewController: UIViewController  {
         actionSheet.messageFont = UIFont.appMediumFontWith(size: 15)
         actionSheet.backgroundColor = UIColor.black
         //add join or othe button logic
-        if(classes.usersJoined.contains(authIDUser!)){
+        
+        let timestamp = Int(NSDate().timeIntervalSince1970)
+        //let timeStamp = Date.currentTimeMillis()
+        print("current \(timestamp)")
+        if (classes.timestamp < timestamp ) {
+            actionSheet.title = "\(classes.name) is Over"
+            actionSheet.message = "Cannot Join classes Older than Current Date/Time"
+            //actionSheet.addAction(actionOpt)
+        }
+         
+       else if(classes.usersJoined.contains(authIDUser!)){
             actionSheet.title = "\(classes.name) is Added To Your Classes"
             actionSheet.message = "To Cancel the Class Go to My Classes and Swipe Perticular Class You want to Cancel !"
             actionSheet.addAction(actionOpt)
@@ -379,6 +391,7 @@ class ScheduleViewController: UIViewController  {
         }
         present(actionSheet, animated: true, completion: nil)
     }
+    
    
     
 }

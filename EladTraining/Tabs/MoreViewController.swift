@@ -133,18 +133,41 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
     
     @objc
     func logoutProfile(){
-        do {
-            try Auth.auth().signOut()
-            self.view.makeToast("Logout Success")
-            let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let newViewController = storyBoard.instantiateViewController(withIdentifier: "loginVc") as! LoginViewController
-            newViewController.modalPresentationStyle = .fullScreen
-            self.present(newViewController, animated: true, completion: nil)
-            
-           
-        } catch let signOutError as NSError {
-          print ("Error signing out: %@", signOutError)
-        }
+        let destroyAction = UIAlertAction(title: "Logout",
+                     style: .destructive) { (action) in
+            // Respond to user selection of the action
+            do {
+
+                try
+
+                    Auth.auth().signOut()
+                self.view.makeToast("Logout Success")
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let newViewController = storyBoard.instantiateViewController(withIdentifier: "loginVc") as! LoginViewController
+                newViewController.modalPresentationStyle = .fullScreen
+                self.present(newViewController, animated: true, completion: nil)
+
+
+            } catch let signOutError as NSError {
+              print ("Error signing out: %@", signOutError)
+            }
+           }
+           let cancelAction = UIAlertAction(title: "Cancel",
+                     style: .cancel) { (action) in
+            // Respond to user selection of the action
+            //self.dismiss(animated: true)
+           }
+                
+           let alert = UIAlertController(title: "Confirm Logout ?",
+                                         message: "Are you sure you want to signout ?",
+                       preferredStyle: .actionSheet)
+           alert.addAction(destroyAction)
+           alert.addAction(cancelAction)
+                
+         
+                
+           self.present(alert, animated: true)
+
        
     }
     
@@ -273,7 +296,7 @@ class MoreViewController: UIViewController , UIImagePickerControllerDelegate, UI
                 Nuke.loadImage(with: ImageRequest(url: url!, processors: [
                                          ImageProcessors.Circle()
                                        ]), into: self.dpSuperProfile)
-                self.ref.child("userDetails").child("imgurl").setValue("\(url!)")
+                self.ref.child("userDetails").child("imageUrl").setValue("\(url!)")
              })
          }else{
              print("error \(String(describing: error))")

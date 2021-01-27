@@ -1,4 +1,5 @@
 PODS:
+  - BulletinBoard (5.0.0)
   - DatePicker (1.3.1):
     - Extended
   - Extended (1.0.5)
@@ -707,6 +708,7 @@ PODS:
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
+  - BulletinBoard
   - DatePicker (~> 1.3.0)
   - Firebase/Auth
   - Firebase/Database
@@ -720,6 +722,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - BulletinBoard
     - DatePicker
     - Extended
     - Firebase
@@ -746,6 +749,7 @@ SPEC REPOS:
     - Toast-Swift
 
 SPEC CHECKSUMS:
+  BulletinBoard: dba77053c2a7b64953f63073f7534165af2edd21
   DatePicker: 05ddbd2b57d00ce6f44c1f0611ced32f948d33a6
   Extended: c463225e0c29b2823847866c1b106827772ac678
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
@@ -771,6 +775,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 925886bfbb7a53d2374d9fec14f82e6ec91ec618
+PODFILE CHECKSUM: a4445f1f448539bad2b02c47591653121168803e
 
-COCOAPODS: 1.10.0.beta.1
+COCOAPODS: 1.10.0

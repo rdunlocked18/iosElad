@@ -42,7 +42,7 @@ class HomeViewController : UIViewController {
         userRef = Database.database().reference().child("Users").child(authUid)
         
         userRef.child("userClasses").observe(.value) { (snapshot) in
-            if snapshot.childrenCount == nil {
+            if snapshot.childrenCount == 0 {
                 if let tabBarItems = self.tabBarController?.tabBar.items {
                      let tabItem = tabBarItems[2]
                      tabItem.badgeValue = "0"
@@ -67,7 +67,66 @@ class HomeViewController : UIViewController {
         readUserData()
         
     }
-    
+//    func getClassesFromIds(){
+//        classesRef.observe(.value) { (snapshot) in
+//            for ds in self.userJoinedClassesList {
+//                if(self.userJoinedClassesList.isEmpty){
+//                    print("not joined")
+//                }else{
+//                    print("value of \(ds)")
+//                    self.readClassesData(classId: [ds])
+//
+//                }
+//            }
+//
+//        }
+//
+//    }
+//
+//    func readClassesData(classId:[String]){
+//        //MARK:- Get Firebase Data
+//        print("Got class id \(classId)")
+//        userRef.child("Classes").observe(DataEventType.value,with:{
+//            (snapshot) in
+//            if snapshot.childrenCount > 0{
+//                self.classFulldetList.removeAll()
+//                for classesSch in snapshot.children.allObjects as![DataSnapshot]{
+//                    let classesSchObject = classesSch.value as? [String:AnyObject]
+//
+//                    let id = classesSchObject?["id"]
+//                    let capacity = classesSchObject?["capacity"]
+//                    let coach = classesSchObject?["coach"]
+//                    let date = classesSchObject?["date"]
+//                    let description = classesSchObject?["description"]
+//                    let name = classesSchObject?["name"]
+//                    let timings = classesSchObject?["timings"]
+//                    let timeStamp = classesSchObject?["timeStamp"]
+//                    let usersJoined = classesSchObject?["usersJoined"]
+//
+//                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
+//
+//                    print(self.classFulldetList)
+//
+//                    for ids in classId {
+//                        if ids == id as! String {
+//                            self.classFulldetList.append(lister)
+//                            print("my joined classes \(self.classFulldetList.count)")
+//
+//                        }
+//
+//                    }
+//
+//                }
+//
+//            }
+//
+//
+//
+//
+//        })
+//
+//    }
+//    
     
     
     
@@ -101,9 +160,6 @@ class HomeViewController : UIViewController {
         self.userRef.child("userDetails").observeSingleEvent(of: .value) { (snapshot) in
             let value = snapshot.value as? NSDictionary
             let name = value?["fullName"] as? String ?? ""
-//            let phone  = value?["phone"] as? String ?? ""
-//            let email = value?["email"] as? String ?? ""
-//            let age = value?["dateOfBirth"] as? String ?? ""
             let img = value?["imageUrl"] as? String ?? ""
             let height = value?["height"] as? String ?? ""
             let weight = value?["weight"] as? String  ?? ""
@@ -115,16 +171,21 @@ class HomeViewController : UIViewController {
             }
             
             
-            self.homeWelcome.font = UIFont.appRegularFontWith(size: 20)
-            self.homeWelcome.text = "Welcome \(name)"
+            self.homeWelcome.font = UIFont.appBoldFontWith(size: 20)
+            let nameSplit = name.components(separatedBy: " ")
+            self.homeWelcome.text = "Hello \(nameSplit[0]) !"
             
             
             
-            if img == "" || img == nil  || img == "null"{
+            
+            if img == "" || img == nil  || img == "null" {
 
             }else{
                 Nuke.loadImage(with: ImageRequest(url: URL(string: img)!, processors: [
+                    ImageProcessors.Resize(width : 125),
+                    ImageProcessors.Resize(height: 125),
                     ImageProcessors.Circle()
+                    
                 
                 ]), into: self.homeDp)
             }
@@ -153,6 +214,9 @@ class HomeViewController : UIViewController {
         self.homeNewsTableView.rowHeight = 286
         self.homeNewsTableView.showsVerticalScrollIndicator = false
         
+        
+        //fonts home page
+        self.homeWelcome.font = UIFont.appBoldFontWith(size: 17)
         
         
 

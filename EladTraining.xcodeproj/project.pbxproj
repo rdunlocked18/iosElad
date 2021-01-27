@@ -89,6 +89,7 @@
 		BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableCell.swift; sourceTree = "<group>"; };
 		BF93E46E25BECCFF003DAB4F /* DateDif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDif.swift; sourceTree = "<group>"; };
 		BF93E47125BED5C3003DAB4F /* TstoDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TstoDate.swift; sourceTree = "<group>"; };
+		BF9B599A25C147D200DD8218 /* EladTraining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EladTraining.entitlements; sourceTree = "<group>"; };
 		BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOtpViewController.swift; sourceTree = "<group>"; };
 		BFCEB05F258886DF00D73D39 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -143,6 +144,7 @@
 		BF355863257E90E800EA1CCE /* EladTraining */ = {
 			isa = PBXGroup;
 			children = (
+				BF9B599A25C147D200DD8218 /* EladTraining.entitlements */,
 				BF50001125A5DD87005E6B6F /* res */,
 				BF8187A5258A31E8006482C6 /* viewControllers */,
 				BF8187A0258A319B006482C6 /* Models */,
@@ -547,14 +549,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EladTraining/EladTraining.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JNV9QR9QHC;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 269WT5GLD9;
 				INFOPLIST_FILE = EladTraining/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elad.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -568,14 +573,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = EladTraining/EladTraining.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JNV9QR9QHC;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 269WT5GLD9;
 				INFOPLIST_FILE = EladTraining/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elad.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

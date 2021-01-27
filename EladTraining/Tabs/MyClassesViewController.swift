@@ -9,10 +9,10 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import Nuke
-import MaterialComponents.MaterialBottomSheet
-//import ClockKit
+import BLTNBoard
 
 class MyClassesViewController: UIViewController {
+    var bulletinManager: BLTNItemManager?
     
     
     
@@ -53,12 +53,33 @@ class MyClassesViewController: UIViewController {
     
     @objc
     func checkAction(sender : UITapGestureRecognizer) {
-        let viewController: ViewController = ViewController()
-        // Initialize the bottom sheet with the view controller just created
-        let bottomSheet: MDCBottomSheetController = MDCBottomSheetController(contentViewController: viewController)
-        // At this point perform any customizations, like adding a slider, for example.
-        // Present the bottom sheet
-        present(bottomSheet, animated: true, completion: nil)
+                let boardManagere : BLTNItemManager = {
+                    let item = BLTNPageItem(title: "My Classes")
+                    item.requiresCloseButton = false
+                    item.descriptionText = "This screen shows the list of upcoming classes that you have joined. The class items are sorted in an increasing manner with respect to their timings You can leave any class if you want,by swiping class card towards left "
+                    //item.image = UIImage(named: "circleLogo")
+//                    item.actionButtonTitle = "Okay,I understood"
+                    item.appearance.descriptionFontSize = 14
+                    item.alternativeButtonTitle = "Drag Down To Dismiss"
+                    
+                    item.isDismissable = true
+                    item.appearance.alternativeButtonTitleColor = .black
+                    
+//                    item.actionHandler = {(item: BLTNActionItem) in
+//                            print("Action button tapped")
+//                       // BLTNItemManager.dismissBulletin(BLTNItemManager)
+//                    }
+                    item.alternativeHandler = {(item: BLTNActionItem) in
+                        print("Action button tapped")
+                    }
+        
+                    return BLTNItemManager(rootItem: item)
+        
+                }()
+        
+                boardManagere.backgroundViewStyle = .blurredDark
+        
+                boardManagere.showBulletin(above: self)
         
     }
     
@@ -226,19 +247,8 @@ class MyClassesViewController: UIViewController {
            
             
         })
-        self.myClassesTableView.rowHeight = 155
+        self.myClassesTableView.rowHeight = 170
         self.myClassesTableView.reloadData()
-//        if classFulldetList.isEmpty{
-//
-//            self.view.makeToast("No Classes Found")
-//            self.myClassesTableView.hideActivityIndicator()
-//            self.myClassesTableView.removeFromSuperview()
-//
-//        }else {
-//
-//        }
-        
-        
         
     }
     

@@ -11,6 +11,8 @@ class MyClassesCellTableViewCell: UITableViewCell {
     @IBOutlet weak var classNameLbl:UILabel!
     @IBOutlet weak var btnViewClass:UIButton!
     
+    @IBOutlet weak var classDescription: UILabel!
+    
     @IBOutlet weak var classTimeLbl: UILabel!
     @IBOutlet weak var classDateLbl: UILabel!
     override func awakeFromNib() {
