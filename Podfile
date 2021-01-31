@@ -15,6 +15,7 @@ target 'EladTraining' do
 	pod 'DatePicker', '~> 1.3.0'
 	pod 'iOSDropDown'
 	pod 'BulletinBoard'
+	pod 'TransitionButton'
 	
 	
   # Pods for EladTraining

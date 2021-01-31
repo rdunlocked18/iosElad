@@ -144,6 +144,7 @@
 		BF355863257E90E800EA1CCE /* EladTraining */ = {
 			isa = PBXGroup;
 			children = (
+				BFEA96BB25C3ECDA00A93C8F /* CellGens */,
 				BF9B599A25C147D200DD8218 /* EladTraining.entitlements */,
 				BF50001125A5DD87005E6B6F /* res */,
 				BF8187A5258A31E8006482C6 /* viewControllers */,
@@ -155,13 +156,9 @@
 				BF355864257E90E800EA1CCE /* AppDelegate.swift */,
 				BF355866257E90E800EA1CCE /* SceneDelegate.swift */,
 				BF35586A257E90E800EA1CCE /* Main.storyboard */,
-				BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */,
 				BF35586D257E90EA00EA1CCE /* Assets.xcassets */,
 				BF35586F257E90EA00EA1CCE /* LaunchScreen.storyboard */,
 				BF355872257E90EA00EA1CCE /* Info.plist */,
-				BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */,
-				BF4286FE25A836D000BDAC68 /* HomeTableViewCell.swift */,
-				BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */,
 			);
 			path = EladTraining;
 			sourceTree = "<group>";
@@ -220,6 +217,17 @@
 				BFCEB05F258886DF00D73D39 /* Poppins-SemiBold.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		BFEA96BB25C3ECDA00A93C8F /* CellGens */ = {
+			isa = PBXGroup;
+			children = (
+				BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */,
+				BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */,
+				BF4286FE25A836D000BDAC68 /* HomeTableViewCell.swift */,
+				BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */,
+			);
+			path = CellGens;
 			sourceTree = "<group>";
 		};
 		BFFB1D072582A30400329BDD /* extensions */ = {

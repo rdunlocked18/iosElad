@@ -42,7 +42,7 @@ class CreateProfileViewController: UIViewController  {
                 print(selected)
         }
         dobTv.addTarget(self, action: #selector(todaySet), for: .touchDown)
-        
+
     }
     
     @objc
@@ -81,23 +81,23 @@ class CreateProfileViewController: UIViewController  {
             let value = snapshot.value as? NSDictionary
             phone = value?["phone"] as? String ??  ""
             name = value?["fullName"] as? String ?? ""
-            
+
         }
-    
+
         if phone == "" || name == "" {
             
             self.view.makeToast("Create Profile")
-            
+
         } else {
             //throw out of the view to Home Screen
-           
+
             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let newViewController = storyBoard.instantiateViewController(withIdentifier: "superHome") as! SuperHomeViewController
                   self.present(newViewController, animated: true, completion: nil)
             print("switch")
-            
+
             self.view.makeToast("You Can update you profile in Settings")
-            
+
         }
     }
     
@@ -106,8 +106,8 @@ class CreateProfileViewController: UIViewController  {
         
         
         
-        
-        //text Colors
+//        
+//        //text Colors
         fullName.textColor = UIColor.black
         phoneNumberGet.textColor = UIColor.black
         createEmail.textColor = UIColor.black
@@ -142,7 +142,7 @@ class CreateProfileViewController: UIViewController  {
         createEmail.placeholderLabel.font = UIFont.appRegularFontWith(size: 15)
         heightTv.placeholderLabel.font =  UIFont.appRegularFontWith(size: 15)
         weightTv.placeholderLabel.font =  UIFont.appRegularFontWith(size: 15)
-       // genderTv.placeholderLabel.font =  UIFont.appRegularFontWith(size: 15)
+//        genderTv.placeholderLabel.font =  UIFont.appRegularFontWith(size: 15)
         
         Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
@@ -182,7 +182,7 @@ class CreateProfileViewController: UIViewController  {
                 "userRole": "user",
                 "weight" : weightTv.text!,
                 "gender"  : genderTv.text!,
-                "dateOfBirth" : dobTv.text!,
+                "dob" : dobTv.text!,
                 
                 
             ]) { (error, ref) in

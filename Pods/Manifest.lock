@@ -706,6 +706,7 @@ PODS:
   - PMAlertController (4.0.1)
   - PromisesObjC (1.2.11)
   - Toast-Swift (5.0.1)
+  - TransitionButton (0.5.3)
 
 DEPENDENCIES:
   - BulletinBoard
@@ -719,6 +720,7 @@ DEPENDENCIES:
   - Nuke (~> 9.0)
   - PMAlertController
   - Toast-Swift (~> 5.0.1)
+  - TransitionButton
 
 SPEC REPOS:
   trunk:
@@ -747,6 +749,7 @@ SPEC REPOS:
     - PMAlertController
     - PromisesObjC
     - Toast-Swift
+    - TransitionButton
 
 SPEC CHECKSUMS:
   BulletinBoard: dba77053c2a7b64953f63073f7534165af2edd21
@@ -774,7 +777,8 @@ SPEC CHECKSUMS:
   PMAlertController: ab5fcf4d085b7878c9451466d701449c4bf6efb8
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
+  TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: a4445f1f448539bad2b02c47591653121168803e
+PODFILE CHECKSUM: a8f4476d316e595852fa545c0682c8d3694ca13b
 
 COCOAPODS: 1.10.0

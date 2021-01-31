@@ -8,56 +8,58 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import Toast_Swift
+import MaterialComponents
 
 class VerifyOtpViewController: UIViewController {
     
-    @IBOutlet weak var verifyBtn: UIButton!
-    let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
-    @IBOutlet weak var otpText: UITextField!
+    @IBOutlet weak var emailTf: MDCOutlinedTextField!
+    @IBOutlet weak var confirmBtn: UIButton!
     
-    var comingId = String()
+    @IBOutlet weak var backtoLogin: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(verificationID)
+        title = "Password Reset"
+        navigationItem.largeTitleDisplayMode = .always
+        confirmBtn.addTarget(self, action: #selector(getResetLink), for: .touchUpInside)
+        
+     
+        
         
         
     }
-    
-    @IBAction func onVerifyPressed(_ sender: Any) {
-        
-        guard let otpCode = otpText.text else {
-            return
-        }
-        
-   // print(comingId)
-     let credientials = PhoneAuthProvider.provider().credential(withVerificationID: comingId, verificationCode: otpCode)
+    @IBAction func backtoLogin(_ sender: Any) {
         
         
-        Auth.auth().signIn(with: credientials) { (success, error) in
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let newViewController = storyBoard.instantiateViewController(withIdentifier: "loginVc") as! LoginViewController
+        newViewController.modalPresentationStyle = .fullScreen
+            self.present(newViewController, animated: true)
+    }
+    @objc
+    func  getResetLink()   {
+        let emailget = emailTf.text
+        if emailget == "" {
+            let alert = UIAlertController(title: "Alert", message: "Email ID is empty", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }else {
+        
+            Auth.auth().sendPasswordReset(withEmail: emailget!) { error in
+          // ...
             if error == nil{
-                print("success")
-                let vc = CreateProfileViewController() //your view controller
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true, completion: nil)
-                //self.dismiss(animated: true, completion: nil)
-                
+                self.view.makeToast("Reset Instructions sent to your Email")
+                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                               let newViewController = storyBoard.instantiateViewController(withIdentifier: "superHome") as! SuperHomeViewController
+                self.present(newViewController, animated: true, completion: nil)
             }else{
-            print("Failed to signin with otp ",error!.localizedDescription)
-                let alert = UIAlertController(title: "OTP Failed", message: "Failed To Verify The OTP Entered Please Reenter the OTP", preferredStyle: UIAlertController.Style.alert)
-                        // add an action (button)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-
-                        // show the alert
-                        self.present(alert, animated: true, completion: nil)
-                //self.dismiss(animated: true, completion: nil) //end verify screen
-                
+                self.view.makeToast("Retry !l")
             }
         }
-        
-        
-        
+    }
     }
     
+        
     
 }
