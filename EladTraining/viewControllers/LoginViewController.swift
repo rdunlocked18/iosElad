@@ -24,6 +24,11 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
         forgotPassBtn.addTarget(self, action: #selector(switchToForget), for:   .touchUpInside)
+        if  !(InternetConnectionManager.isConnectedToNetwork()) {
+            let alert = UIAlertController(title: "Error !", message: "Cannot Connect to Internet,Features of the app will be unavailable", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .destructive, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
         
     }
     @objc
