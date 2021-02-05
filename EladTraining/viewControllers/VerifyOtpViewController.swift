@@ -32,10 +32,8 @@ class VerifyOtpViewController: UIViewController {
     @IBAction func backtoLogin(_ sender: Any) {
         
         
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            let newViewController = storyBoard.instantiateViewController(withIdentifier: "loginVc") as! LoginViewController
-        newViewController.modalPresentationStyle = .fullScreen
-            self.present(newViewController, animated: true)
+            
+        self.dismiss(animated: true, completion: nil)
     }
     @objc
     func  getResetLink()   {
