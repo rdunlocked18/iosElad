@@ -32,10 +32,10 @@ class HomeViewController: UIViewController {
     override
     func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if  !(InternetConnectionManager.isConnectedToNetwork()) {
+        if !InternetConnectionManager.isConnectedToNetwork() {
             let alert = UIAlertController(title: "Error !", message: "Cannot Connect to Internet,Features of the app will be unavailable", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .destructive, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
         // fetch firebase
         userRef = Database.database().reference().child("Users").child(authUid)
@@ -125,7 +125,7 @@ class HomeViewController: UIViewController {
         // MARK: - Get Firebase Data
 
         homeNewsTableView.showActivityIndicator()
-        dbQuery.observe(.value) { snapshot in
+        homeNewsRef.observe(.value) { snapshot in
             if snapshot.childrenCount > 0 {
                 self.homeNewsList.removeAll()
                 for news in snapshot.children.allObjects as! [DataSnapshot] {
@@ -187,8 +187,6 @@ class HomeViewController: UIViewController {
         }
     }
 
-    func showNews() {}
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         yourActivityView.isHidden = true
