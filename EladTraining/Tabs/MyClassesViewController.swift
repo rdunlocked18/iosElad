@@ -74,7 +74,6 @@ class MyClassesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         // MARK: - check date with classes and return tableview only if class is present on that day
     }
    
@@ -197,11 +196,13 @@ class MyClassesViewController: UIViewController {
                     let date = classesSchObject?["date"]
                     let description = classesSchObject?["description"]
                     let name = classesSchObject?["name"]
-                    let timings = classesSchObject?["timings"]
-                    let timeStamp = classesSchObject?["timeStamp"]
+                    let startTime = classesSchObject?["startTime"]
+                    let endTime = classesSchObject?["endTime"]
+                    var timings = "\(String(describing: startTime)) - \(String(describing: endTime))"
+                    let timeStamp = classesSchObject?["timestamp"]
                     let usersJoined = classesSchObject?["usersJoined"]
                     
-                    let lister = ScheduleClasses(id: id as! String?, capacity: capacity as? Int, coach: coach as! String, date: date as? String, description: description as! String, name: name as? String, timings: timings as? String, timestamp: timeStamp as? Int, userJoined: usersJoined as! [String]?)
+                    let lister = ScheduleClasses(id: id as? String, capacity: capacity as? Int, coach: coach as? String, date: date as? String, description: description as? String, name: name as? String,startTime: startTime as? String,endTime: endTime as? String, timestamp: timeStamp as? Int, userJoined: usersJoined as! [String]?)
                     
                     print(self.classFulldetList)
                     
@@ -244,13 +245,13 @@ extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource {
         addedClasses = classFulldetList[indexPath.row]
         cell.classNameLbl?.text = addedClasses.name
         cell.classDateLbl?.text = addedClasses.date
-        cell.classTimeLbl?.text = addedClasses.timings
+        cell.classTimeLbl?.text = "\(addedClasses.startTime) - \(addedClasses.endTime)"
         
         // setup ui
         cell.classNameLbl.font = UIFont.appBoldFontWith(size: 22)
         cell.classDateLbl.font = UIFont.appRegularFontWith(size: 17)
         cell.classTimeLbl.font = UIFont.appRegularFontWith(size: 17)
-        hitNotification(classId: addedClasses.id, className: addedClasses.name, timeStamp: addedClasses.timestamp)
+       // hitNotification(classId: addedClasses.id, className: addedClasses.name, timeStamp: addedClasses.timestamp)
         
         return cell
     }

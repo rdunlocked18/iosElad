@@ -36,11 +36,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>yourWording</string>
+	<string>Camera is used to set profile photo in the Applicons Profile page</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>yourWording</string>
+	<string>Mic is used to set profile photo in the Applicons Profile page</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>yourWording</string>
+	<string>Photos app is used to set profile photo in the Applicons Profile page</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Black.ttf</string>
@@ -86,8 +86,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

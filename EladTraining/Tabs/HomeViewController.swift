@@ -131,8 +131,17 @@ class HomeViewController: UIViewController {
                     let timings = classesSchObject?["timings"]
                     let timeStamp = classesSchObject?["timeStamp"] as! Int
                     let usersJoined = classesSchObject?["usersJoined"]
-
-                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
+                    
+                    
+                    
+                  
+                    let startTime = classesSchObject?["startTime"]
+                    let endTime = classesSchObject?["endTime"]
+                    
+                    
+                    let lister = ScheduleClasses(id: id as? String, capacity: capacity as? Int, coach: coach as? String, date: date as? String, description: description as? String, name: name as? String,startTime: startTime as? String,endTime: endTime as? String, timestamp: timeStamp as? Int, userJoined: usersJoined as! [String]?)
+//
+//                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
 
                     print(self.fullClassList)
 

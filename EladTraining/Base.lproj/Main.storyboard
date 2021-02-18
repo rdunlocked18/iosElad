@@ -767,20 +767,29 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYb-DK-GZf" customClass="CardViewTabUi" customModule="EladTraining" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="4" width="398" height="258"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="fGD-Sf-y2D">
-                                                            <rect key="frame" x="20" y="19.5" width="119.5" height="20.5"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fGD-Sf-y2D">
+                                                            <rect key="frame" x="20" y="19.5" width="117.5" height="20.5"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="C4r-F8-KhR">
                                                                     <rect key="frame" x="0.0" y="0.5" width="20" height="19.5"/>
                                                                     <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="20.5" id="L5G-eT-G9Y"/>
+                                                                        <constraint firstAttribute="width" constant="20" id="w7e-Iu-uov"/>
+                                                                    </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8:00 - 9:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cyG-ij-3YH">
-                                                                    <rect key="frame" x="32" y="0.0" width="87.5" height="20.5"/>
+                                                                    <rect key="frame" x="30" y="0.0" width="87.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </label>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="C4r-F8-KhR" firstAttribute="top" secondItem="fGD-Sf-y2D" secondAttribute="top" id="LpE-iZ-tCZ"/>
+                                                                <constraint firstAttribute="bottom" secondItem="C4r-F8-KhR" secondAttribute="bottom" id="Vnv-17-yJv"/>
+                                                                <constraint firstItem="C4r-F8-KhR" firstAttribute="leading" secondItem="fGD-Sf-y2D" secondAttribute="leading" id="Vwt-EE-nVG"/>
+                                                            </constraints>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bhaiyajan Panipuri" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6e-0G-MRp">
                                                             <rect key="frame" x="20" y="52" width="221" height="34"/>
@@ -904,7 +913,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebc-gU-Slf">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="119"/>
                                 <subviews>
-                                    <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="RZJ-bc-jK7">
+                                    <datePicker contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="RZJ-bc-jK7">
                                         <rect key="frame" x="8" y="8" width="398" height="103"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <date key="minimumDate" timeIntervalSinceReferenceDate="631191600">

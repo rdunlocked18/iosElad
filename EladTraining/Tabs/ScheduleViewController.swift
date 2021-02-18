@@ -9,6 +9,7 @@ import Firebase
 import MaterialComponents.MaterialActionSheet
 import Toast_Swift
 import UIKit
+import FSCalendar
 class ScheduleViewController: UIViewController {
     @IBOutlet var filterButton: UIButton!
     // start filter
@@ -89,9 +90,9 @@ class ScheduleViewController: UIViewController {
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "dd/mm/yy"
         
-        fullTodayDate = dateFormatterGet.string(from: filterDatePicker.date)
-        print("\(daye)/\(monthe)/\(yeare)")
-        
+//        fullTodayDate = dateFormatterGet.string(from: filterDatePicker.date)
+//        print("\(daye)/\(monthe)/\(yeare)")
+//
         readClassesDetails()
         
         scheduleTableMain.delegate = self
@@ -126,19 +127,6 @@ class ScheduleViewController: UIViewController {
                 self.noDataTitle?.text = "Your Package is Not Active !"
                 self.noDataMessage?.text = "Please ask Admins to Make Package Active or Recharge Package"
             }
-            else if punishment {
-                self.scheduleTableMain.isHidden = true
-                self.filterDatePicker.isHidden = true
-                self.noDataView.isHidden = false
-                self.noDataImage.image = UIImage(named: "cross")
-                self.noDataTitle?.text = "You are on Punishment !"
-                self.noDataMessage?.text = "You will not be able to Access Classes \n untill Trainer Retains Punishment ( 48 Hours )"
-                self.noDataTitle?.font = UIFont.appBoldFontWith(size: 19)
-                self.noDataMessage?.font = UIFont.appRegularFontWith(size: 14)
-                self.noDataMessage?.textColor = .red
-                self.noDataTitle?.textColor = .red
-            }
-            // self.view.makeToast("\(self.sessionsGet)")
         })
     }
     
@@ -157,28 +145,14 @@ class ScheduleViewController: UIViewController {
                     let date = classesSchObject?["date"]
                     let description = classesSchObject?["description"]
                     let name = classesSchObject?["name"]
-                    let timings = classesSchObject?["timings"]
+                    let startTime = classesSchObject?["startTime"]
+                    let endTime = classesSchObject?["endTime"]
+                    let timings = "\(String(describing: startTime)) - \(String(describing: endTime))"
                     let timeStamp = classesSchObject?["timestamp"]
                     let usersJoined = classesSchObject?["usersJoined"]
                     
-                    let lister = ScheduleClasses(id: id as! String?, capacity: capacity as? Int, coach: coach as! String, date: date as? String, description: description as! String, name: name as? String, timings: timings as? String, timestamp: timeStamp as? Int, userJoined: usersJoined as! [String]?)
-                    
-//                    if lister.date == dateData {
-//                        self.classList.removeAll()
+                    let lister = ScheduleClasses(id: id as? String, capacity: capacity as? Int, coach: coach as? String, date: date as? String, description: description as? String, name: name as? String, startTime: startTime as? String, endTime: endTime as? String, timestamp: timeStamp as? Int, userJoined: usersJoined as! [String]?)
                     self.classList.append(lister)
-//                        self.noDataView.isHidden = true
-//                        self.scheduleTableMain.hideActivityIndicator()
-//                        self.scheduleTableMain.isHidden = false
-//                        self.scheduleTableMain.beginUpdates()
-//                        self.scheduleTableMain.reloadData()
-                        
-//                    }
-//                    else {
-//                        self.scheduleTableMain.hideActivityIndicator()
-//                        //self.scheduleTableMain.removeFromSuperview()
-//                        self.noDataView.isHidden = false
-//
-//                    }
                 }
                 print(self.classList)
                 self.isFiltering = true
@@ -363,13 +337,8 @@ class ScheduleViewController: UIViewController {
         let timestamp = Int(NSDate().timeIntervalSince1970)
         // let timeStamp = Date.currentTimeMillis()
         print("current \(timestamp)")
-        if classes.timestamp < timestamp {
-            actionSheet.title = "\(classes.name) is Over"
-            actionSheet.message = "Cannot Join classes Older than Current Date/Time"
-            // actionSheet.addAction(actionOpt)
-        }
-         
-        else if classes.usersJoined.contains(authIDUser!) {
+       
+        if classes.usersJoined.contains(authIDUser!) {
             actionSheet.title = "\(classes.name) is Added To Your Classes"
             actionSheet.message = "To Cancel the Class Go to My Classes and Swipe Perticular Class You want to Cancel !"
             actionSheet.addAction(actionOpt)
@@ -422,7 +391,7 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource {
         // MARK: - Setup TV TEXTS
 
         cell.classNameGet.text = classes.name
-        cell.classTimeGet.text = classes.timings
+        cell.classTimeGet.text = "\(String(describing: classes.startTime)) - \(String(describing: classes.endTime))"
         cell.classCapacityGet.text = "\(classes.capacity - classes.usersJoined.count) spots remaining"
         cell.totalMembersGet.text = "\(classes.usersJoined.count) Joined"
         cell.coachNameGet.text = classes.coach

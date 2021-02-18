@@ -16,6 +16,7 @@ target 'EladTraining' do
 	pod 'iOSDropDown'
 	pod 'BulletinBoard'
 	pod 'TransitionButton'
+	pod 'FSCalendar'
 	pod 'Firebase/Messaging'	
 	
 	

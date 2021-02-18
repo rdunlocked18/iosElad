@@ -2,6 +2,7 @@ ${PODS_ROOT}/Target Support Files/Pods-EladTraining/Pods-EladTraining-frameworks
 ${BUILT_PRODUCTS_DIR}/BulletinBoard/BLTNBoard.framework
 ${BUILT_PRODUCTS_DIR}/DatePicker/DatePicker.framework
 ${BUILT_PRODUCTS_DIR}/Extended/Extended.framework
+${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseAuth/FirebaseAuth.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework

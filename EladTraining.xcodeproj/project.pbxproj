@@ -29,6 +29,7 @@
 		BF5298892584D1D100D41B1F /* MyClassesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5298882584D1D100D41B1F /* MyClassesViewController.swift */; };
 		BF52988C2584D1DF00D41B1F /* MoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF52988B2584D1DF00D41B1F /* MoreViewController.swift */; };
 		BF59996525934FE900212BEB /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF59996425934FE900212BEB /* UserModel.swift */; };
+		BF62D69925DE8817009299A9 /* TrialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF62D69825DE8817009299A9 /* TrialViewController.swift */; };
 		BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A6C7E258401320008D4BA /* PaddingFields.swift */; };
 		BF72DEA7259271EC00D4AFD5 /* DateExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF72DEA6259271EC00D4AFD5 /* DateExt.swift */; };
 		BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF75696D257F6AF400F4F45A /* TextViewPadding.swift */; };
@@ -80,6 +81,7 @@
 		BF5298882584D1D100D41B1F /* MyClassesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassesViewController.swift; sourceTree = "<group>"; };
 		BF52988B2584D1DF00D41B1F /* MoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreViewController.swift; sourceTree = "<group>"; };
 		BF59996425934FE900212BEB /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		BF62D69825DE8817009299A9 /* TrialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialViewController.swift; sourceTree = "<group>"; };
 		BF6A6C7E258401320008D4BA /* PaddingFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingFields.swift; sourceTree = "<group>"; };
 		BF72DEA6259271EC00D4AFD5 /* DateExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExt.swift; sourceTree = "<group>"; };
 		BF75696D257F6AF400F4F45A /* TextViewPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewPadding.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */,
 				BF01ACD32581460F004DD088 /* CreateProfileViewController.swift */,
 				BF52987D2584CD4300D41B1F /* SuperHomeViewController.swift */,
+				BF62D69825DE8817009299A9 /* TrialViewController.swift */,
 			);
 			path = viewControllers;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				BF72DEA7259271EC00D4AFD5 /* DateExt.swift in Sources */,
 				BF4286FC25A81BA700BDAC68 /* NewsModel.swift in Sources */,
 				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
+				BF62D69925DE8817009299A9 /* TrialViewController.swift in Sources */,
 				BF4BA6542591BC41007DD2BE /* FontChanger.swift in Sources */,
 				BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */,
 				BF058BEF258BD4AC00F15055 /* CustomCard.swift in Sources */,
@@ -563,7 +567,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = EladTraining/EladTraining.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 269WT5GLD9;
 				INFOPLIST_FILE = EladTraining/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
@@ -571,11 +575,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elad.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -587,7 +591,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = EladTraining/EladTraining.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 269WT5GLD9;
 				INFOPLIST_FILE = EladTraining/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.3;
@@ -595,11 +599,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.elad.training;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

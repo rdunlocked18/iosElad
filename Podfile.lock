@@ -57,6 +57,7 @@ PODS:
   - FlagPhoneNumber (0.8.0):
     - FlagPhoneNumber/libPhoneNumberiOS (= 0.8.0)
   - FlagPhoneNumber/libPhoneNumberiOS (0.8.0)
+  - FSCalendar (2.8.2)
   - GoogleDataTransport (8.1.0):
     - nanopb (~> 2.30906.0)
   - GoogleUtilities/AppDelegateSwizzler (7.1.1):
@@ -738,6 +739,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/Storage
   - FlagPhoneNumber
+  - FSCalendar
   - iOSDropDown
   - MaterialComponents
   - Nuke (~> 9.0)
@@ -760,6 +762,7 @@ SPEC REPOS:
     - FirebaseMessaging
     - FirebaseStorage
     - FlagPhoneNumber
+    - FSCalendar
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
@@ -791,6 +794,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 68d1bcb14880189558a8ae57167abe0b7e417232
   FirebaseStorage: 5002b1895bfe74a5ce92ad54f966e6162d0da2e5
   FlagPhoneNumber: 3712455b95f66cb0f2016fef7d9e34cddf8c7f9a
+  FSCalendar: e6a2eb9c571bf0719ed797ef807e08426753c241
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleUtilities: 3dc4ff0d5e4840e2fa8eef0889620e8c33d4218c
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
@@ -808,6 +812,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: 9c52b35ced93ce77384a54ab5f68f59b47d6cea0
+PODFILE CHECKSUM: b5aa305fca2dc56341bf1e37e4d4003bd7416073
 
 COCOAPODS: 1.10.0
