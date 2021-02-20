@@ -10,7 +10,7 @@ import Firebase
 import FirebaseDatabase
 import Nuke
 import UIKit
-
+import EmptyDataSet_Swift
 class MyClassesViewController: UIViewController {
     var bulletinManager: BLTNItemManager?
     
@@ -99,6 +99,8 @@ class MyClassesViewController: UIViewController {
         myClassesTableView.dataSource = self
         myClassesTableView.delegate = self
         myClassesTableView.refreshControl = refreshControl
+        myClassesTableView.emptyDataSetDelegate = self
+        myClassesTableView.emptyDataSetSource = self
         
         ref = Database.database().reference()
         
@@ -115,27 +117,26 @@ class MyClassesViewController: UIViewController {
         readUserpkgData()
     }
      
-    func hitNotification(classId: String, className: String, timeStamp: Int) {
-        let center = UNUserNotificationCenter.current()
-        let content = UNMutableNotificationContent()
-        content.title = "Hey ! Reminder for your class "
-        content.body = " your class \("testing") is after 30 mins"
-        content.sound = UNNotificationSound.default
-        content.categoryIdentifier = "yourIdentifier"
-        content.userInfo = ["example": "information"] // You can retrieve this when displaying notification
-
-        // Setup trigger time
-        var calendar = Calendar.current
-        calendar.timeZone = TimeZone.current
-        let testDate = Date() + 5 // Set this to whatever date you need
-        // let trigger = UNCalendarNotificationTrigger(dateMatching: startDate, repeats: false)
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeStamp - 1800), repeats: false)
-        // Create request
-        let uniqueID = UUID().uuidString // Keep a record of this if necessary
-        let request = UNNotificationRequest(identifier: classId, content: content, trigger: trigger)
-        center.add(request) // Add the notification request
-        print("time \(TimeInterval(timeStamp - 1800))")
-    }
+//    func hitNotification(classId: String, className: String, timeStamp: Int) {
+//        let center = UNUserNotificationCenter.current()
+//        let content = UNMutableNotificationContent()
+//        content.title = "Hey ! Reminder for your class "
+//        content.body = " your class \("testing") is after 30 mins"
+//        content.sound = UNNotificationSound.default
+//        content.categoryIdentifier = "yourIdentifier"
+//        content.userInfo = ["example": "information"] // You can retrieve this when displaying notification
+//
+//        // Setup trigger time
+//        var calendar = Calendar.current
+//        calendar.timeZone = TimeZone.current
+//        let testDate = Date() + 5 // Set this to whatever date you need
+//        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(timeStamp - 1800), repeats: false)
+//        // Create request
+//        let uniqueID = UUID().uuidString // Keep a record of this if necessary
+//        let request = UNNotificationRequest(identifier: classId, content: content, trigger: trigger)
+//        center.add(request) // Add the notification request
+//        print("time \(TimeInterval(timeStamp - 1800))")
+//    }
     
     @objc
     func refresh(sender: AnyObject) {
@@ -221,14 +222,9 @@ class MyClassesViewController: UIViewController {
         myClassesTableView.reloadData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        // self.myClassesTableView.backgroundColor = .white
-        // self.myClassesTableView.showActivityIndicator()
-        // self.myClassesTableView.rowHeight = 155
-    }
 }
 
-extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource {
+extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource , EmptyDataSetDelegate , EmptyDataSetSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -388,4 +384,40 @@ extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource {
         
         return [shareAction]
     }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let quote = "No Classes Joined."
+        let font = UIFont.appBoldFontWith(size: 20 )
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.firstLineHeadIndent = 5.0
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: UIColor.black,
+            .paragraphStyle : paragraphStyle
+        ]
+        let attributedQuote = NSAttributedString(string: quote, attributes: attributes)
+        return attributedQuote
+    }
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let quote = "Join a class to view it here"
+        let font = UIFont.appRegularFontWith(size: 15 )
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.firstLineHeadIndent = 5.0
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: UIColor.black,
+            .paragraphStyle : paragraphStyle
+        ]
+        let attributedQuote = NSAttributedString(string: quote, attributes: attributes)
+        return attributedQuote
+    }
+      
+       
+       //MARK: - DZNEmptyDataSetDelegate Methods
+       func emptyDataSetShouldDisplay(_ scrollView: UIScrollView) -> Bool {
+           return true
+       }
+       
 }

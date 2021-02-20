@@ -41,6 +41,8 @@
 		BF93E46C25BEA8FA003DAB4F /* ProfileTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */; };
 		BF93E46F25BECCFF003DAB4F /* DateDif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E46E25BECCFF003DAB4F /* DateDif.swift */; };
 		BF93E47225BED5C3003DAB4F /* TstoDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E47125BED5C3003DAB4F /* TstoDate.swift */; };
+		BFA8C66E25DFB22700FF4638 /* SampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA8C66D25DFB22700FF4638 /* SampleController.swift */; };
+		BFA8C6A125DFB86300FF4638 /* UicolorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA8C6A025DFB86300FF4638 /* UicolorExt.swift */; };
 		BFC4F2DA257FD4DB00C85267 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */; };
 		BFC9225A25800E1400731EDB /* VerifyOtpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */; };
 		BFCEB065258886E000D73D39 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BFCEB05F258886DF00D73D39 /* Poppins-SemiBold.ttf */; };
@@ -94,6 +96,8 @@
 		BF93E46E25BECCFF003DAB4F /* DateDif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDif.swift; sourceTree = "<group>"; };
 		BF93E47125BED5C3003DAB4F /* TstoDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TstoDate.swift; sourceTree = "<group>"; };
 		BF9B599A25C147D200DD8218 /* EladTraining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EladTraining.entitlements; sourceTree = "<group>"; };
+		BFA8C66D25DFB22700FF4638 /* SampleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleController.swift; sourceTree = "<group>"; };
+		BFA8C6A025DFB86300FF4638 /* UicolorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UicolorExt.swift; sourceTree = "<group>"; };
 		BFC4F2D9257FD4DB00C85267 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BFC9225925800E1400731EDB /* VerifyOtpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyOtpViewController.swift; sourceTree = "<group>"; };
 		BFCEB05F258886DF00D73D39 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -250,6 +254,8 @@
 				BF93E46E25BECCFF003DAB4F /* DateDif.swift */,
 				BF93E47125BED5C3003DAB4F /* TstoDate.swift */,
 				BF04E14425C7D74D00BF05F5 /* InternetConnectivity.swift */,
+				BFA8C66D25DFB22700FF4638 /* SampleController.swift */,
+				BFA8C6A025DFB86300FF4638 /* UicolorExt.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -393,6 +399,7 @@
 				BF4286FC25A81BA700BDAC68 /* NewsModel.swift in Sources */,
 				BF35587C257E93F400EA1CCE /* LoginViewController.swift in Sources */,
 				BF62D69925DE8817009299A9 /* TrialViewController.swift in Sources */,
+				BFA8C6A125DFB86300FF4638 /* UicolorExt.swift in Sources */,
 				BF4BA6542591BC41007DD2BE /* FontChanger.swift in Sources */,
 				BF5298862584D1C100D41B1F /* ScheduleViewController.swift in Sources */,
 				BF058BEF258BD4AC00F15055 /* CustomCard.swift in Sources */,
@@ -400,6 +407,7 @@
 				BF355869257E90E800EA1CCE /* ViewController.swift in Sources */,
 				BF75696E257F6AF400F4F45A /* TextViewPadding.swift in Sources */,
 				BF5298832584D1AF00D41B1F /* HomeViewController.swift in Sources */,
+				BFA8C66E25DFB22700FF4638 /* SampleController.swift in Sources */,
 				BF01ACD42581460F004DD088 /* CreateProfileViewController.swift in Sources */,
 				BF355881257E986F00EA1CCE /* GradientView.swift in Sources */,
 				BF52988C2584D1DF00D41B1F /* MoreViewController.swift in Sources */,

@@ -18,6 +18,7 @@ target 'EladTraining' do
 	pod 'TransitionButton'
 	pod 'FSCalendar'
 	pod 'Firebase/Messaging'	
+	pod 'EmptyDataSet-Swift', '~> 5.0.0'
 	
 	
   # Pods for EladTraining

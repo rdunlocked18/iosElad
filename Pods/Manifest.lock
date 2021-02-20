@@ -2,6 +2,7 @@ PODS:
   - BulletinBoard (5.0.0)
   - DatePicker (1.3.1):
     - Extended
+  - EmptyDataSet-Swift (5.0.0)
   - Extended (1.0.5)
   - Firebase/Auth (7.3.0):
     - Firebase/CoreOnly
@@ -734,6 +735,7 @@ PODS:
 DEPENDENCIES:
   - BulletinBoard
   - DatePicker (~> 1.3.0)
+  - EmptyDataSet-Swift (~> 5.0.0)
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Messaging
@@ -751,6 +753,7 @@ SPEC REPOS:
   trunk:
     - BulletinBoard
     - DatePicker
+    - EmptyDataSet-Swift
     - Extended
     - Firebase
     - FirebaseAuth
@@ -783,6 +786,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   BulletinBoard: dba77053c2a7b64953f63073f7534165af2edd21
   DatePicker: 05ddbd2b57d00ce6f44c1f0611ced32f948d33a6
+  EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
   Extended: c463225e0c29b2823847866c1b106827772ac678
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
@@ -812,6 +816,6 @@ SPEC CHECKSUMS:
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TransitionButton: 36283346e17c64775a1b3bc3a7a72940a367de1f
 
-PODFILE CHECKSUM: b5aa305fca2dc56341bf1e37e4d4003bd7416073
+PODFILE CHECKSUM: 6326c90b72fdee898e67f7ac84a09aec4cee6a15
 
 COCOAPODS: 1.10.0
