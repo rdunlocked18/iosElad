@@ -15,23 +15,24 @@ class ScheduleViewController: UIViewController {
     // Database Refrences
     var ref: DatabaseReference!
     var classesRef: DatabaseReference!
-    
+    var userRef: DatabaseReference!
+
     // Firebase Auth Vars
     var authIDUser = Auth.auth().currentUser?.uid
-    
+
     // Table Views
     @IBOutlet var scheduleTableMain: UITableView!
-    
+
     // Other Variables
     public var className: String!
     var sessionsGet: Int!
     var date = Date()
     var fullTodayDate: String?
     var isFiltering = false
-    
+
     // Filter Requirements
     @IBOutlet var filterDatePicker: UIDatePicker!
-    
+
     // Lists
     var userClassesNameList: [String] = []
     var classList = [ScheduleClasses]()
@@ -41,21 +42,20 @@ class ScheduleViewController: UIViewController {
     let refreshControl = UIRefreshControl()
     @objc
     func refresh(sender: AnyObject) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        let dateString = dateFormatter.string(from: Date())
-        todayFilterAction(todaysDate: dateString)
+        classList.removeAll()
+        readUserData()
+        readClassesDetails()
         scheduleTableMain.reloadData()
         refreshControl.endRefreshing()
+        filterDatePicker.setDate(Date(), animated: true)
     }
-    
+
+    // Date Change With Touch input
     @IBAction func dateChanged(_ sender: Any) {
-        // readClassesDetails()
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "dd/MM/yyyy"
         let forDate = dateFormatterGet.string(from: filterDatePicker.date)
-        view.makeToast("\(forDate)")
-        print("For Date \(classList.filter { $0.date == forDate })")
+        view.makeToast("Showing Classes On : \(forDate)")
         isFiltering = true
         filteredClasses = classList.filter { $0.date == forDate }
         scheduleTableMain.reloadData()
@@ -63,7 +63,7 @@ class ScheduleViewController: UIViewController {
             scheduleTableMain.hideActivityIndicator()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Schedule"
@@ -73,37 +73,44 @@ class ScheduleViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         classList.removeAll()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         readUserData()
         readClassesDetails()
-       
-        // refreshControl.endRefreshing()
     }
-    
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
     func setupViewsandControls() {
         // Setup Tableviews
+        scheduleTableMain.backgroundColor = .white
+        scheduleTableMain.rowHeight = 290
         scheduleTableMain.delegate = self
         scheduleTableMain.dataSource = self
         scheduleTableMain.refreshControl = refreshControl
         scheduleTableMain.emptyDataSetSource = self
         scheduleTableMain.emptyDataSetDelegate = self
         refreshControl.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
-        
+
         // Setup Refrences
         classesRef = Database.database().reference().child("Classes")
         ref = Database.database().reference()
-        
+        userRef = Database.database().reference().child("Users").child(authIDUser!)
+
         // Datepicker Setup
         filterDatePicker.minimumDate = NSDate() as Date
-      
+
         // navigation view button
-        let button1 = UIBarButtonItem(title: "Refresh", style: .plain, target: self, action: #selector(refresh))
+        let button1 = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(refresh))
         navigationItem.rightBarButtonItem = button1
     }
 
     func readUserData() {
         // MARK: - Get User Data
+
         ref.child("Users").child(authIDUser ?? "").child("userClasses").observe(.value) {
             snapshot in
             for child in snapshot.children {
@@ -112,23 +119,25 @@ class ScheduleViewController: UIViewController {
                 self.userClassesNameList.append(dict)
             }
         }
-        
+
         ref.child("Users").child(authIDUser!).child("userPackages").observeSingleEvent(of: .value, with: {
             snapshot in
             let value = snapshot.value as? NSDictionary
             self.sessionsGet = value?["sessions"] as? Int
             let active = value?["active"] as? Bool ?? true
-            
+
             if !active {
                 self.scheduleTableMain.isHidden = true
                 self.filterDatePicker.isHidden = true
             }
         })
     }
-    
+
     func readClassesDetails() {
         // MARK: - Get Classes Data
-        classesRef.observe(DataEventType.value, with: {
+
+        classList.removeAll()
+        classesRef.observeSingleEvent(of:.value, with: {
             snapshot in
             if snapshot.childrenCount > 0 {
                 for classesSch in snapshot.children.allObjects as! [DataSnapshot] {
@@ -156,7 +165,7 @@ class ScheduleViewController: UIViewController {
             }
         })
     }
-    
+
     func todayFilterAction(todaysDate: String) {
         filteredClasses = classList.filter { $0.date == todaysDate }
         scheduleTableMain.reloadData()
@@ -167,133 +176,98 @@ class ScheduleViewController: UIViewController {
             scheduleTableMain.showActivityIndicator()
         }
     }
-    
-    // Scroll to current date
-//    @objc
-//    func todaySet() {
-//        let minDate = DatePickerHelper.shared.dateFrom(day: date.day(), month: date.month(), year: date.year())!
-//        let maxDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 2030)!
-//        let today = Date()
-//        // Create picker object
-//        let datePicker = DatePicker()
-//        // Setup
-//
-//        datePicker.setup(beginWith: today, min: minDate, max: maxDate) {
-//            selected, date in
-//            if selected, let selectedDate = date {
-//                let ofd: String = "\(selectedDate.day())/\(selectedDate.month())/\(selectedDate.year())"
-//
-//                // self.filterTableWithDate(ofDate: ofd)
-//            }
-//            else {
-//                print("Cancelled")
-//            }
-//        }
-//        // Display
-//        datePicker.show(in: self)
-//    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        scheduleTableMain.backgroundColor = .white
-        // scheduleTableMain.showActivityIndicator()
-        scheduleTableMain.rowHeight = 290
+
+    func sendJoinButton(classId: String) {
+        classesRef.child(classId).child("usersJoined").observeSingleEvent(of: .value) {
+            snapshot in
+            if snapshot.hasChildren() {
+                print(snapshot.childrenCount)
+                let keyIdasCount = snapshot.childrenCount
+                self.setDataInClass(keyId: Int(keyIdasCount), classId: classId)
+            }
+            else {
+                self.setDataInClass(keyId: 0, classId: classId)
+            }
+        }
     }
-   
+
+    func setDataInClass(keyId: Int, classId: String) {
+        classesRef.child(classId).child("usersJoined").child("\(keyId)").setValue(authIDUser) { error, _ in
+            if error == nil {
+                self.userRef.child("userClasses").observeSingleEvent(of: .value) { snapshot in
+                    if snapshot.hasChildren() {
+                        let keyIdasCount = snapshot.childrenCount
+                        self.setDataInUserboundClass(keyId: Int(keyIdasCount), classId: classId)
+                    }
+                    else {
+                        self.setDataInUserboundClass(keyId: 0, classId: classId)
+                    }
+                }
+            }
+            else {
+                // rollback
+            }
+        }
+    }
+
+    func setDataInUserboundClass(keyId: Int, classId: String) {
+        userRef.child("userClasses").child("\(keyId)").setValue(classId) { error, _ in
+            if error == nil {
+                // success fully joined class
+                
+                self.refresh(sender: self)
+                
+                self.view.makeToast("Successfully Joined Class")
+            }
+            else {
+                // rollback
+                self.view.makeToast("Error Joining Class")
+            }
+        }
+    }
+
     @objc
     func jooinBtn(_ sender: AnyObject) {
         let position: CGPoint = sender.convert(.zero, to: scheduleTableMain)
         let indexPath = scheduleTableMain.indexPathForRow(at: position)
-        
         let classes: ScheduleClasses
-        
         if isFiltering {
             classes = filteredClasses[indexPath?.row ?? 0]
         }
         else {
             classes = classList[indexPath?.row ?? 0]
         }
-        
         let actionSheet = MDCActionSheetController(title: "Join \(classes.name) ?",
                                                    message: "1 Session from your package will be consumed")
-        let desc = MDCActionSheetAction(title: classes.description,
-                                        image: .none)
+        _ = MDCActionSheetAction(title: classes.description,
+                                 image: .none)
         let actionOne = MDCActionSheetAction(title: "Join Class",
                                              image: .checkmark,
                                              handler: {
                                                  _ in
-
-                                                 // MARK: - start join classs handler
-                                                
-                                                 var keyForNext: Int!
-                                                 print(classes.usersJoined)
-                                                 if classes.usersJoined.isEmpty {
-                                                     keyForNext = 0
-                                                 }
-                                                 else {
-                                                     keyForNext = classes.usersJoined.count
-                                                 }
-                                                 print("Key for Next \(keyForNext!)")
-                                                 self.ref.child("Classes").child(classes.id).child("usersJoined").child("\(keyForNext!)").setValue(self.authIDUser) {
-                                                     error, _ in
-                                                     if error == nil {
-                                                         // MARK: - sent 1
-
-                                                         // MARK: - Reload Views
-
-                                                         // MARK: - Reading data 2
-
-                                                         var keytoUserClass: Int!
-                                                         var listIdList: [String]?
-                                                         self.ref.child("Users").child(self.authIDUser ?? "").child("userClasses").observe(.value) {
-                                                             snapshot in
-                                                             for child in snapshot.children {
-                                                                 let ns = child as! DataSnapshot
-                                                                 let dict = ns.key
-                                                                 listIdList?.append(dict)
-                                                             }
-                                                         }
-                                                         if listIdList == nil {
-                                                             keytoUserClass = 0
-                                                         }
-                                                         else {
-                                                             keytoUserClass = listIdList?.count
-                                                         }
-
-                                                         // MARK: - Sending data 2 Actual
-
-                                                         self.ref.child("Users").child(self.authIDUser ?? "").child("userClasses").child("\(keytoUserClass!)")
-                                                             .setValue(classes.id) {
-                                                                 error, _ in
-                                                                 if error == nil {
-                                                                     // MARK: - Reading data 3
-                                                                    
-                                                                     self.ref.child("Users").child(self.authIDUser!).child("userPackages").child("sessions").setValue(self.sessionsGet - 1) {
-                                                                         error, _ in
-                                                                         if error == nil {
-                                                                             print("3rd Complete")
-                                                                             self.scheduleTableMain.reloadData()
-                                                                         }
-                                                                         else {
-                                                                             print("3rd Failed")
-                                                                         }
-                                                                     }
-                                                                 }
-                                                                 else {
-                                                                     print("Error cannot send data 2")
-                                                                 }
-                                                             }
+                                                 self.userRef.child("userPackages").observeSingleEvent(of: .value, with: {
+                                                     snapshot in
+                                                     let value = snapshot.value as? NSDictionary
+                                                     let session = value?["sessions"] as! Int
+                                                     let active = value?["active"] as? Bool ?? true
+                                                     if session > 0 {
+                                                        self.userRef.child("userPackages").child("sessions").setValue(session - 1)
+                                                         self.sendJoinButton(classId: classes.id)
+                                                     }
+                                                     else if !active {
+                                                         self.view.makeToast("Your Package is Not Active !")
                                                      }
                                                      else {
-                                                         // MARK: - d1 Error
-
-                                                         print("Error cannot send even d1")
+                                                         self.view.makeToast("No Sessions Left")
                                                      }
-                                                 }
+
+                                                 })
+
                                              })
         let actionTwo = MDCActionSheetAction(title: "Cancel",
                                              image: .remove, handler: {
                                                  _ in
-                                                
+
                                              })
         let actionOpt = MDCActionSheetAction(title: "You have already Joined the Class",
                                              image: .strokedCheckmark, handler: {
@@ -308,11 +282,11 @@ class ScheduleViewController: UIViewController {
         actionSheet.messageFont = UIFont.appMediumFontWith(size: 15)
         actionSheet.backgroundColor = UIColor.black
         // add join or othe button logic
-        
+
         let timestamp = Int(NSDate().timeIntervalSince1970)
         // let timeStamp = Date.currentTimeMillis()
         print("current \(timestamp)")
-       
+
         if classes.usersJoined.contains(authIDUser!) {
             actionSheet.title = "\(classes.name) is Added To Your Classes"
             actionSheet.message = "To Cancel the Class Go to My Classes and Swipe Perticular Class You want to Cancel !"
@@ -335,7 +309,7 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource, Em
             return classList.count
         }
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell", for: indexPath) as! ScheduleTableViewCell
         let classes: ScheduleClasses
@@ -364,7 +338,7 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource, Em
         cell.totalMembersGet.text = "\(classes.usersJoined.count) Joined"
         cell.coachNameGet.text = classes.coach
         cell.joinClassBtn.addTarget(self, action: #selector(ScheduleViewController.jooinBtn(_:)), for: .touchUpInside)
-        
+
         return cell
     }
 
@@ -433,7 +407,7 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource, Em
         let attributedQuote = NSAttributedString(string: quote, attributes: attributes)
         return attributedQuote
     }
-       
+
     // MARK: - DZNEmptyDataSetDelegate Methods
 
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView) -> Bool {
