@@ -30,7 +30,7 @@ class ScheduleViewController: UIViewController {
     var isFiltering = false
     
     // Filter Requirements
-    @IBOutlet weak var filterDatePicker: UIDatePicker!
+    @IBOutlet var filterDatePicker: UIDatePicker!
     
     // Lists
     var userClassesNameList: [String] = []
@@ -41,12 +41,16 @@ class ScheduleViewController: UIViewController {
     let refreshControl = UIRefreshControl()
     @objc
     func refresh(sender: AnyObject) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let dateString = dateFormatter.string(from: Date())
+        todayFilterAction(todaysDate: dateString)
         scheduleTableMain.reloadData()
         refreshControl.endRefreshing()
     }
     
     @IBAction func dateChanged(_ sender: Any) {
-        //readClassesDetails()
+        // readClassesDetails()
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "dd/MM/yyyy"
         let forDate = dateFormatterGet.string(from: filterDatePicker.date)
@@ -65,6 +69,7 @@ class ScheduleViewController: UIViewController {
         title = "Schedule"
         setupViewsandControls()
     }
+
     override func viewWillDisappear(_ animated: Bool) {
         classList.removeAll()
     }
@@ -72,6 +77,8 @@ class ScheduleViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         readUserData()
         readClassesDetails()
+       
+        // refreshControl.endRefreshing()
     }
     
     func setupViewsandControls() {
@@ -88,11 +95,15 @@ class ScheduleViewController: UIViewController {
         ref = Database.database().reference()
         
         // Datepicker Setup
-      
         filterDatePicker.minimumDate = NSDate() as Date
+      
+        // navigation view button
+        let button1 = UIBarButtonItem(title: "Refresh", style: .plain, target: self, action: #selector(refresh))
+        navigationItem.rightBarButtonItem = button1
     }
 
     func readUserData() {
+        // MARK: - Get User Data
         ref.child("Users").child(authIDUser ?? "").child("userClasses").observe(.value) {
             snapshot in
             for child in snapshot.children {
@@ -116,14 +127,12 @@ class ScheduleViewController: UIViewController {
     }
     
     func readClassesDetails() {
+        // MARK: - Get Classes Data
         classesRef.observe(DataEventType.value, with: {
             snapshot in
             if snapshot.childrenCount > 0 {
                 for classesSch in snapshot.children.allObjects as! [DataSnapshot] {
                     let classesSchObject = classesSch.value as? [String: AnyObject]
-
-                    // MARK: - Get Firebase Data
-
                     let id = classesSchObject?["id"]
                     let capacity = classesSchObject?["capacity"]
                     let coach = classesSchObject?["coach"]
@@ -135,25 +144,21 @@ class ScheduleViewController: UIViewController {
                     _ = "\(String(describing: startTime)) - \(String(describing: endTime))"
                     let timeStamp = classesSchObject?["timestamp"]
                     let usersJoined = classesSchObject?["usersJoined"]
-                    
                     let lister = ScheduleClasses(id: id as? String, capacity: capacity as? Int, coach: coach as? String, date: date as? String, description: description as? String, name: name as? String, startTime: startTime as? String, endTime: endTime as? String, timestamp: timeStamp as? Int, userJoined: usersJoined as! [String]?)
-                    //self.classList.removeAll()
                     self.classList.append(lister)
                     self.isFiltering = true
-                    self.todayFilterAction()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "dd/MM/yyyy"
+                    let dateString = dateFormatter.string(from: Date())
+                    self.todayFilterAction(todaysDate: dateString)
                 }
-                
                 self.scheduleTableMain.reloadData()
             }
         })
     }
     
-    func todayFilterAction() {
-        let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "DD/MM/YYYY"
-        isFiltering = true
-        filteredClasses = classList.filter { $0.date == fullTodayDate }
-        
+    func todayFilterAction(todaysDate: String) {
+        filteredClasses = classList.filter { $0.date == todaysDate }
         scheduleTableMain.reloadData()
         if filteredClasses.isEmpty {
             scheduleTableMain.hideActivityIndicator()
@@ -164,33 +169,33 @@ class ScheduleViewController: UIViewController {
     }
     
     // Scroll to current date
-    @objc
-    func todaySet() {
-        let minDate = DatePickerHelper.shared.dateFrom(day: date.day(), month: date.month(), year: date.year())!
-        let maxDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 2030)!
-        let today = Date()
-        // Create picker object
-        let datePicker = DatePicker()
-        // Setup
-        
-        datePicker.setup(beginWith: today, min: minDate, max: maxDate) {
-            selected, date in
-            if selected, let selectedDate = date {
-                let ofd: String = "\(selectedDate.day())/\(selectedDate.month())/\(selectedDate.year())"
-               
-                // self.filterTableWithDate(ofDate: ofd)
-            }
-            else {
-                print("Cancelled")
-            }
-        }
-        // Display
-        datePicker.show(in: self)
-    }
+//    @objc
+//    func todaySet() {
+//        let minDate = DatePickerHelper.shared.dateFrom(day: date.day(), month: date.month(), year: date.year())!
+//        let maxDate = DatePickerHelper.shared.dateFrom(day: 18, month: 08, year: 2030)!
+//        let today = Date()
+//        // Create picker object
+//        let datePicker = DatePicker()
+//        // Setup
+//
+//        datePicker.setup(beginWith: today, min: minDate, max: maxDate) {
+//            selected, date in
+//            if selected, let selectedDate = date {
+//                let ofd: String = "\(selectedDate.day())/\(selectedDate.month())/\(selectedDate.year())"
+//
+//                // self.filterTableWithDate(ofDate: ofd)
+//            }
+//            else {
+//                print("Cancelled")
+//            }
+//        }
+//        // Display
+//        datePicker.show(in: self)
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
         scheduleTableMain.backgroundColor = .white
-        scheduleTableMain.showActivityIndicator()
+        // scheduleTableMain.showActivityIndicator()
         scheduleTableMain.rowHeight = 290
     }
    
@@ -198,7 +203,6 @@ class ScheduleViewController: UIViewController {
     func jooinBtn(_ sender: AnyObject) {
         let position: CGPoint = sender.convert(.zero, to: scheduleTableMain)
         let indexPath = scheduleTableMain.indexPathForRow(at: position)
-        
         
         let classes: ScheduleClasses
         
