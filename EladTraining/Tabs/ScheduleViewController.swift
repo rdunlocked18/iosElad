@@ -137,7 +137,7 @@ class ScheduleViewController: UIViewController {
         // MARK: - Get Classes Data
 
         classList.removeAll()
-        classesRef.observeSingleEvent(of:.value, with: {
+        classesRef.observeSingleEvent(of: .value, with: {
             snapshot in
             if snapshot.childrenCount > 0 {
                 for classesSch in snapshot.children.allObjects as! [DataSnapshot] {
@@ -214,9 +214,9 @@ class ScheduleViewController: UIViewController {
         userRef.child("userClasses").child("\(keyId)").setValue(classId) { error, _ in
             if error == nil {
                 // success fully joined class
-                
+
                 self.refresh(sender: self)
-                
+
                 self.view.makeToast("Successfully Joined Class")
             }
             else {
@@ -251,7 +251,7 @@ class ScheduleViewController: UIViewController {
                                                      let session = value?["sessions"] as! Int
                                                      let active = value?["active"] as? Bool ?? true
                                                      if session > 0 {
-                                                        self.userRef.child("userPackages").child("sessions").setValue(session - 1)
+                                                         self.userRef.child("userPackages").child("sessions").setValue(session - 1)
                                                          self.sendJoinButton(classId: classes.id)
                                                      }
                                                      else if !active {

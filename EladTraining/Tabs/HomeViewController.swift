@@ -67,7 +67,6 @@ class HomeViewController: UIViewController {
                     let ns = child as! DataSnapshot
                     let dict = ns.value as! String
                     self.userJoinedClassesList.append(dict)
-                    print("Joined Classes \(self.userJoinedClassesList)")
                 }
                 if let tabBarItems = self.tabBarController?.tabBar.items {
                     let tabItem = tabBarItems[2]
@@ -76,10 +75,6 @@ class HomeViewController: UIViewController {
                 }
             }
         }
-        
-//        userRef.child("userClasses").observe(.value) { snapshot in
-//
-//        }
         
         
         homeNewsRef = Database.database().reference().child("HomeInfo").child("News")
@@ -90,14 +85,14 @@ class HomeViewController: UIViewController {
     }
 
     func getClassesFromIds(){
-        print("inReadClasses")
+       
         classesRef.observe(.value) { (snapshot) in
             for ds in self.userJoinedClassesList {
-                print(ds)
+                
                 if(self.userJoinedClassesList.isEmpty){
                     print("not joined")
                 }else{
-                    print("value of \(ds)")
+                   
                     self.readClassesData(classId: [ds])
 
                 }
@@ -110,10 +105,8 @@ class HomeViewController: UIViewController {
     func readClassesData(classId:[String]){
         //MARK:- Get Firebase Data
         let current = Int(NSDate().timeIntervalSince1970)
-        // let timeStamp = Date.currentTimeMillis()
-        print("current \(current)")
-        print("Got class id \(classId)")
-        classesRef.observe(DataEventType.value,with:{
+    
+        classesRef.observeSingleEvent(of:DataEventType.value,with:{
             (snapshot) in
             if snapshot.childrenCount > 0{
                 self.fullClassList.removeAll()
@@ -140,29 +133,24 @@ class HomeViewController: UIViewController {
                     
                     
                     let lister = ScheduleClasses(id: id as? String, capacity: capacity as? Int, coach: coach as? String, date: date as? String, description: description as? String, name: name as? String,startTime: startTime as? String,endTime: endTime as? String, timestamp: timeStamp as? Int, userJoined: usersJoined as! [String]?)
-//
-//                    let lister = ScheduleClasses(id:id as! String?,capacity: capacity as? Int, coach: (coach as! String), date: (date as? String), description: (description as! String), name: name as? String, timings: timings as? String,timestamp: timeStamp as? Int,userJoined: usersJoined as! [String]?)
-
-                    print(self.fullClassList)
 
                     for ids in classId {
-                        print(ids)
-                        print(classId)
+                        
                         if ids == id as! String {
                             self.fullClassList.append(lister)
                             if timeStamp > current {
                                 self.upcomingClassList.append(ids)
-                                print("Upcoming Classes \(self.upcomingClassList)")
+                                print(self.upcomingClassList)
                                 self.upComingTv.text = "\(self.upcomingClassList.count)"
                                 
                                 
                             } else if timeStamp < current {
                                 self.attendedClassList.append(ids)
-                                print("Upcoming Classes \(self.attendedClassList)")
+                                
                                 self.attendedTv.text = "\(self.attendedClassList.count)"
                             }
                             
-                            print("my joined classes \(self.fullClassList.count)")
+                            
 
                         }
 
