@@ -95,12 +95,15 @@ class MoreViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         alertVC.addAction(PMAlertAction(title: "OK", style: .default, action: {
             () in
             print("Capture action OK")
-                
-            self.userRef.child("userDetails").child("fullName").setValue(alertVC.textFields[0].text ?? self.nameGet)
-            self.userRef.child("userDetails").child("email").setValue(alertVC.textFields[1].text ?? self.ageGet)
-            self.userRef.child("userDetails").child("dob").setValue(alertVC.textFields[2].text ?? self.weightGet)
-            self.userRef.child("userDetails").child("weight").setValue(alertVC.textFields[3].text ?? self.heightGet)
-            self.userRef.child("userDetails").child("height").setValue(alertVC.textFields[4].text ?? self.heightGet)
+            if ( alertVC.textFields[0].text == "" || alertVC.textFields[1].text == "" || alertVC.textFields[2].text == "" || alertVC.textFields[3].text == "" || alertVC.textFields[4].text == "" ) {
+                self.view.makeToast("Fields Cannot be Empty")
+            } else {
+                self.userRef.child("userDetails").child("fullName").setValue(alertVC.textFields[0].text ?? self.nameGet)
+                self.userRef.child("userDetails").child("email").setValue(alertVC.textFields[1].text ?? self.ageGet)
+                self.userRef.child("userDetails").child("dob").setValue(alertVC.textFields[2].text ?? self.weightGet)
+                self.userRef.child("userDetails").child("weight").setValue(alertVC.textFields[3].text ?? self.heightGet)
+                self.userRef.child("userDetails").child("height").setValue(alertVC.textFields[4].text ?? self.heightGet)
+            }
 //                self.userRef.child("userDetails").child("fullname").setValue(alertVC.textFields[0].text! ?? "")
 //                self.userRef.child("userDetails").child("fullname").setValue(alertVC.textFields[0].text! ?? "")
                 
@@ -153,8 +156,6 @@ class MoreViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.userRef.child("userPackages").observeSingleEvent(of: .value) { snapshot in
             let value = snapshot.value as? NSDictionary
             let endDate = value?["endDate"] as? Int ?? 0
-            // let startDate = value?["startDate"] as? String ?? ""
-            // let packageId = value?["packageId"] as? String ?? ""
             let sessions = value?["sessions"] as? Int ?? 0
             let punishment = value?["punishment"] as? Bool ?? false
             

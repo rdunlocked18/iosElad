@@ -13,6 +13,7 @@ class MyClassesCellTableViewCell: UITableViewCell {
     
     @IBOutlet weak var classDescription: UILabel!
     
+    @IBOutlet weak var leaveButton: UIButton!
     @IBOutlet weak var classTimeLbl: UILabel!
     @IBOutlet weak var classDateLbl: UILabel!
     override func awakeFromNib() {

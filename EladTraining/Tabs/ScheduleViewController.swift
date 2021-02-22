@@ -309,6 +309,15 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource, Em
             return classList.count
         }
     }
+    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+//        cell.layer.transform = rotationTransform
+//        cell.alpha = 0
+//        UIView.animate(withDuration: 1) {
+//            cell.alpha = 1.0
+//        }
+//    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = scheduleTableMain.dequeueReusableCell(withIdentifier: "schCell", for: indexPath) as! ScheduleTableViewCell
@@ -337,7 +346,17 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource, Em
         cell.classCapacityGet.text = "\(classes.capacity - classes.usersJoined.count) spots remaining"
         cell.totalMembersGet.text = "\(classes.usersJoined.count) Joined"
         cell.coachNameGet.text = classes.coach
-        cell.joinClassBtn.addTarget(self, action: #selector(ScheduleViewController.jooinBtn(_:)), for: .touchUpInside)
+        if(classes.usersJoined.contains(authIDUser!)){
+            cell.joinClassBtn.isEnabled = false
+            cell.joinClassBtn.setTitle("Joined", for: .disabled)
+            cell.joinClassBtn.setImage(UIImage(systemName: "checkmark.seal"), for: .disabled)
+        }else {
+            cell.joinClassBtn.isEnabled = true
+            cell.joinClassBtn.setTitle("Join Class", for: .focused)
+            cell.joinClassBtn.setImage(UIImage(systemName: "person.crop.circle.badge.plus"), for: .focused)
+            cell.joinClassBtn.addTarget(self, action: #selector(ScheduleViewController.jooinBtn(_:)), for: .touchUpInside)
+        }
+        
 
         return cell
     }

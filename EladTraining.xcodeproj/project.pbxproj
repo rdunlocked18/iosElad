@@ -38,7 +38,6 @@
 		BF7F5AF9258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */; };
 		BF8187A3258A31B9006482C6 /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8187A2258A31B9006482C6 /* ScheduleModel.swift */; };
 		BF8187EC258A7DEC006482C6 /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */; };
-		BF93E46C25BEA8FA003DAB4F /* ProfileTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */; };
 		BF93E46F25BECCFF003DAB4F /* DateDif.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E46E25BECCFF003DAB4F /* DateDif.swift */; };
 		BF93E47225BED5C3003DAB4F /* TstoDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93E47125BED5C3003DAB4F /* TstoDate.swift */; };
 		BFA8C66E25DFB22700FF4638 /* SampleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA8C66D25DFB22700FF4638 /* SampleController.swift */; };
@@ -92,7 +91,6 @@
 		BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassesCellTableViewCell.swift; sourceTree = "<group>"; };
 		BF8187A2258A31B9006482C6 /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
-		BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableCell.swift; sourceTree = "<group>"; };
 		BF93E46E25BECCFF003DAB4F /* DateDif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDif.swift; sourceTree = "<group>"; };
 		BF93E47125BED5C3003DAB4F /* TstoDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TstoDate.swift; sourceTree = "<group>"; };
 		BF9B599A25C147D200DD8218 /* EladTraining.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EladTraining.entitlements; sourceTree = "<group>"; };
@@ -234,7 +232,6 @@
 				BF8187EB258A7DEC006482C6 /* ScheduleTableViewCell.swift */,
 				BF7F5AF8258FBCDA002F68B1 /* MyClassesCellTableViewCell.swift */,
 				BF4286FE25A836D000BDAC68 /* HomeTableViewCell.swift */,
-				BF93E46B25BEA8FA003DAB4F /* ProfileTableCell.swift */,
 			);
 			path = CellGens;
 			sourceTree = "<group>";
@@ -391,7 +388,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF93E46C25BEA8FA003DAB4F /* ProfileTableCell.swift in Sources */,
 				BF6A6C7F258401320008D4BA /* PaddingFields.swift in Sources */,
 				BFFB1D092582A31600329BDD /* KeyboardHide.swift in Sources */,
 				BF4286FF25A836D000BDAC68 /* HomeTableViewCell.swift in Sources */,

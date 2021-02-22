@@ -100,20 +100,21 @@ class MyClassesViewController: UIViewController {
         // tableview setup
         myClassesTableView.dataSource = self
         myClassesTableView.delegate = self
-        myClassesTableView.rowHeight = 170
-        //myClassesTableView.
+        myClassesTableView.rowHeight = 227
+        // myClassesTableView.
         myClassesTableView.refreshControl = refreshControl
         myClassesTableView.emptyDataSetDelegate = self
         myClassesTableView.emptyDataSetSource = self
     }
     
     func readDataAndPopulate() {
+        self.userJoinedClassesList.removeAll()
         ref.child("Users").child(authUid).child("userClasses").observeSingleEvent(of: .value) { snapshot in
             for child in snapshot.children {
                 let ns = child as! DataSnapshot
                 let dict = ns.value as! String
                 self.userJoinedClassesList.append(dict)
-                print(self.userJoinedClassesList)
+                // print(self.userJoinedClassesList)
             }
             
             self.readClassesData(classId: self.userJoinedClassesList)
@@ -146,14 +147,14 @@ class MyClassesViewController: UIViewController {
     func refresh(sender: AnyObject) {
         // Updating your data here...
         myClassesTableView.beginUpdates()
-        userJoinedClassesList.removeAll()
+        // userJoinedClassesList.removeAll()
         readDataAndPopulate()
         myClassesTableView.reloadData()
         refreshControl.endRefreshing()
     }
     
     func getClassesFromIds() {
-        classesRef.observe(.value) { _ in
+        classesRef.observeSingleEvent(of: .value) { _ in
             for ds in self.userJoinedClassesList {
                 if self.userJoinedClassesList.isEmpty {
                     print("not joined")
@@ -167,6 +168,7 @@ class MyClassesViewController: UIViewController {
     
     func readUserpkgData() {
         // MARK: - Get Firebase Data
+
         userPkgRef.observeSingleEvent(of: .value, with: {
             snapshot in
             
@@ -177,21 +179,24 @@ class MyClassesViewController: UIViewController {
             self.startDate = value?["startDate"] as? String ?? ""
             self.isActive = value?["active"] as? Bool ?? true
             self.sessions = value?["sessions"] as? Int ?? 0
-//            self.punishment = value?["punishment"] as? Bool ?? false
-//            self.punishmentTimeStamp = value?["punishmentTimeStamp"] as? Int ?? 0
-            // let  = userPackageDetailsObject?["sessions"]
-//            print(" inside 8 less \(String(describing: self.packageId))")
          
         })
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        classFulldetList.removeAll()
+        // self.userJoinedClassesList.removeAll()
     }
     
     func readClassesData(classId: [String]) {
         // MARK: - Get Firebase Data
-        print("Got class id \(classId)")
+
         ref.child("Classes").observeSingleEvent(of: .value, with: {
             snapshot in
             if snapshot.childrenCount > 0 {
                 self.classFulldetList.removeAll()
+                // self.userJoinedClassesList.removeAll()
                 for classesSch in snapshot.children.allObjects as! [DataSnapshot] {
                     let classesSchObject = classesSch.value as? [String: AnyObject]
                     
@@ -208,13 +213,10 @@ class MyClassesViewController: UIViewController {
                     let usersJoined = classesSchObject?["usersJoined"]
                     
                     let lister = ScheduleClasses(id: id as? String, capacity: capacity as? Int, coach: coach as? String, date: date as? String, description: description as? String, name: name as? String, startTime: startTime as? String, endTime: endTime as? String, timestamp: timeStamp as? Int, userJoined: usersJoined as! [String]?)
-                    
-                    print(self.classFulldetList)
-                    
                     for ids in classId {
                         if ids == id as! String {
                             self.classFulldetList.append(lister)
-                            print("my joined classes \(self.classFulldetList.count)")
+                            // print("my joined classes \(self.classFulldetList.count)")
                         }
                     }
                 }
@@ -222,7 +224,6 @@ class MyClassesViewController: UIViewController {
             }
             
         })
-        myClassesTableView.reloadData()
     }
 }
 
@@ -233,6 +234,15 @@ extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource, E
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return classFulldetList.count
+    }
+    //animation
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.5) {
+            cell.alpha = 1.0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -252,8 +262,80 @@ extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource, E
         cell.classDateLbl?.text = addedClasses.date
         cell.classTimeLbl?.text = "\(addedClasses.startTime) - \(addedClasses.endTime)"
         // hitNotification(classId: addedClasses.id, className: addedClasses.name, timeStamp: addedClasses.timestamp) hit notification if needed
+        cell.leaveButton.addTarget(self, action: #selector(leaveLogicBtn), for: .touchUpInside)
 
         return cell
+    }
+    
+    @objc
+    func leaveLogicBtn(_ sender: AnyObject) {
+        
+        let destroyAction = UIAlertAction(title: "Leave Class",
+                                          style: .destructive) { _ in
+            // Respond to user selection of the action
+            let position: CGPoint = sender.convert(.zero, to: self.myClassesTableView)
+            let indexPath = self.myClassesTableView.indexPathForRow(at: position)
+            let cell = self.myClassesTableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath!) as! MyClassesCellTableViewCell
+            let addedClasses: ScheduleClasses
+            addedClasses = self.classFulldetList[indexPath!.row]
+            
+            self.myClassesTableView.beginUpdates()
+            self.userPkgRef.child("punishment").setValue(false)
+            self.userPkgRef.child("punishmentTimeStamp").setValue(0)
+            self.userPkgRef.child("sessions").setValue(self.sessions! + 1)
+            // remove from class ref
+            var usersInClassList: [String] = addedClasses.usersJoined
+            for users in usersInClassList {
+                if users == self.authUid {
+                    usersInClassList.remove(at: usersInClassList.firstIndex(of: self.authUid)!)
+                    if !usersInClassList.isEmpty {
+                        self.classesRef.child(addedClasses.id).child("usersJoined").setValue(usersInClassList)
+                    } else {
+                        self.classesRef.child(addedClasses.id).child("usersJoined").removeValue()
+                    }
+                }
+                self.myClassesTableView.reloadData()
+            }
+            // remove from user ref
+            
+            print("User joined classes\(self.userJoinedClassesList)")
+            
+            var userClssjoinedIdList: [String] = self.userJoinedClassesList
+            print("condition 2")
+            for classId in userClssjoinedIdList {
+                print("condition 2 \(classId)")
+                print("condition 2 added id \(addedClasses.id)")
+                if classId == addedClasses.id {
+                    print("condition 2 \(classId)")
+                    userClssjoinedIdList.remove(at: userClssjoinedIdList.firstIndex(of: addedClasses.id)!)
+                    print("id in user list \(userClssjoinedIdList)")
+                    if !userClssjoinedIdList.isEmpty {
+                        print("new list of class in user ref \(userClssjoinedIdList)")
+                        self.userClassesRef.setValue(userClssjoinedIdList)
+                    } else {
+                        print("new list of class in user ref \(userClssjoinedIdList)")
+                        self.userClassesRef.removeValue()
+                    }
+                }
+                self.myClassesTableView.reloadData()
+            }
+            self.view.makeToast("Class Left Successfully, List Will be cleared on App Restart")
+            self.myClassesTableView.reloadData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel) { _ in
+            // Respond to user selection of the action
+            // self.dismiss(animated: true)
+        }
+                
+        let alert = UIAlertController(title: "Confirm Leave Class ?",
+                                      message: "Are you sure you want to Leave Class ? Your Sessions Will be Refunded",
+                                      preferredStyle: .actionSheet)
+        alert.addAction(destroyAction)
+        alert.addAction(cancelAction)
+                
+        present(alert, animated: true)
     }
 
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
@@ -291,58 +373,4 @@ extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource, E
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView) -> Bool {
         return true
     }
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
-    }
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "Leave Class"
-    }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let addedClasses: ScheduleClasses
-        addedClasses = classFulldetList[indexPath.row]
-        if editingStyle == .delete {
-            myClassesTableView.beginUpdates()
-            self.userPkgRef.child("punishment").setValue(false)
-            self.userPkgRef.child("punishmentTimeStamp").setValue(0)
-            self.userPkgRef.child("sessions").setValue(self.sessions! + 1)
-            myClassesTableView.deleteRows(at: [indexPath], with: .left)
-            myClassesTableView.reloadData()
-        }
-        
-    }
 }
-//var usersInClassList: [String] = addedClasses.usersJoined
-//                   for users in usersInClassList {
-//                       if users == self.authUid {
-//                           usersInClassList.remove(at: usersInClassList.firstIndex(of: self.authUid)!)
-//                           if !usersInClassList.isEmpty {
-//                               self.classesRef.child(addedClasses.id).child("usersJoined").setValue(usersInClassList)
-//                           } else {
-//                               self.classesRef.child(addedClasses.id).child("usersJoined").removeValue()
-//                           }
-//                       }
-//                   }
-//var userClssjoinedIdList: [String] = self.userJoinedClassesList
-//for classId in userClssjoinedIdList {
-//                        if classId == addedClasses.id {
-//                            userClssjoinedIdList.remove(at: userClssjoinedIdList.firstIndex(of: addedClasses.id)!)
-//                            print("id in user list \(userClssjoinedIdList)")
-//                            if !userClssjoinedIdList.isEmpty {
-//                                self.userClassesRef.setValue(userClssjoinedIdList) { error, _ in
-//                                    if error == nil {
-//                                        print("Pushedup")
-//                                        self.classFulldetList.removeAll()
-//                                        self.refresh(sender: self)
-//
-//                                    }
-//                                }
-//                            } else {
-//                                print("in else path \(indexPath)")
-//                                self.userClassesRef.removeValue()
-//                                self.classFulldetList.removeAll()
-//                                self.refresh(sender: self)
-//
-//                            }
-//                        }
-//                    }
