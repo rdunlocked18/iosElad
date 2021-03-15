@@ -178,7 +178,11 @@ class MoreViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             
             self.sessionsLbl.text = "\(sessions)"
             self.validUntilLbl.text = "Till  \(end)"
-                
+            
+            if (days<=0){
+                self.view.makeToast("Your Package is Disabled, Purchase Package to Continue")
+                //self.userRef.child("userPackages").child("active").setValue(false)
+            }
             self.daysleftMid.text = "\(days)"
         }
     }
@@ -299,6 +303,7 @@ class MoreViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             print(self.nameGet ?? "def")
 
             if img == "" || img == nil || img == "null" {
+                
             } else {
                 Nuke.loadImage(with: ImageRequest(url: URL(string: img)!, processors: [
                     ImageProcessors.Circle()

@@ -13,7 +13,7 @@ import MaterialComponents
 
 class VerifyOtpViewController: UIViewController {
     
-    @IBOutlet weak var emailTf: MDCOutlinedTextField!
+    @IBOutlet weak var emailTf: UITextField!
     @IBOutlet weak var confirmBtn: UIButton!
     
     @IBOutlet weak var backtoLogin: UIButton!
@@ -23,7 +23,10 @@ class VerifyOtpViewController: UIViewController {
         title = "Password Reset"
         navigationItem.largeTitleDisplayMode = .always
         confirmBtn.addTarget(self, action: #selector(getResetLink), for: .touchUpInside)
-        
+        emailTf.addPadding(padding: .left(10))
+        emailTf.layer.cornerRadius = 10.0
+        emailTf.layer.borderWidth = 1.0
+        emailTf.layer.borderColor = UIColor.black.cgColor
      
         
         

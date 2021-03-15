@@ -85,7 +85,7 @@ class MyClassesViewController: UIViewController {
 
     func setupViewsanRef() {
         // refresh Controller
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        //refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(checkAction))
         myclassView.addGestureRecognizer(gesture)
@@ -186,13 +186,13 @@ class MyClassesViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         classFulldetList.removeAll()
-        // self.userJoinedClassesList.removeAll()
+        userJoinedClassesList.removeAll()
     }
     
     func readClassesData(classId: [String]) {
         // MARK: - Get Firebase Data
 
-        ref.child("Classes").observeSingleEvent(of: .value, with: {
+        ref.child("Classes").queryOrdered(byChild: "timeStamp").observeSingleEvent(of: .value, with: {
             snapshot in
             if snapshot.childrenCount > 0 {
                 self.classFulldetList.removeAll()
@@ -279,22 +279,31 @@ extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource, E
             let addedClasses: ScheduleClasses
             addedClasses = self.classFulldetList[indexPath!.row]
             
-            self.myClassesTableView.beginUpdates()
+            //self.myClassesTableView.beginUpdates()
             self.userPkgRef.child("punishment").setValue(false)
             self.userPkgRef.child("punishmentTimeStamp").setValue(0)
-            self.userPkgRef.child("sessions").setValue(self.sessions! + 1)
+            self.userPkgRef.observeSingleEvent(of: .value) { (snapshot) in
+                let value = snapshot.value as? NSDictionary
+                let sessions = value?["sessions"] as? Int
+                if sessions != nil {
+                    let newSessions = sessions! + 1
+                    self.userPkgRef.child("sessions").setValue(newSessions)
+                }
+            }
+           
             // remove from class ref
             var usersInClassList: [String] = addedClasses.usersJoined
             for users in usersInClassList {
                 if users == self.authUid {
                     usersInClassList.remove(at: usersInClassList.firstIndex(of: self.authUid)!)
+//                    self.classFulldetList.remove(at: indexPath!.row)
                     if !usersInClassList.isEmpty {
                         self.classesRef.child(addedClasses.id).child("usersJoined").setValue(usersInClassList)
                     } else {
                         self.classesRef.child(addedClasses.id).child("usersJoined").removeValue()
                     }
                 }
-                self.myClassesTableView.reloadData()
+               // self.myClassesTableView.reloadData()
             }
             // remove from user ref
             
@@ -308,6 +317,7 @@ extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource, E
                 if classId == addedClasses.id {
                     print("condition 2 \(classId)")
                     userClssjoinedIdList.remove(at: userClssjoinedIdList.firstIndex(of: addedClasses.id)!)
+                   // self.userJoinedClassesList.remove(at: indexPath!.row)
                     print("id in user list \(userClssjoinedIdList)")
                     if !userClssjoinedIdList.isEmpty {
                         print("new list of class in user ref \(userClssjoinedIdList)")
@@ -315,12 +325,19 @@ extension MyClassesViewController: UITableViewDelegate, UITableViewDataSource, E
                     } else {
                         print("new list of class in user ref \(userClssjoinedIdList)")
                         self.userClassesRef.removeValue()
+                        
                     }
                 }
-                self.myClassesTableView.reloadData()
+                //self.myClassesTableView.deleteRows(at: [indexPath!], with: .left)
+               // self.myClassesTableView.reloadData()
             }
-            self.view.makeToast("Class Left Successfully, List Will be cleared on App Restart")
+            //self.myClassesTableView.beginUpdates()
+            self.classFulldetList.remove(at: indexPath!.row)
+            self.userJoinedClassesList.remove(at: indexPath!.row)
+            self.myClassesTableView.deleteRows(at: [indexPath!], with: .middle)
             self.myClassesTableView.reloadData()
+            self.view.makeToast("Class Left Successfully")
+          //  self.myClassesTableView.reloadData()
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",

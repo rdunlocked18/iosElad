@@ -121,7 +121,7 @@ class HomeViewController: UIViewController {
                     let date = classesSchObject?["date"]
                     let description = classesSchObject?["description"]
                     let name = classesSchObject?["name"]
-                    let timings = classesSchObject?["timings"]
+                    _ = classesSchObject?["timings"]
                     let timeStamp = classesSchObject?["timeStamp"] as! Int
                     let usersJoined = classesSchObject?["usersJoined"]
                     
@@ -191,6 +191,23 @@ class HomeViewController: UIViewController {
     }
 
     func readUserData() {
+        userRef.child("userPackages").observeSingleEvent(of: .value) { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let endDate = value?["endDate"] as? Int ?? 0
+            let timestamp = Int(NSDate().timeIntervalSince1970)
+            let date = Date(timeIntervalSince1970: TimeInterval(endDate))
+            let sdate = Date(timeIntervalSince1970: TimeInterval(timestamp))
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT") // Set timezone that you want
+            dateFormatter.locale = NSLocale.current
+            dateFormatter.dateFormat = "dd/MM/yyyy" // Specify your format that you want
+            let days = date.days(from: sdate)
+            if (days<=0){
+                self.view.makeToast("Your Package is Disabled, Purchase Package to Continue")
+                self.userRef.child("userPackages").child("active").setValue(false)
+            }
+           
+        }
         userRef.child("userDetails").observeSingleEvent(of: .value) { snapshot in
             let value = snapshot.value as? NSDictionary
             let name = value?["fullName"] as? String ?? ""

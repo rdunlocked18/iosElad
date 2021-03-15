@@ -125,19 +125,40 @@ class ScheduleViewController: UIViewController {
             let value = snapshot.value as? NSDictionary
             self.sessionsGet = value?["sessions"] as? Int
             let active = value?["active"] as? Bool ?? true
-
+            
             if !active {
+                
                 self.scheduleTableMain.isHidden = true
                 self.filterDatePicker.isHidden = true
+                self.loadNotActiveView()
+                
             }
         })
     }
+    
+    func loadNotActiveView(){
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+        label.center = CGPoint(x: self.view.bounds.size.width / 2, y: self.view.bounds.size.height / 2)
+        label.textAlignment = .center
+        label.text = "Your Package is inactive"
+        label.textColor = .red
+        label.font = UIFont.appBoldFontWith(size: 17)
+        self.view.addSubview(label)
+        let subtitle = UILabel(frame: CGRect(x: 0, y: 0, width: 500, height: 21))
+        subtitle.center =  CGPoint(x: self.view.bounds.size.width / 2, y: self.view.bounds.size.height / 1.8)
+        subtitle.textAlignment = .center
+        subtitle.text = "Please purchase a package or contact support!"
+        subtitle.font = UIFont.appRegularFontWith(size: 15)
+        self.view.addSubview(subtitle)
+       //CGPoint(x: 200, y: 350)
+    }
+    
 
     func readClassesDetails() {
         // MARK: - Get Classes Data
 
         classList.removeAll()
-        classesRef.observeSingleEvent(of: .value, with: {
+        classesRef.queryOrdered(byChild: "timeStamp").observeSingleEvent(of: .value, with: {
             snapshot in
             if snapshot.childrenCount > 0 {
                 for classesSch in snapshot.children.allObjects as! [DataSnapshot] {
@@ -357,6 +378,12 @@ extension ScheduleViewController: UITableViewDelegate, UITableViewDataSource, Em
             cell.joinClassBtn.addTarget(self, action: #selector(ScheduleViewController.jooinBtn(_:)), for: .touchUpInside)
         }
         
+//        let current = Int(NSDate().timeIntervalSince1970)
+//        if classes.timestamp < current {
+//            cell.joinClassBtn.isEnabled = false
+//            cell.joinClassBtn.setTitle("Class Time Over", for: .disabled)
+//            cell.joinClassBtn.setImage(UIImage(systemName: "xmark.octagon.fill"), for: .disabled)
+//        }
 
         return cell
     }
