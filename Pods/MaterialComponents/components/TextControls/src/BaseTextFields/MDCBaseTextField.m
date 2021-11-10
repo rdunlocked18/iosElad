@@ -16,6 +16,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "MaterialTextControls+Enums.h"
+#import "MDCTextControlAssistiveLabelDrawPriority.h"
 #import <MDFInternationalization/MDFInternationalization.h>
 
 #import "MDCBaseTextFieldDelegate.h"
@@ -325,7 +327,7 @@ static char *const kKVOContextMDCBaseTextField = "kKVOContextMDCBaseTextField";
                                 normalFontLineHeight:self.normalFont.lineHeight
                                        textRowHeight:self.normalFont.lineHeight
                                     numberOfTextRows:self.numberOfLinesOfVisibleText
-                                             density:0
+                                             density:self.verticalDensity
                             preferredContainerHeight:self.preferredContainerHeight
                               isMultilineTextControl:NO];
 }
@@ -455,6 +457,11 @@ static char *const kKVOContextMDCBaseTextField = "kKVOContextMDCBaseTextField";
   [self setNeedsLayout];
 }
 
+- (void)setVerticalDensity:(CGFloat)verticalDensity {
+  _verticalDensity = verticalDensity;
+  [self setNeedsLayout];
+}
+
 #pragma mark MDCTextControl accessors
 
 - (void)setLabelBehavior:(MDCTextControlLabelBehavior)labelBehavior {
@@ -535,13 +542,9 @@ static char *const kKVOContextMDCBaseTextField = "kKVOContextMDCBaseTextField";
 #pragma mark Dynamic Type
 
 - (void)setAdjustsFontForContentSizeCategory:(BOOL)adjustsFontForContentSizeCategory {
-  if (@available(iOS 10.0, *)) {
-    [super setAdjustsFontForContentSizeCategory:adjustsFontForContentSizeCategory];
-    self.leadingAssistiveLabel.adjustsFontForContentSizeCategory =
-        adjustsFontForContentSizeCategory;
-    self.trailingAssistiveLabel.adjustsFontForContentSizeCategory =
-        adjustsFontForContentSizeCategory;
-  }
+  [super setAdjustsFontForContentSizeCategory:adjustsFontForContentSizeCategory];
+  self.leadingAssistiveLabel.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+  self.trailingAssistiveLabel.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
 }
 
 - (void)observeContentSizeCategoryNotifications {
@@ -578,6 +581,7 @@ static char *const kKVOContextMDCBaseTextField = "kKVOContextMDCBaseTextField";
                           floatingLabelFrame:self.layout.labelFrameFloating
                                   normalFont:self.normalFont
                                 floatingFont:self.floatingFont
+                    labelTruncationIsPresent:self.layout.labelTruncationIsPresent
                            animationDuration:self.animationDuration
                                   completion:^(BOOL finished) {
                                     if (finished) {

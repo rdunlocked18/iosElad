@@ -14,10 +14,9 @@
 
 #import "MDCFeatureHighlightViewController.h"
 
-#import <MDFTextAccessibility/MDFTextAccessibility.h>
-#import "MaterialTypography.h"
 #import "private/MDCFeatureHighlightAnimationController.h"
 #import "private/MDCFeatureHighlightView+Private.h"
+#import "MDCFeatureHighlightView.h"
 
 static const CGFloat kMDCFeatureHighlightLineSpacing = 1;
 static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
@@ -66,10 +65,7 @@ static const CGFloat kMDCFeatureHighlightPulseAnimationInterval = (CGFloat)1.5;
       UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   self.featureHighlightView.mdc_adjustsFontForContentSizeCategory =
       _mdc_adjustsFontForContentSizeCategory;
-  if (@available(iOS 10.0, *)) {
-    self.featureHighlightView.adjustsFontForContentSizeCategory =
-        _adjustsFontForContentSizeCategory;
-  }
+  self.featureHighlightView.adjustsFontForContentSizeCategory = _adjustsFontForContentSizeCategory;
   self.featureHighlightView.mdc_legacyFontScaling = _mdc_legacyFontScaling;
 
   __weak MDCFeatureHighlightViewController *weakSelf = self;

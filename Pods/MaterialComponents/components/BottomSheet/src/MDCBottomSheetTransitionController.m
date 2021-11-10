@@ -42,6 +42,7 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
   self = [super init];
   if (self) {
     _scrimAccessibilityTraits = UIAccessibilityTraitButton;
+    _adjustHeightForSafeAreaInsets = YES;
   }
   return self;
 }
@@ -62,6 +63,8 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
   presentationController.scrimAccessibilityHint = _scrimAccessibilityHint;
   presentationController.scrimAccessibilityLabel = _scrimAccessibilityLabel;
   presentationController.preferredSheetHeight = _preferredSheetHeight;
+  presentationController.adjustHeightForSafeAreaInsets = _adjustHeightForSafeAreaInsets;
+  presentationController.ignoreKeyboardHeight = _ignoreKeyboardHeight;
   _currentPresentationController = presentationController;
   return presentationController;
 }
@@ -168,6 +171,16 @@ static const NSTimeInterval MDCBottomSheetTransitionDuration = 0.25;
 
 - (UIColor *)scrimColor {
   return _scrimColor;
+}
+
+- (void)setAdjustHeightForSafeAreaInsets:(BOOL)adjustHeightForSafeAreaInsets {
+  _adjustHeightForSafeAreaInsets = adjustHeightForSafeAreaInsets;
+  _currentPresentationController.adjustHeightForSafeAreaInsets = adjustHeightForSafeAreaInsets;
+}
+
+- (void)setIgnoreKeyboardHeight:(BOOL)ignoreKeyboardHeight {
+  _ignoreKeyboardHeight = ignoreKeyboardHeight;
+  _currentPresentationController.ignoreKeyboardHeight = ignoreKeyboardHeight;
 }
 
 - (void)setIsScrimAccessibilityElement:(BOOL)isScrimAccessibilityElement {

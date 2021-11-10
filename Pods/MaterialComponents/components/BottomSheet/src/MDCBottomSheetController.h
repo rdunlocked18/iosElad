@@ -71,6 +71,14 @@
 @property(nonatomic, assign) BOOL dismissOnDraggingDownSheet;
 
 /**
+ A Boolean value that controls whether the height of the keyboard should affect
+ the bottom sheet's frame when the keyboard shows on the screen.
+
+ The default value is @c NO.
+ */
+@property(nonatomic) BOOL ignoreKeyboardHeight;
+
+/**
  The color applied to the sheet's background when presented by MDCBottomSheetPresentationController.
 
  Defaults to a semi-transparent Black.
@@ -120,6 +128,16 @@
  The elevation of the bottom sheet. Defaults to @c MDCShadowElevationModalBottomSheet.
  */
 @property(nonatomic, assign) MDCShadowElevation elevation;
+
+/**
+ Whether or not the height of the bottom sheet should adjust to include extra height for any bottom
+ safe area insets. If, for example, this is set to @c YES, and the preferred content size height is
+ 100 and the screen has a bottom safe area inset of 10, the total height of the displayed bottom
+ sheet height would be 110. If set to @c NO, the height would be 100.
+
+ Defaults to @c YES.
+ */
+@property(nonatomic, assign) BOOL adjustHeightForSafeAreaInsets;
 
 /**
  Bottom sheet controllers must be created with @c initWithContentViewController:.

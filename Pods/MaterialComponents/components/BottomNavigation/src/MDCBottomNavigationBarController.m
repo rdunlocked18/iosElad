@@ -18,9 +18,7 @@
 
 #import "private/MDCBottomNavigationBar+Private.h"
 #import "private/MDCBottomNavigationLargeItemDialogView.h"
-#import "MDCBottomNavigationBarControllerDelegate.h"
 #import "MaterialBottomNavigation.h"
-#import "MaterialApplication.h"
 
 // A context for Key Value Observing
 static void *const kObservationContext = (void *)&kObservationContext;
@@ -263,16 +261,33 @@ static UIViewController *_Nullable DecodeViewController(NSCoder *coder, NSString
 
   _navigationBarHidden = hidden;
 
+  MDCBottomNavigationBar *navigationBar = self.navigationBar;
   self.navigationBarItemsBottomAnchorConstraint.active = !hidden;
   self.navigationBarBottomAnchorConstraint.constant =
-      hidden ? CGRectGetHeight(self.navigationBar.frame) : 0;
+      hidden ? CGRectGetHeight(navigationBar.frame) : 0;
 
-  [UIView animateWithDuration:kNavigationBarHideShowAnimationDuration
+  void (^completionBlock)(BOOL) = ^(BOOL finished) {
+    // Update the end hidden state of the navigation bar if it was not interrupted (the end state
+    // matches the current state). Otherwise an already scheduled animation will take care of this.
+    if (finished && !hidden != !self.navigationBarItemsBottomAnchorConstraint.active) {
+      navigationBar.hidden = hidden;
+    }
+  };
+
+  // Immediatelly update the navigation bar's hidden state when it is going to become visible to be
+  // able to see the animation).
+  if (!hidden) {
+    navigationBar.hidden = hidden;
+  }
+
+  NSTimeInterval duration = animated ? kNavigationBarHideShowAnimationDuration : 0;
+  [UIView animateWithDuration:duration
                    animations:^{
                      [self.view setNeedsLayout];
                      [self.view layoutIfNeeded];
                      [self updateNavigationBarInsets];
-                   }];
+                   }
+                   completion:completionBlock];
 }
 
 #pragma mark - MDCBottomNavigationBarDelegate

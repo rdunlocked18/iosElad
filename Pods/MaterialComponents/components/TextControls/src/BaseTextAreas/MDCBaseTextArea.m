@@ -21,7 +21,10 @@
 #import "private/MDCBaseTextAreaLayout.h"
 #import "private/MDCBaseTextAreaTextView.h"
 #import "MDCBaseTextAreaDelegate.h"
+#import "MDCTextControlLabelBehavior.h"
+#import "MDCTextControlState.h"
 #import "MaterialTextControlsPrivate+BaseStyle.h"
+#import "MDCTextControlAssistiveLabelDrawPriority.h"
 #import "MaterialTextControlsPrivate+Shared.h"
 
 static char *const kKVOContextMDCBaseTextArea = "kKVOContextMDCBaseTextArea";
@@ -109,6 +112,7 @@ static const CGFloat kMDCBaseTextAreaDefaultMaximumNumberOfVisibleLines = (CGFlo
   self.minimumNumberOfVisibleRows = kMDCBaseTextAreaDefaultMinimumNumberOfVisibleLines;
   self.maximumNumberOfVisibleRows = kMDCBaseTextAreaDefaultMaximumNumberOfVisibleLines;
   self.gradientManager = [[MDCTextControlGradientManager alloc] init];
+  self.placeholderColor = [self defaultPlaceholderColor];
 }
 
 - (void)setUpTapGesture {
@@ -289,7 +293,7 @@ static const CGFloat kMDCBaseTextAreaDefaultMaximumNumberOfVisibleLines = (CGFlo
                                        textRowHeight:(self.normalFont.lineHeight +
                                                       self.normalFont.leading)
                                     numberOfTextRows:self.numberOfLinesOfVisibleText
-                                             density:0
+                                             density:self.verticalDensity
                             preferredContainerHeight:self.preferredContainerHeight
                               isMultilineTextControl:YES];
 }
@@ -394,14 +398,10 @@ static const CGFloat kMDCBaseTextAreaDefaultMaximumNumberOfVisibleLines = (CGFlo
 #pragma mark Dynamic Type
 
 - (void)setAdjustsFontForContentSizeCategory:(BOOL)adjustsFontForContentSizeCategory {
-  if (@available(iOS 10.0, *)) {
-    _adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
-    self.textView.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
-    self.leadingAssistiveLabel.adjustsFontForContentSizeCategory =
-        adjustsFontForContentSizeCategory;
-    self.trailingAssistiveLabel.adjustsFontForContentSizeCategory =
-        adjustsFontForContentSizeCategory;
-  }
+  _adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+  self.textView.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+  self.leadingAssistiveLabel.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
+  self.trailingAssistiveLabel.adjustsFontForContentSizeCategory = adjustsFontForContentSizeCategory;
 }
 
 #pragma mark MDCTextControlState
@@ -418,7 +418,7 @@ static const CGFloat kMDCBaseTextAreaDefaultMaximumNumberOfVisibleLines = (CGFlo
   if ([self shouldPlaceholderBeVisible]) {
     NSDictionary<NSAttributedStringKey, id> *attributes = @{
       NSParagraphStyleAttributeName : [self defaultPlaceholderParagraphStyle],
-      NSForegroundColorAttributeName : [self defaultPlaceholderColor],
+      NSForegroundColorAttributeName : self.placeholderColor,
       NSFontAttributeName : self.normalFont
     };
     return [[NSAttributedString alloc] initWithString:self.placeholder attributes:attributes];
@@ -489,6 +489,7 @@ static const CGFloat kMDCBaseTextAreaDefaultMaximumNumberOfVisibleLines = (CGFlo
                           floatingLabelFrame:self.layout.labelFrameFloating
                                   normalFont:self.normalFont
                                 floatingFont:self.floatingFont
+                    labelTruncationIsPresent:self.layout.labelTruncationIsPresent
                            animationDuration:self.animationDuration
                                   completion:^(BOOL finished) {
                                     if (finished) {
@@ -526,6 +527,15 @@ static const CGFloat kMDCBaseTextAreaDefaultMaximumNumberOfVisibleLines = (CGFlo
 
 - (void)setPlaceholder:(NSString *)placeholder {
   _placeholder = placeholder;
+  [self setNeedsLayout];
+}
+
+- (void)setPlaceholderColor:(UIColor *)placeholderColor {
+  _placeholderColor = placeholderColor ?: [self defaultPlaceholderColor];
+}
+
+- (void)setVerticalDensity:(CGFloat)verticalDensity {
+  _verticalDensity = verticalDensity;
   [self setNeedsLayout];
 }
 

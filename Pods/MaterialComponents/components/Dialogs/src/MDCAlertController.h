@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
+
 #import "MaterialButtons.h"
 // TODO(b/151929968): Delete import of delegate headers when client code has been migrated to no
 // longer import delegates as transitive dependencies.
 #import "MDCAlertControllerDelegate.h"
 #import "MaterialElevation.h"
 #import "MaterialShadowElevations.h"
-
-#import <CoreGraphics/CoreGraphics.h>
-#import <UIKit/UIKit.h>
 
 @class MDCAlertAction;
 @class MDCAlertController;
@@ -74,7 +74,7 @@
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)aDecoder NS_UNAVAILABLE;
 
 /**
- A block that is invoked whan a link (a URL) in the attributed message text is tapped.
+ A block that is invoked when a link (a URL) in the attributed message text is tapped.
 
  @param URL The URL of the link that was tapped. May include external or internal URLs.
  @param range The range of characters (in the attributed text) of the link that was tapped.
@@ -388,6 +388,38 @@ typedef NS_ENUM(NSInteger, MDCContentHorizontalAlignment) {
 */
 @property(nonatomic, assign) BOOL orderVerticalActionsByEmphasis;
 
+/**
+ A Boolean value that indicates whether the alert's contents autorotates.
+
+ Defaults to UIKit's shouldAutorotate.
+*/
+@property(nonatomic) BOOL shouldAutorotateOverride;
+
+/**
+ A bit mask that specifies which orientations the view controller supports.
+
+ Defaults to UIKit's supportedInterfaceOrientations.
+*/
+@property(nonatomic)
+    UIInterfaceOrientationMask supportedInterfaceOrientationsOverride API_UNAVAILABLE(tvos, watchos)
+        ;
+
+/**
+ The interface orientation to use when presenting the alert.
+
+ Defaults to UIKit's preferredInterfaceOrientationForPresentation.
+*/
+@property(nonatomic)
+    UIInterfaceOrientation preferredInterfaceOrientationForPresentationOverride API_UNAVAILABLE(
+        tvos, watchos);
+
+/**
+ The transition style to use when presenting the view controller override.
+
+ Defaults to UIKit's modalTransitionStyle.
+*/
+@property(nonatomic) UIModalTransitionStyle modalTransitionStyleOverride;
+
 @end
 
 #pragma mark - MDCAlertAction
@@ -416,7 +448,8 @@ typedef void (^MDCActionHandler)(MDCAlertAction *_Nonnull action);
  bottom of an alert controller.
 
  @param title The title of the button shown on the alert dialog.
- @param handler A block to execute when the user selects the action.
+ @param handler A block to execute when the user selects the action. This is called any
+        time the action is selected, even if @c dismissOnAction is @c NO.
  @return An initialized @c MDCActionAlert object.
  */
 + (nonnull instancetype)actionWithTitle:(nonnull NSString *)title
@@ -429,7 +462,8 @@ typedef void (^MDCActionHandler)(MDCAlertAction *_Nonnull action);
  @param emphasis The emphasis of the button that will be rendered in the alert dialog.
         Unthemed actions will render all emphases as text. Apply themers to the alert
         to achieve different appearance for different emphases.
- @param handler A block to execute when the user selects the action.
+ @param handler A block to execute when the user selects the action. This is called any
+        time the action is selected, even if @c dismissOnAction is @c NO.
  @return An initialized @c MDCActionAlert object.
  */
 + (nonnull instancetype)actionWithTitle:(nonnull NSString *)title
@@ -455,5 +489,26 @@ typedef void (^MDCActionHandler)(MDCAlertAction *_Nonnull action);
  The @c accessibilityIdentifier for the view associated with this action.
  */
 @property(nonatomic, nullable, copy) NSString *accessibilityIdentifier;
+
+/**
+ Whether actions dismiss the dialog on action selection or persist the dialog after a selection has
+ been made. If this is set to @c NO, then it is up to the presenting class to dismiss the
+ controller. Callers may dismiss the controller by calling dismissViewControllerAnimated:completion:
+ on the presenting view controller. Ex:
+
+ __weak MDCAlertController *weakAlertController = alertController;
+ MDCAlertAction *action = [MDCAlertAction actionWithTitle:@"Title" handler:^{
+   MDCAlertController *strongAlertController = weakAlertController;
+   if (strongAlertController) {
+     [strongAlertController.presentingViewController dismissViewControllerAnimated:YES
+ completion:nil];
+   }
+ }];
+ action.dismissOnAction = NO;
+ [alertController addAction:action];
+
+ Defaults to @c YES meaning that when an action is performed, it also dismisses the dialog.
+ */
+@property(nonatomic, assign) BOOL dismissOnAction;
 
 @end

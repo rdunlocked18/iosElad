@@ -12,30 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "MDCAlertController.h"
-
-#import "MaterialButtons.h"
 #import "MDCAlertController+Customize.h"
-#import "MDCAlertControllerDelegate.h"
-#import "MDCAlertControllerView.h"
-#import "MDCDialogPresentationController.h"
-#import "MDCDialogTransitionController.h"
-#import "UIViewController+MaterialDialogs.h"
-#import "MaterialTypography.h"
-#import "MaterialMath.h"
-#import <MDFInternationalization/MDFInternationalization.h>
 
 #import "private/MDCAlertActionManager.h"
 #import "private/MDCAlertControllerView+Private.h"
 #import "private/MaterialDialogsStrings.h"
 #import "private/MaterialDialogsStrings_table.h"
+#import "MaterialDialogs.h"
+#import "MaterialElevation.h"
+#import "MaterialShadowElevations.h"
+#import "MaterialMath.h"
 
 // The Bundle for string resources.
 static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
 
 @interface MDCAlertAction ()
 
-@property(nonatomic, nullable, copy) MDCActionHandler completionHandler;
+@property(nonatomic, nullable, copy) MDCActionHandler tapHandler;
 
 @end
 
@@ -58,8 +51,9 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
   self = [super init];
   if (self) {
     _title = [title copy];
+    _dismissOnAction = YES;
     _emphasis = emphasis;
-    _completionHandler = [handler copy];
+    _tapHandler = [handler copy];
   }
   return self;
 }
@@ -69,7 +63,7 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
 - (id)copyWithZone:(__unused NSZone *)zone {
   MDCAlertAction *action = [[self class] actionWithTitle:self.title
                                                 emphasis:self.emphasis
-                                                 handler:self.completionHandler];
+                                                 handler:self.tapHandler];
   action.accessibilityIdentifier = self.accessibilityIdentifier;
 
   return action;
@@ -180,6 +174,11 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
     _adjustsFontForContentSizeCategoryWhenScaledFontIsUnavailable = YES;
     _shadowColor = UIColor.blackColor;
     _mdc_overrideBaseElevation = -1;
+    _shouldAutorotateOverride = super.shouldAutorotate;
+    _supportedInterfaceOrientationsOverride = super.supportedInterfaceOrientations;
+    _preferredInterfaceOrientationForPresentationOverride =
+        super.preferredInterfaceOrientationForPresentation;
+    _modalTransitionStyleOverride = super.modalTransitionStyle;
 
     super.transitioningDelegate = _transitionController;
     super.modalPresentationStyle = UIModalPresentationCustom;
@@ -596,16 +595,21 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
     [self.delegate alertController:self didTapAction:action withEvent:event];
   }
 
-  // We call our action.completionHandler after we dismiss the existing alert in case the handler
-  // also presents a view controller. Otherwise we get a warning about presenting on a controller
-  // which is already presenting.
-  [self.presentingViewController
-      dismissViewControllerAnimated:YES
-                         completion:^(void) {
-                           if (action.completionHandler) {
-                             action.completionHandler(action);
-                           }
-                         }];
+  if (action.dismissOnAction) {
+    // We call our action.tapHandler after we dismiss the existing alert in case the handler
+    // also presents a view controller. Otherwise we get a warning about presenting on a controller
+    // which is already presenting.
+    [self.presentingViewController dismissViewControllerAnimated:YES
+                                                      completion:^(void) {
+                                                        if (action.tapHandler) {
+                                                          action.tapHandler(action);
+                                                        }
+                                                      }];
+  } else {
+    if (action.tapHandler) {
+      action.tapHandler(action);
+    }
+  }
 }
 
 #pragma mark - Text View Delegate
@@ -740,6 +744,22 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
                       completion:nil];
 }
 
+- (BOOL)shouldAutorotate {
+  return _shouldAutorotateOverride;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+  return _supportedInterfaceOrientationsOverride;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+  return _preferredInterfaceOrientationForPresentationOverride;
+}
+
+- (UIModalTransitionStyle)modalTransitionStyle {
+  return _modalTransitionStyleOverride;
+}
+
 #pragma mark - Resource bundle
 
 + (NSBundle *)bundle {
@@ -846,7 +866,15 @@ static NSString *const kMaterialDialogsBundle = @"MaterialDialogs.bundle";
   MDCDialogPresentationController *dialogPresentationController =
       self.mdc_dialogPresentationController;
   if (dialogPresentationController.dismissOnBackgroundTap) {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:NULL];
+    void (^dismissalCompletion)(void) = ^{
+      if ([dialogPresentationController.dialogPresentationControllerDelegate
+              respondsToSelector:@selector(dialogPresentationControllerDidDismiss:)]) {
+        [dialogPresentationController.dialogPresentationControllerDelegate
+            dialogPresentationControllerDidDismiss:dialogPresentationController];
+      }
+    };
+    [self.presentingViewController dismissViewControllerAnimated:YES
+                                                      completion:dismissalCompletion];
     return YES;
   }
   return NO;
